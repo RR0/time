@@ -13,13 +13,33 @@ and was eventually integrated in [ISO 8601-2019](https://www.iso.org/obp/ui/#iso
 | Level 3        | ISO-8601-3               |
 
 EDTF dates or components (year, month, day, hour, minute, second) can be created either:
-- **programmatically**, like `new level1.Year(1985, true)` to create an uncertain year;
-- through **parsing**, like `level1.Year.fromString("1985?")` to instantiate the same uncertain year from an EDTF string.
+- through **parsing**, for instance `level1.Year.fromString("1985~")` to instantiate the same approximate year from an EDTF string.
+- **programmatically**, for instance `new level1.Year({value: 1985, approximate: true})` to create an approximate year;
+
+## Parsing API
+The parsing API allows to build objects above from an EDTF string.
+
+### Date components
+Each date calendar and time component can be individually instantiated.
+```js
+import level0 from "@rr0/time"
+
+const someYear = level0.Date.fromString("1985")
+```
+
+### Date
+
+You can select the API level you want to use. For example using level 0:
+```js
+import level0 from "@rr0/time"
+
+const someDate = level0.Date.fromString("1985-04-12")
+```
 
 ## Programmatic API
 
 ### Components
-Each date calendar and time component can be individually instantiated. 
+Each date calendar and time component can be individually instantiated.
 ```js
 import level0 from "@rr0/time"
 
@@ -36,24 +56,4 @@ import level0 from "@rr0/time"
 
 const currentDate = level0.Date.newInstance()
 const someDate = new level0.Date(1985, 12, 30, 15, 45, 54)
-```
-
-## Parsing API
-The parsing API allows to build objects above from an EDTF string.
-
-### Components
-Each date calendar and time component can be individually instantiated.
-```js
-import level0 from "@javarome/edtf"
-
-const someYear = level0.Date.fromString("1985")
-```
-
-### Date
-
-You can select the API level you want to use. For example using level 0:
-```js
-import level0 from "@javarome/edtf"
-
-const someDate = level0.Date.fromString("1985-04-12")
 ```

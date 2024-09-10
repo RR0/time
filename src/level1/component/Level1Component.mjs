@@ -20,8 +20,8 @@ export default class Level1Component extends Level0Component {
    */
   constructor (spec, unit) {
     super(spec, unit)
-    this.#uncertain = spec.uncertain
-    this.#approximate = spec.approximate
+    this.#uncertain = spec.uncertain || false
+    this.#approximate = spec.approximate || false
   }
 
   /**
