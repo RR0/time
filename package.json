@@ -1,0 +1,17 @@
+{
+  "name": "@rr0/edtf",
+  "version": "1.0.0",
+  "description": "EDTF parsing",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "npx -p typescript tsc src/**/*.?js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "test": "node --test",
+    "test-ci": "node --test --experimental-test-coverage --test-reporter spec"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "tsc": "^2.0.4"
+  }
+}
