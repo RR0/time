@@ -1,4 +1,4 @@
-# @rr0/time [![CircleCI](https://dl.circleci.com/status-badge/img/gh/Javarome/edtf/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Javarome/edtf/tree/main)
+# @rr0/time [![CircleCI](https://dl.circleci.com/status-badge/img/gh/RR0/time/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/Javarome/edtf/tree/main)
 
 Zero-dependency JavaScript API for managing fuzzy dates.
 
