@@ -1,6 +1,14 @@
 import EDTFParser from "../../EDTFParser.mjs"
 import { EDTFError } from "../../EDTFError.mjs"
 
+/**
+ * @typedef {Object} Level0YearParseResult
+ * @property {number} value
+ */
+
+/**
+ * @template P
+ */
 export default class Level0ComponentParser extends EDTFParser {
   /**
    * @param {string} format
@@ -15,15 +23,15 @@ export default class Level0ComponentParser extends EDTFParser {
    * Interpret the string as decoded value(s) to construct a data type.
    *
    * @param {string} valueStr
-   * @return {number}
+   * @return {Level0YearParseResult}
    */
   static read (valueStr) {
-    return valueStr ? parseInt(valueStr, 10) : undefined
+    return { value: valueStr ? parseInt(valueStr, 10) : undefined }
   }
 
   /**
    * @param {string} str
-   * @return {number}
+   * @return {Level0YearParseResult}
    */
   parse (str) {
     if (str.startsWith("-")) {

@@ -32,7 +32,7 @@ describe("Level0", () => {
     })
 
     test("month", () => {
-      const month = new level0.Month()
+      const month = new level0.Month(1)
       assert.ok(month)
     })
 

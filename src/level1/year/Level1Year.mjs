@@ -1,18 +1,17 @@
 import Level1YearParser from "./Level1YearParser.mjs"
 import Level1Component from "../component/Level1Component.mjs"
-import MinMaxValidator from "../../validator/MinMaxValidator.mjs"
+import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
+import { CalendarUnit } from "../../calendar/Calendar.mjs"
+import { Level1YearValidator } from "./Level1YearValidator.mjs"
 
-const name = "year"
+const unit = new CalendarUnit(GregorianCalendar.year.name, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, GregorianCalendar.day, new Level1YearValidator())
 
 export default class Level1Year extends Level1Component {
   /**
-   * @param {number} value
-   * @param {boolean} uncertain
-   * @param {boolean} approximate
-   * @param {EDTFValidator }validator
+   * @param {Level1ComponentSpec|number} spec
    */
-  constructor (value, uncertain, approximate, validator = new MinMaxValidator(name, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)) {
-    super(value, name, uncertain, approximate, validator)
+  constructor (spec) {
+    super(spec, unit)
   }
 
   /**
@@ -21,14 +20,14 @@ export default class Level1Year extends Level1Component {
    */
   static fromString (str) {
     const parser = new Level1YearParser()
-    const { value, uncertain, approximate } = parser.parse(str)
-    const startValue = value.start
+    const parseResult = parser.parse(str)
+    const startValue = parseResult.value.start
     if (startValue !== undefined) {
-      const start = new Level1Year(startValue, uncertain, approximate)
-      const end = new Level1Year(value.end, uncertain, approximate)
+      const start = new Level1Year(Object.assign({ ...parseResult }, { value: Math.max(startValue, unit.min) }))
+      const end = new Level1Year(Object.assign({ ...parseResult }, { value: Math.min(parseResult.value.end, unit.max) }))
       return { start, end }
     } else {
-      return new Level1Year(value, uncertain, approximate)
+      return new Level1Year(parseResult)
     }
   }
 }

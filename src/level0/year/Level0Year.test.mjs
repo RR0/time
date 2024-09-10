@@ -2,15 +2,15 @@ import { describe, test } from "node:test"
 import assert from "node:assert"
 
 import Level0Year from "./Level0Year.mjs"
+import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
 
 describe("Level0Year", () => {
 
   test("4 digits", () => {
     const certainYear = Level0Year.fromString("1985")
     assert.equal(certainYear.value, 1985)
-    const yearMs = 365 * 24 * 60 * 60 * 1000
-    assert.equal(certainYear.unitDuration, yearMs)
-    assert.equal(certainYear.duration, 1985 * yearMs)
+    assert.equal(certainYear.unit.duration, GregorianCalendar.year.duration)
+    assert.equal(certainYear.duration, 1985 * GregorianCalendar.year.duration)
   })
 
   test("comparison", () => {

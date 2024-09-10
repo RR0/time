@@ -1,22 +1,17 @@
 import Level1DayParser from "./Level1DayParser.mjs"
 import Level1Component from "../component/Level1Component.mjs"
-import MinMaxValidator from "../../validator/MinMaxValidator.mjs"
-
-const name = "day"
+import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
 
 export default class Level1Day extends Level1Component {
   /**
-   * @param {number} value
-   * @param {boolean} uncertain
-   * @param {boolean} approximate
-   * @param {EDTFValidator} validator
+   * @param {Level1ComponentSpec|number} spec
    */
-  constructor (value, uncertain, approximate, validator = new MinMaxValidator(name, 1, 31)) {
-    super(value, name, uncertain, approximate, validator)
+  constructor (spec) {
+    super(spec, GregorianCalendar.day)
   }
 
   toString () {
-    return super.toString().padStart(2, "0");
+    return super.toString().padStart(2, "0")
   }
 
   /**
@@ -25,14 +20,15 @@ export default class Level1Day extends Level1Component {
    */
   static fromString (str) {
     const parser = new Level1DayParser()
-    const { value, uncertain, approximate } = parser.parse(str)
-    const startValue = value.start
+    const parseResult = parser.parse(str)
+    const startValue = parseResult.value.start
     if (startValue !== undefined) {
-      const start = new Level1Day(Math.max(startValue, 1), uncertain, approximate)
-      const end = new Level1Day(Math.min(value.end, 31), uncertain, approximate)
+      let unit = GregorianCalendar.day
+      const start = new Level1Day(Object.assign({ ...parseResult }, { value: Math.max(startValue, unit.min) }))
+      const end = new Level1Day(Object.assign({ ...parseResult }, { value: Math.min(parseResult.value.end, unit.max) }))
       return { start, end }
     } else {
-      return new Level1Day(value, uncertain, approximate)
+      return new Level1Day(parseResult)
     }
   }
 }

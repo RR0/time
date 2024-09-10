@@ -15,6 +15,8 @@ import Level0Minute from "../minute/Level0Minute.mjs"
 import Level0Second from "../second/Level0Second.mjs"
 import Level0Month from "../month/Level0Month.mjs"
 
+import { GregorianMonth } from "../../calendar/GregorianMonth.mjs"
+
 const yearGroup = `year`
 const monthGroup = `month`
 const dayGroup = `day`
@@ -70,9 +72,11 @@ export default class Level0DateParser extends EDTFParser {
     const minuteStr = groups[minuteGroup]
     const secondStr = groups[secondGroup]
     const timeshiftStr = groups[timeshiftGroup]
+    const year = yearStr ? new Level0Year(Level0YearParser.read(yearStr)) : undefined
+    const monthParseResult = monthStr ? Level0MonthParser.read(monthStr) : undefined
     return {
-      year: yearStr ? new Level0Year(Level0YearParser.read(yearStr)) : undefined,
-      month: monthStr ? new Level0Month(Level0MonthParser.read(monthStr)) : undefined,
+      year,
+      month: monthParseResult ? new Level0Month(monthParseResult, GregorianMonth.create(monthParseResult.value, year?.value)) : undefined,
       day: dayStr ? new Level0Day(Level0DayParser.read(dayStr)) : undefined,
       hour: hourStr ? new Level0Hour(Level0HourParser.read(hourStr)) : undefined,
       minute: minuteStr ? new Level0Minute(Level0MinuteParser.read(minuteStr)) : undefined,

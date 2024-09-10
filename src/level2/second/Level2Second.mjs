@@ -1,18 +1,13 @@
 import Level2Component from "../component/Level2Component.mjs"
 import Level2SecondParser from "./Level2SecondParser.mjs"
-import { SecondValidator } from "../../level0/second/SecondValidator.mjs"
-
-const name = "second"
+import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
 
 export default class Level2Second extends Level2Component {
   /**
-   * @param {number} value
-   * @param {boolean} uncertain
-   * @param {boolean} approximate
-   * @param {EDTFValidator} [validator]
+   * @param {Level2ComponentSpec} spec
    */
-  constructor (value, uncertain, approximate, validator = new SecondValidator()) {
-    super(value, name, uncertain, approximate, validator)
+  constructor (spec) {
+    super(spec, GregorianCalendar.second)
   }
 
   /**
@@ -23,17 +18,15 @@ export default class Level2Second extends Level2Component {
    */
   static fromString (str) {
     const parser = new Level2SecondParser()
-    const { value, uncertain, approximate, uncertainComponent, approximateComponent } = parser.parse(str)
-    const startValue = value.start
+    const parseResult = parser.parse(str)
+    const startValue = parseResult.value.start
     if (startValue !== undefined) {
-      const start = new Level2Second(Math.max(startValue, SecondValidator.MIN), uncertain, approximate)
-      const end = new Level2Second(Math.min(value.end, SecondValidator.MAX), uncertain, approximate)
+      const unit = GregorianCalendar.second
+      const start = new Level2Second(Object.assign({ ...parseResult }, { value: Math.max(startValue, unit.min) }))
+      const end = new Level2Second(Object.assign({ ...parseResult }, { value: Math.min(parseResult.value.end, unit.max) }))
       return { start, end }
     } else {
-      const day = new Level2Second(value, uncertain, approximate)
-      day.uncertainComponent = uncertainComponent || false
-      day.approximateComponent = approximateComponent || false
-      return day
+      return new Level2Second(parseResult)
     }
   }
 }

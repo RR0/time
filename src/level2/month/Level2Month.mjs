@@ -1,18 +1,17 @@
 import Level2MonthParser from "./Level2MonthParser.mjs"
 import Level2Component from "../component/Level2Component.mjs"
 import { Level2MonthValidator } from "./Level2MonthValidator.mjs"
+import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
+import { CalendarUnit } from "../../calendar/Calendar.mjs"
 
-const name = "month"
+const unit = new CalendarUnit(GregorianCalendar.month.name, 1, 41, GregorianCalendar.day, new Level2MonthValidator())
 
 export default class Level2Month extends Level2Component {
   /**
-   * @param {number} value
-   * @param {boolean} uncertain
-   * @param {boolean} approximate
-   * @param {EDTFValidator} [validator]
+   * @param {Level2ComponentSpec} spec
    */
-  constructor (value, uncertain, approximate, validator = new Level2MonthValidator(name)) {
-    super(value, name, uncertain, approximate, validator)
+  constructor (spec) {
+    super(spec, unit)
   }
 
   toString () {
@@ -27,17 +26,15 @@ export default class Level2Month extends Level2Component {
    */
   static fromString (str) {
     const parser = new Level2MonthParser()
-    const { value, uncertain, approximate, uncertainComponent, approximateComponent } = parser.parse(str)
-    const startValue = value.start
+    const parseResult = parser.parse(str)
+    const startValue = parseResult.value.start
     if (startValue !== undefined) {
-      const start = new Level2Month(Math.max(startValue, 1), uncertain, approximate)
-      const end = new Level2Month(Math.min(value.end, 12), uncertain, approximate)
+      const unit = GregorianCalendar.month
+      const start = new Level2Month(Object.assign({ ...parseResult }, { value: Math.max(startValue, unit.min) }))
+      const end = new Level2Month(Object.assign({ ...parseResult }, { value: Math.min(parseResult.value.end, unit.max) }))
       return { start, end }
     } else {
-      const month = new Level2Month(value, uncertain, approximate)
-      month.uncertainComponent = uncertainComponent || false
-      month.approximateComponent = approximateComponent || false
-      return month
+      return new Level2Month(parseResult)
     }
   }
 }

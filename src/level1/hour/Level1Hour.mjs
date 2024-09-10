@@ -1,19 +1,13 @@
 import Level1Component from "../component/Level1Component.mjs"
 import Level1HourParser from "./Level1HourParser.mjs"
-
-import { HourValidator } from "../../level0/hour/HourValidator.mjs"
-
-const name = "hour"
+import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
 
 export default class Level1Hour extends Level1Component {
   /**
-   * @param {number} value
-   * @param {boolean} uncertain
-   * @param {boolean} approximate
-   * @param {EDTFValidator} validator
+   * @param {Level1ComponentSpec|number} spec
    */
-  constructor (value, uncertain, approximate, validator = new HourValidator()) {
-    super(value, name, uncertain, approximate, validator)
+  constructor (spec) {
+    super(spec, GregorianCalendar.hour)
   }
 
   /**
@@ -24,14 +18,15 @@ export default class Level1Hour extends Level1Component {
    */
   static fromString (str) {
     const parser = new Level1HourParser()
-    const { value, uncertain, approximate } = parser.parse(str)
-    const startValue = value.start
+    const parseResult = parser.parse(str)
+    const startValue = parseResult.value.start
     if (startValue !== undefined) {
-      const start = new Level1Hour(Math.max(startValue, 1), uncertain, approximate)
-      const end = new Level1Hour(Math.min(value.end, 23), uncertain, approximate)
+      let unit = GregorianCalendar.hour
+      const start = new Level1Hour(Object.assign({...parseResult}, { value: Math.max(startValue, unit.min) }))
+      const end = new Level1Hour(Object.assign({...parseResult}, { value: Math.min(parseResult.value.end, unit.max) }))
       return { start, end }
     } else {
-      return new Level1Hour(value, uncertain, approximate)
+      return new Level1Hour(parseResult)
     }
   }
 }

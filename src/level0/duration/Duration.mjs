@@ -1,4 +1,4 @@
-import Level0Second from "../second/Level0Second.mjs"
+import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
 
 export default class Duration {
   /**
@@ -10,7 +10,7 @@ export default class Duration {
   /**
    * @param {number} millis
    */
-  constructor(millis) {
+  constructor (millis) {
     this.millis = millis
   }
 
@@ -19,13 +19,13 @@ export default class Duration {
    * @param {Level0Date} afterDate
    * @return {Duration}
    */
-  static between(beforeDate, afterDate) {
+  static between (beforeDate, afterDate) {
     const afterTime = afterDate.getTime()
     const beforeTime = beforeDate.getTime()
     return new Duration(afterTime - beforeTime)
   }
 
-  toString(){
-    return "P" + this.millis / Level0Second.DURATION + "S"
+  toString () {
+    return "P" + this.millis / GregorianCalendar.millisecond.duration + "S"
   }
 }

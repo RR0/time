@@ -5,6 +5,12 @@ const uncertainGroup = "uncertain"
 const approximateGroup = "approx"
 const uncertainAndApproximateGroup = uncertainGroup + approximateGroup
 
+/**
+ * @typedef {Level0YearParseResult} Level1YearParseResult
+ * @property {number|{start: number, end: number}} value
+ * @property {boolean} [approximateComponent]
+ */
+
 export default class Level1ComponentParser extends Level0ComponentParser {
   /**
    * Produces an optional group expecting a given char.
@@ -42,7 +48,7 @@ export default class Level1ComponentParser extends Level0ComponentParser {
   /**
    * @protected
    * @param groups
-   * @return {{approximate: (boolean|boolean), value: (number|{start: number, end: number}), uncertain: (boolean|boolean)}}
+   * @return {Level1YearParseResult}
    */
   parseGroups (groups) {
     const { valueStr, sign } = this.getValueAndSign(groups)
@@ -92,8 +98,8 @@ export default class Level1ComponentParser extends Level0ComponentParser {
   }
 
   /**
-   * @param {string} str
-   * @return {{value: number | {start: number, end: number}, approximate: boolean, uncertain: boolean}}
+   * @param {string} str The EDTF string.
+   * @return {Level1YearParseResult}
    */
   parse (str) {
     const groups = this.regexGroups(str)

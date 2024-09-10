@@ -1,14 +1,21 @@
 import { EDTFValidator } from "../../validator/EDTFValidator.mjs"
 
 /**
+ * @typedef {Object} Level0ComponentSpec
+ * @property {number} value
+ */
+
+/**
+ * A Date component as specified by EDTF level 0.
+ *
  * @abstract
  */
 export default class Level0Component {
   /**
    * @readonly
-   * @type EDTFValidator
+   * @type CalendarUnit
    */
-  validator
+  unit
 
   /**
    * @readonly
@@ -17,29 +24,13 @@ export default class Level0Component {
   value
 
   /**
-   * @readonly
-   * @type string
+   * @param {Level0ComponentSpec|number} spec
+   * @param {CalendarUnit} unit
    */
-  name
-
-  /**
-   * @readonly
-   * @type number
-   */
-  unitDuration
-
-  /**
-   * @param {number} value
-   * @param {string} name
-   * @param {EDTFValidator} validator
-   * @param {number} unitDuration Duration in ms
-   */
-  constructor (value, name, validator, unitDuration) {
-    validator.validate(value)
-    this.value = value
-    this.name = name
-    this.validator = validator
-    this.unitDuration = unitDuration
+  constructor (spec, unit) {
+    this.value = typeof spec === "number" ? spec : spec.value
+    unit.validator.validate(this.value)
+    this.unit = unit
   }
 
   /**
@@ -89,7 +80,7 @@ export default class Level0Component {
    * @return {number}
    */
   get duration () {
-    return this.value * this.unitDuration
+    return this.value * this.unit.duration
   }
 
   toString () {

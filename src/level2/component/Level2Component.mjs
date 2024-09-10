@@ -1,5 +1,11 @@
 import Level1Component from "../../level1/component/Level1Component.mjs"
 
+/**
+ * @typedef {Level1ComponentSpec} Level2ComponentSpec
+ * @property {boolean} [uncertainComponent]
+ * @property {boolean} [approximateComponent]
+ */
+
 export default class Level2Component extends Level1Component {
   /**
    * @readonly
@@ -14,30 +20,40 @@ export default class Level2Component extends Level1Component {
   approximateComponent
 
   /**
+   * @param {Level2ComponentSpec|number} spec
+   * @param {CalendarUnit} unit
+   */
+  constructor (spec, unit) {
+    super(spec, unit)
+    this.uncertainComponent = spec.uncertainComponent || false
+    this.approximateComponent = spec.approximateComponent || false
+  }
+
+  /**
    * @return {boolean}
    */
-  get uncertain() {
+  get uncertain () {
     return super.uncertain || this.uncertainComponent
   }
 
   /**
    * @param {boolean} val
    */
-  set uncertain(val) {
+  set uncertain (val) {
     return super.uncertain = val
   }
 
   /**
    * @param {boolean} val
    */
-  set approximate(val) {
+  set approximate (val) {
     return super.approximate = val
   }
 
   /**
    * @return {boolean}
    */
-  get approximate() {
+  get approximate () {
     return super.approximate || this.approximateComponent
   }
 }

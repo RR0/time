@@ -28,7 +28,7 @@ describe("Level0Month", () => {
   })
 
   test("predefined", () => {
-    const certainMonth = Level0Months.April
+    const certainMonth = Level0Months.april
     assert.equal(certainMonth.value, 4)
   })
 

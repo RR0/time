@@ -34,13 +34,13 @@ describe("Level2Hour", () => {
 
     test("unit", () => {
       const unspecifiedHourUnit = Level2Hour.fromString("0X")
-      level2Assert(unspecifiedHourUnit.start, 1)
+      level2Assert(unspecifiedHourUnit.start, 0)
       level2Assert(unspecifiedHourUnit.end, 9)
     })
 
     test("decade and unit", () => {
       const unspecifiedHourUnit = Level2Hour.fromString("XX")
-      level2Assert(unspecifiedHourUnit.start, 1)
+      level2Assert(unspecifiedHourUnit.start, 0)
       level2Assert(unspecifiedHourUnit.end, 23)
     })
   })

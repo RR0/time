@@ -64,18 +64,40 @@ describe("Level2Year", () => {
 
   describe("uncertain", () => {
 
-    test("positive", () => {
-      const uncertainPositive = Level2Year.fromString("1985?")
-      level2Assert(uncertainPositive, 1985, true)
-      const uncertainPositive1 = Level2Year.fromString("?1985")
-      level2Assert(uncertainPositive1, 1985, true, false, true)
+    const yearValue = 1985
+
+    describe("parsing", () => {
+
+      test("positive", () => {
+        const uncertainPositiveFromString = Level2Year.fromString(yearValue + "?")
+        level2Assert(uncertainPositiveFromString, yearValue, true)
+        const uncertainPositive1 = Level2Year.fromString("?" + yearValue)
+        level2Assert(uncertainPositive1, yearValue, true, false, true)
+      })
+
+      test("negative", () => {
+        const uncertainNegative = Level2Year.fromString("-" + yearValue + "?")
+        level2Assert(uncertainNegative, -yearValue, true)
+        const uncertainNegative1 = Level2Year.fromString("?-" + yearValue)
+        level2Assert(uncertainNegative1, -yearValue, true, false, true)
+      })
     })
 
-    test("negative", () => {
-      const uncertainNegative = Level2Year.fromString("-1985?")
-      level2Assert(uncertainNegative, -1985, true)
-      const uncertainNegative1 = Level2Year.fromString("?-1985")
-      level2Assert(uncertainNegative1, -1985, true, false, true)
+    describe("programmatic", () => {
+
+      test("positive", () => {
+        const uncertainPositiveFromString = new Level2Year({value: yearValue, uncertain: true})
+        level2Assert(uncertainPositiveFromString, yearValue, true)
+        const uncertainPositive1 = new Level2Year({value: yearValue, uncertainComponent: true})
+        level2Assert(uncertainPositive1, yearValue, true, false, true)
+      })
+
+      test("negative", () => {
+        const uncertainNegative = new Level2Year({value: -yearValue, uncertain: true})
+        level2Assert(uncertainNegative, -yearValue, true)
+        const uncertainNegative1 = new Level2Year({value: -yearValue, uncertainComponent: true})
+        level2Assert(uncertainNegative1, -yearValue, true, false, true)
+      })
     })
   })
 

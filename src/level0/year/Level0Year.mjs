@@ -1,22 +1,13 @@
 import Level0YearParser from "./Level0YearParser.mjs"
 import Level0Component from "../component/Level0Component.mjs"
-import MinMaxValidator from "../../validator/MinMaxValidator.mjs"
-import Level0Day from "../day/Level0Day.mjs"
-
-const name = "year"
+import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
 
 export default class Level0Year extends Level0Component {
   /**
-   * @readonly
+   * @param {Level0ComponentSpec|number} spec
    */
-  static DURATION = 365 * Level0Day.DURATION
-
-  /**
-   * @param {number} value
-   * @param {EDTFValidator} validator
-   */
-  constructor (value = new Date().getFullYear(), validator = new MinMaxValidator(name, 0, 9999)) {
-    super(value, name, validator, Level0Year.DURATION)
+  constructor (spec = new Date().getFullYear()) {
+    super(spec, GregorianCalendar.year)
   }
 
   /**

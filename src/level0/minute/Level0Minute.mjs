@@ -1,22 +1,13 @@
 import Level0Component from "../component/Level0Component.mjs"
 import Level0MinuteParser from "./Level0MinuteParser.mjs"
-import Level0Second from "../second/Level0Second.mjs"
-import { MinuteValidator } from "./MinuteValidator.mjs"
-
-const name = "minute"
+import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
 
 export default class Level0Minute extends Level0Component {
   /**
-   * @readonly
+   * @param {Level0ComponentSpec|number} spec
    */
-  static DURATION = 60 * Level0Second.DURATION
-
-  /**
-   * @param {number} value
-   * @param {EDTFValidator} validator
-   */
-  constructor (value = new Date().getMinutes(), validator = new MinuteValidator()) {
-    super(value, name, validator, Level0Minute.DURATION)
+  constructor (spec = new Date().getMinutes()) {
+    super(spec, GregorianCalendar.minute)
   }
 
   toString () {

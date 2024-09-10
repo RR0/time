@@ -15,9 +15,9 @@ export default class MinMaxValidator extends EDTFValidator {
   max
 
   /**
-   * @param name
-   * @param min
-   * @param max
+   * @param {string} name
+   * @param {number} min
+   * @param {number} max
    */
   constructor (name, min, max) {
     super(name)
@@ -25,6 +25,10 @@ export default class MinMaxValidator extends EDTFValidator {
     this.max = max
   }
 
+  /**
+   * @param {number} value
+   * @return {boolean}
+   */
   validate (value) {
     if (value < this.min || value > this.max) {
       throw new EDTFError(`${this.name} value must be >= ${this.min} and <= ${this.max}`)

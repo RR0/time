@@ -1,27 +1,15 @@
 import Level0MonthParser from "./Level0MonthParser.mjs"
 import Level0Component from "../component/Level0Component.mjs"
-import Level0Day from "../day/Level0Day.mjs"
-import { MonthValidator } from "./MonthValidator.mjs"
 
-const name = "month"
+import { GregorianMonth } from "../../calendar/GregorianMonth.mjs"
 
 export default class Level0Month extends Level0Component {
   /**
-   * The number of days in this month.
-   *
-   * @readonly
-   * @type {number}
+   * @param {Level0ComponentSpec|number} spec
+   * @param {GregorianMonth} unit
    */
-  days
-
-  /**
-   * @param {number} value
-   * @param {number} [days]
-   * @param {EDTFValidator} validator
-   */
-  constructor (value = new Date().getMonth() + 1, days = 31, validator = new MonthValidator()) {
-    super(value, name, validator, days * Level0Day.DURATION)
-    this.days = days
+  constructor (spec = new Date().getMonth() + 1, unit = GregorianMonth.create(new Date().getMonth() + 1, new Date().getFullYear())) {
+    super(spec, unit)
   }
 
   toString () {
