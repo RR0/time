@@ -1,17 +1,22 @@
 {
-  "name": "@rr0/edtf",
-  "version": "1.0.0",
+  "name": "@rr0/time",
+  "version": "0.1.0",
+  "author": "RR0 <rr0@rr0.org>",
   "description": "EDTF parsing",
   "main": "src/index.js",
+  "types": "types/*.d.mts",
   "scripts": {
-    "build": "npx -p typescript tsc src/**/*.?js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "prebuild": "npm test",
+    "build": "rm -Rf types && npx -p typescript tsc src/**/*.?js --declaration --allowJs --emitDeclarationOnly --outDir types",
     "test": "node --test",
-    "test-ci": "node --test --experimental-test-coverage --test-reporter spec"
+    "test-ci": "node --test --experimental-test-coverage --test-reporter spec",
+    "prepublish": "npm run build"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
+    "typescript": "^5.6.2",
     "tsc": "^2.0.4"
   }
 }

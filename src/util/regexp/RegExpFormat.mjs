@@ -58,7 +58,7 @@ export default class RegExpFormat {
    * @param {string} digit
    * @return {string} The relevant regex format.
    */
-  static numberGroup (name, count, prefix , digit = "\\d") {
+  static numberGroup (name, count, prefix, digit = "\\d") {
     return RegExpFormat.group(name, `${prefix ? prefix : ""}[${digit}]${count}`)
   }
 }
