@@ -1,5 +1,5 @@
 import Level2ComponentParser from "../component/Level2ComponentParser.mjs"
-import RegExpFormat from "../../RegExpFormat.mjs"
+import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
 
 const name = "dayValue"
 

@@ -1,5 +1,5 @@
 import Level1ComponentParser from "../component/Level1ComponentParser.mjs"
-import RegExpFormat from "../../RegExpFormat.mjs"
+import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
 
 const name = "secondValue"
 

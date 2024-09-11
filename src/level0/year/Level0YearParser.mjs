@@ -1,5 +1,5 @@
 import Level0ComponentParser from "../component/Level0ComponentParser.mjs"
-import RegExpFormat from "../../RegExpFormat.mjs"
+import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
 
 const name = "yearValue"
 
@@ -13,6 +13,6 @@ export default class Level0YearParser extends Level0ComponentParser {
   }
 
   constructor () {
-    super(Level0YearParser.format(), name)
+    super(name, Level0YearParser.format())
   }
 }

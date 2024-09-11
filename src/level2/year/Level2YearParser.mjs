@@ -1,4 +1,4 @@
-import RegExpFormat from "../../RegExpFormat.mjs"
+import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
 import Level2ComponentParser from "../component/Level2ComponentParser.mjs"
 
 const name = "yearValue"

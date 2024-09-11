@@ -1,4 +1,4 @@
-import MinMaxValidator from "../../validator/MinMaxValidator.mjs"
+import MinMaxValidator from "../../calendar/unit/validator/MinMaxValidator.mjs"
 
 export class HourValidator extends MinMaxValidator {
 

@@ -25,20 +25,10 @@ describe("Level0Hour", () => {
   })
 
   test("negative", () => {
-    try {
-      Level0Hour.fromString("-1")
-      assert.fail("Should not allow negative hours")
-    } catch (e) {
-      assert.equal(e.message, `hourValue cannot be negative`)
-    }
+    assert.throws(() => Level0Hour.fromString("-1"), { message: "hourValue cannot be negative" })
   })
 
   test("too high", () => {
-    try {
-      Level0Hour.fromString("24")
-      assert.fail("Should not allow negative hours > 23")
-    } catch (e) {
-      assert.equal(e.message, "hour value must be >= 0 and <= 23")
-    }
+    assert.throws(() => Level0Hour.fromString("24"), { message: "hour value must be >= 0 and <= 23, but was 24" })
   })
 })

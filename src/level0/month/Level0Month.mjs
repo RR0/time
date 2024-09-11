@@ -1,7 +1,7 @@
 import Level0MonthParser from "./Level0MonthParser.mjs"
 import Level0Component from "../component/Level0Component.mjs"
 
-import { GregorianMonth } from "../../calendar/GregorianMonth.mjs"
+import { GregorianMonth } from "../../calendar/unit/GregorianMonth.mjs"
 
 export default class Level0Month extends Level0Component {
   /**

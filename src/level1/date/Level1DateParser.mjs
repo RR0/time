@@ -7,7 +7,7 @@ import Level1Month from "../month/Level1Month.mjs"
 import Level1Day from "../day/Level1Day.mjs"
 import Level1Hour from "../hour/Level1Hour.mjs"
 import Level1Minute from "../minute/Level1Minute.mjs"
-import RegExpFormat from "../../RegExpFormat.mjs"
+import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
 import Level1HourParser from "../hour/Level1HourParser.mjs"
 import Level1MinuteParser from "../minute/Level1MinuteParser.mjs"
 import Level1Second from "../second/Level1Second.mjs"
@@ -87,7 +87,7 @@ export default class Level1DateParser extends EDTFParser {
   }
 
   constructor (format = Level1DateParser.format()) {
-    super(format, "date")
+    super("date", format)
   }
 
   /**

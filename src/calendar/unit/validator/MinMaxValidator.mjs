@@ -1,4 +1,4 @@
-import { EDTFError } from "../EDTFError.mjs"
+import { EDTFError } from "../../../EDTFError.mjs"
 import { EDTFValidator } from "./EDTFValidator.mjs"
 
 export default class MinMaxValidator extends EDTFValidator {

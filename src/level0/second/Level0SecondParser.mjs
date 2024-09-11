@@ -1,5 +1,5 @@
 import Level0ComponentParser from "../component/Level0ComponentParser.mjs"
-import RegExpFormat from "../../RegExpFormat.mjs"
+import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
 
 const name = "secondValue"
 
@@ -13,6 +13,6 @@ export default class Level0SecondParser extends Level0ComponentParser {
   }
 
   constructor () {
-    super(Level0SecondParser.format(), name)
+    super(name, Level0SecondParser.format())
   }
 }

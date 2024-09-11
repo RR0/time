@@ -1,5 +1,5 @@
 import Level0ComponentParser from "../component/Level0ComponentParser.mjs"
-import RegExpFormat from "../../RegExpFormat.mjs"
+import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
 
 const name = "dayValue"
 
@@ -13,6 +13,6 @@ export default class Level0DayParser extends Level0ComponentParser {
   }
 
   constructor () {
-    super(Level0DayParser.format(), name)
+    super(name, Level0DayParser.format())
   }
 }

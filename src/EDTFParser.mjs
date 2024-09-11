@@ -12,11 +12,11 @@ export default class EDTFParser {
   regExp
 
   /**
+   * @param {string} name
    * @param {string} format
-   * @param {string} [name]
    * @return {number}
    */
-  constructor (format, name) {
+  constructor (name, format) {
     this.name = name
     this.regExp = new RegExp(format)
   }

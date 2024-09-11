@@ -15,12 +15,7 @@ describe("Level2Month", () => {
     })
 
     test("invalid", () => {
-      try {
-        Level2Month.fromString("42")
-        assert.fail("Should not allow value above 12 and below 21")
-      } catch (e) {
-        assert.equal(e.message, "month value must be >= 1 and <= 12")
-      }
+      assert.throws(() => Level2Month.fromString("42"), { message: "month value must be >= 1 and <= 12, but was 42" })
     })
 
     test("predefined", () => {

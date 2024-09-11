@@ -1,8 +1,8 @@
 import Level2YearParser from "./Level2YearParser.mjs"
 import Level2Component from "../component/Level2Component.mjs"
 import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
-import { CalendarUnit } from "../../calendar/Calendar.mjs"
 import { Level1YearValidator } from "../../level1/year/Level1YearValidator.mjs"
+import { CalendarUnit } from "../../calendar/unit/CalendarUnit.mjs"
 
 const unit = new CalendarUnit(GregorianCalendar.year.name, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, GregorianCalendar.day, new Level1YearValidator())
 

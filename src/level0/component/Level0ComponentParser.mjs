@@ -11,12 +11,12 @@ import { EDTFError } from "../../EDTFError.mjs"
  */
 export default class Level0ComponentParser extends EDTFParser {
   /**
+   * @param {string} name
    * @param {string} format
-   * @param {string} [name]
    * @return {number}
    */
-  constructor (format, name) {
-    super(format, name)
+  constructor (name, format) {
+    super(name, format)
   }
 
   /**

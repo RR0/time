@@ -43,20 +43,10 @@ describe("Level0Month", () => {
   })
 
   test("too low", () => {
-    try {
-      Level0Month.fromString("0")
-      assert.fail("Should not allow 0-based months")
-    } catch (e) {
-      assert.equal(e.message, `month value must be >= 1 and <= 12`)
-    }
+    assert.throws(() => Level0Month.fromString("0"), { message: "month value must be >= 1 and <= 12, but was 0" })
   })
 
   test("too high", () => {
-    try {
-      Level0Month.fromString("13")
-      assert.fail("Should not allow months > 12")
-    } catch (e) {
-      assert.equal(e.message, "month value must be >= 1 and <= 12")
-    }
+    assert.throws(() => Level0Month.fromString("13"), { message: "month value must be >= 1 and <= 12, but was 13" })
   })
 })

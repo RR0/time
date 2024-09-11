@@ -1,5 +1,5 @@
 import Level0Month from "./Level0Month.mjs"
-import { GregorianMonth } from "../../calendar/GregorianMonth.mjs"
+import { GregorianMonth } from "../../calendar/unit/GregorianMonth.mjs"
 
 export default class Level0Months {
   /**

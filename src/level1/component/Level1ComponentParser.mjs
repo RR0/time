@@ -1,5 +1,5 @@
 import Level0ComponentParser from "../../level0/component/Level0ComponentParser.mjs"
-import RegExpFormat from "../../RegExpFormat.mjs"
+import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
 
 const uncertainGroup = "uncertain"
 const approximateGroup = "approx"
@@ -42,7 +42,7 @@ export default class Level1ComponentParser extends Level0ComponentParser {
    * @return {number}
    */
   constructor (format, name) {
-    super(format, name)
+    super(name, format)
   }
 
   /**

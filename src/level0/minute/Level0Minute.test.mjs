@@ -29,6 +29,6 @@ describe("Level0Minute", () => {
   })
 
   test("too high", () => {
-    assert.throws(() => Level0Minute.fromString("60"), { message: `minute value must be >= 0 and <= 59` })
+    assert.throws(() => Level0Minute.fromString("60"), { message: `minute value must be >= 0 and <= 59, but was 60` })
   })
 })

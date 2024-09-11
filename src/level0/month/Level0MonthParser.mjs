@@ -1,5 +1,5 @@
 import Level0ComponentParser from "../component/Level0ComponentParser.mjs"
-import RegExpFormat from "../../RegExpFormat.mjs"
+import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
 
 const name = "monthValue"
 
@@ -13,6 +13,6 @@ export default class Level0MonthParser extends Level0ComponentParser {
   }
 
   constructor () {
-    super(Level0MonthParser.format(), name)
+    super(name, Level0MonthParser.format())
   }
 }

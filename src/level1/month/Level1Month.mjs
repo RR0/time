@@ -1,8 +1,8 @@
 import Level1MonthParser from "./Level1MonthParser.mjs"
 import Level1Component from "../component/Level1Component.mjs"
 import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
-import { CalendarUnit } from "../../calendar/Calendar.mjs"
 import { Level1MonthValidator } from "./Level1MonthValidator.mjs"
+import { CalendarUnit } from "../../calendar/unit/CalendarUnit.mjs"
 
 const unit = new CalendarUnit(GregorianCalendar.month.name, 1, 24, GregorianCalendar.day, new Level1MonthValidator())
 

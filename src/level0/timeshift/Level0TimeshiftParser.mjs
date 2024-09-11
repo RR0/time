@@ -1,4 +1,4 @@
-import RegExpFormat from "../../RegExpFormat.mjs"
+import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
 import EDTFParser from "../../EDTFParser.mjs"
 
 const name = "timeshiftValue"
@@ -16,7 +16,7 @@ export default class Level0TimeshiftParser extends EDTFParser {
   }
 
   constructor () {
-    super(Level0TimeshiftParser.format(), name)
+    super(name, Level0TimeshiftParser.format())
   }
 
   /**

@@ -1,5 +1,5 @@
 import Level0ComponentParser from "../component/Level0ComponentParser.mjs"
-import RegExpFormat from "../../RegExpFormat.mjs"
+import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
 
 const name = "minuteValue"
 
@@ -13,6 +13,6 @@ export default class Level0MinuteParser extends Level0ComponentParser {
   }
 
   constructor () {
-    super(Level0MinuteParser.format(), name)
+    super(name, Level0MinuteParser.format())
   }
 }

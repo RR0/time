@@ -1,4 +1,4 @@
-import { EDTFValidator } from "../../validator/EDTFValidator.mjs"
+import { EDTFValidator } from "../../calendar/unit/validator/EDTFValidator.mjs"
 
 /**
  * @typedef {Object} Level0ComponentSpec

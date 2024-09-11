@@ -1,7 +1,7 @@
 import EDTFParser from "../../EDTFParser.mjs"
 import Level0DateParser from "../date/Level0DateParser.mjs"
 import Level0Date from "../date/Level0Date.mjs"
-import RegExpFormat from "../../RegExpFormat.mjs"
+import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
 
 const startGroup = `start`
 const endGroup = `end`
@@ -19,7 +19,7 @@ export default class Level0IntervalParser extends EDTFParser {
     + "/" + RegExpFormat.group(endGroup, Level0DateParser.format(endGroup))
 
   constructor () {
-    super(Level0IntervalParser.format, "interval")
+    super("interval", Level0IntervalParser.format)
   }
 
   /**

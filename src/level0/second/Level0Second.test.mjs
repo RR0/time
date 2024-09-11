@@ -25,20 +25,10 @@ describe("Level0Second", () => {
   })
 
   test("negative", () => {
-    try {
-      Level0Second.fromString("-1")
-      assert.fail("Should not be allow negative seconds")
-    } catch (e) {
-      assert.equal(e.message, `secondValue cannot be negative`)
-    }
+    assert.throws(() => Level0Second.fromString("-1"), { message: "secondValue cannot be negative" })
   })
 
   test("too high", () => {
-    try {
-      Level0Second.fromString("60")
-      assert.fail("Should not be allowed")
-    } catch (e) {
-      assert.equal(e.message, "second value must be >= 0 and <= 59")
-    }
+    assert.throws(() => Level0Second.fromString("60"), { message: "second value must be >= 0 and <= 59, but was 60" })
   })
 })
