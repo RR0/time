@@ -1,5 +1,23 @@
 import Level0DateParser from "./Level0DateParser.mjs"
 import { EDTFValidator } from "../../validator/EDTFValidator.mjs"
+import Level0Year from "../year/Level0Year.mjs"
+import Level0Month from "../month/Level0Month.mjs"
+import Level0Day from "../day/Level0Day.mjs"
+import Level0Hour from "../hour/Level0Hour.mjs"
+import Level0Minute from "../minute/Level0Minute.mjs"
+import Level0Second from "../second/Level0Second.mjs"
+import Level0Timeshift from "../timeshift/Level0Timeshift.mjs"
+
+/**
+ * @typedef {Object} Level0DateSpec
+ * @property {Level0Year|number} year
+ * @property {Level0Month|number} month
+ * @property {Level0Day|number} day
+ * @property {Level0Hour|number} hour
+ * @property {Level0Minute|number} minute
+ * @property {Level0Second|number} second
+ * @property {Level0Timeshift|number} timeshift
+ */
 
 /**
  * @template Y extends Level0Component = Level0Year
@@ -54,22 +72,23 @@ export default class Level0Date {
   timeshift
 
   /**
-   * @param {Y} year
-   * @param {M} month
-   * @param {D} day
-   * @param {H} hour
-   * @param {M} minute
-   * @param {S} second
-   * @param {Z} timeshift
+   * @param {Level0DateSpec} spec
    */
-  constructor (year, month, day, hour, minute, second, timeshift) {
-    this.year = year
-    this.month = month
-    this.day = day
-    this.hour = hour
-    this.minute = minute
-    this.second = second
-    this.timeshift = timeshift
+  constructor (spec= {year: new Date().getFullYear(), month: new Date().getMonth(), day: new Date().getDate(), hour: new Date().getHours(), minute: new Date().getMinutes(), second: new Date().getSeconds(), timeshift: new Date().getTimezoneOffset()}) {
+    const year = spec.year
+    this.year = typeof year === "number" ? new Level0Year(year) : year
+    const month = spec.month
+    this.month = typeof month === "number" ? new Level0Month(month) : month
+    const day = spec.day
+    this.day = typeof day === "number" ? new Level0Day(day) : day
+    const hour = spec.hour
+    this.hour = typeof hour === "number" ? new Level0Hour(hour) : hour
+    const minute = spec.minute
+    this.minute = typeof minute === "number" ? new Level0Minute(minute) : minute
+    const second = spec.second
+    this.second = typeof second === "number" ? new Level0Second(second) : second
+    const timeshift = spec.timeshift
+    this.timeshift = typeof timeshift === "number" ? new Level0Timeshift(timeshift) : timeshift
   }
 
   /**
@@ -162,7 +181,7 @@ export default class Level0Date {
   static fromString (spec) {
     const parser = /** Level0DateParser<Level0Year, Level0Month, Level0Day> */ new Level0DateParser()
     const { year, month, day, hour, minute, second, timeshift } = parser.parse(spec)
-    return new Level0Date(year, month, day, hour, minute, second, timeshift)
+    return new Level0Date({year, month, day, hour, minute, second, timeshift})
   }
 
   /**

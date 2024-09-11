@@ -30,8 +30,11 @@ export default class MinMaxValidator extends EDTFValidator {
    * @return {boolean}
    */
   validate (value) {
+    if (typeof value !== "number") {
+      throw new EDTFError(`${this.name} value must be a number, but was ${value}`)
+    }
     if (value < this.min || value > this.max) {
-      throw new EDTFError(`${this.name} value must be >= ${this.min} and <= ${this.max}`)
+      throw new EDTFError(`${this.name} value must be >= ${this.min} and <= ${this.max}, but was ${value}`)
     }
     return super.validate(value)
   }

@@ -6,11 +6,13 @@ import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
 
 describe("Level0Year", () => {
 
+  const yearValue = 1985
+
   test("4 digits", () => {
-    const certainYear = Level0Year.fromString("1985")
-    assert.equal(certainYear.value, 1985)
+    const certainYear = Level0Year.fromString(yearValue.toString())
+    assert.equal(certainYear.value, yearValue)
     assert.equal(certainYear.unit.duration, GregorianCalendar.year.duration)
-    assert.equal(certainYear.duration, 1985 * GregorianCalendar.year.duration)
+    assert.equal(certainYear.duration, yearValue * GregorianCalendar.year.duration)
   })
 
   test("comparison", () => {
@@ -25,7 +27,11 @@ describe("Level0Year", () => {
   })
 
   test("toString", () => {
-    const certainYear = new Level0Year(1985)
-    assert.equal(certainYear.toString(), "1985")
+    const certainYear = new Level0Year(yearValue)
+    assert.equal(certainYear.toString(), yearValue.toString())
+  })
+
+  test("toString", () => {
+    assert.throws(() => new Level0Year("incorrect"), { message: "year value must be a number, but was undefined" })
   })
 })

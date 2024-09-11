@@ -1,18 +1,16 @@
 import Level0Date from "../../level0/date/Level0Date.mjs"
 import Level1DateParser from "./Level1DateParser.mjs"
 
+/**
+ * @typedef {Level0DateSpec} Level1DateSpec
+ */
+
 export default class Level1Date extends Level0Date {
   /**
-   * @param {Level1Year} year
-   * @param {Level1Month} month
-   * @param {Level1Day} day
-   * @param {Level1Hour} hour
-   * @param {Level1Minute} minute
-   * @param {Level1Second} second
-   * @param {Level1Timeshift} timeshift
+   * @param {Level1DateSpec} spec
    */
-  constructor (year, month, day, hour, minute, second, timeshift) {
-    super(year, month, day, hour, minute, second, timeshift)
+  constructor (spec) {
+    super(spec)
   }
 
   /**
@@ -21,8 +19,8 @@ export default class Level1Date extends Level0Date {
    */
   static fromString (str) {
     const parser = new Level1DateParser()
-    const { year, month, day, hour, minute, second, timeshift } = parser.parse(str)
-    return new Level1Date(year, month, day, hour, minute, second, timeshift)
+    const spec = parser.parse(str)
+    return new Level1Date(spec)
   }
 
   static newInstance () {

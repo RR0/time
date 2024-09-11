@@ -53,6 +53,10 @@ export class CalendarUnit {
     this.duration = (max - min + 1) * (subUnit ? subUnit.duration : 1)
     this.validator = validator
   }
+
+  validate (value) {
+    return this.validator.validate(value)
+  }
 }
 
 export default class Calendar {

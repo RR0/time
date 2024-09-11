@@ -29,17 +29,17 @@ export default class Level0Component {
    */
   constructor (spec, unit) {
     this.value = typeof spec === "number" ? spec : spec.value
-    unit.validator.validate(this.value)
+    unit.validate(this.value)
     this.unit = unit
   }
 
   /**
    * @protected
-   * @param other
+   * @param {Level0Component} other
    */
-  checkOtherType (other) {
+  #checkOtherType (other) {
     if (this.constructor.name !== other.constructor.name) {
-      throw new EDTFValidator(`${this.name} "${this.toString()}" cannot be compared with ${other.name} "${other.toString()}"`)
+      throw new EDTFValidator(`${this.unit.name} "${this.toString()}" cannot be compared with ${other.unit?.name} "${other.toString()}"`)
     }
   }
 
@@ -48,7 +48,7 @@ export default class Level0Component {
    * @return {number}
    */
   compare (other) {
-    this.checkOtherType(other)
+    this.#checkOtherType(other)
     return this.value - other.value
   }
 
