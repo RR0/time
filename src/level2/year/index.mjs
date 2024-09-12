@@ -1,1 +1,1 @@
-export * as EdtfYear from "./Level2Year.mjs"
+export * from "./Level2Year.mjs"

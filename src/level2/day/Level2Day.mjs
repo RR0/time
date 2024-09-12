@@ -10,6 +10,10 @@ export default class Level2Day extends Level2Component {
     super(spec, GregorianCalendar.day)
   }
 
+  toString () {
+    return super.toString().padStart(2, "0")
+  }
+
   /**
    * If some digits are unspecified, an inferred days interval will be returned.
    *
