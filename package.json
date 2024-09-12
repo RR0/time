@@ -8,15 +8,16 @@
   "types": "types/*.d.mts",
   "scripts": {
     "prebuild": "npm test",
-    "build": "rm -Rf types && npx -p typescript tsc src/**/*.?js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "build": "rimraf ./types && npx -package typescript tsc src/**/*.?js --declaration --allowJs --emitDeclarationOnly --outDir types",
     "test": "node --test",
     "test-ci": "node --test --experimental-test-coverage --test-reporter spec",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "publishConfig": {
     "access": "public"
   },
   "devDependencies": {
+    "rimraf": "^6.0.1",
     "typescript": "^5.6.2",
     "tsc": "^2.0.4"
   }
