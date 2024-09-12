@@ -21,7 +21,7 @@ import { Level0Timeshift } from "../timeshift/index.mjs"
 
 /**
  * @template Y extends Level0Component = Level0Year
- * @template M extends Level0Component = Level0Month
+ * @template MM extends Level0Component = Level0Month
  * @template D extends Level0Component = Level0Day
  * @template H extends Level0Component = Level0Hour
  * @template M extends Level0Component = Level0Minute
@@ -30,72 +30,185 @@ import { Level0Timeshift } from "../timeshift/index.mjs"
  */
 export class Level0Date {
   /**
-   * @readonly
-   * @type Y
+   * @type {Y|undefined}
    */
-  year
+  #year
 
   /**
-   * @readonly
-   * @type {M}
+   * @return {Y|undefined}
    */
-  month
+  get year() {
+    return this.#year
+  }
 
   /**
-   * @readonly
-   * @type {D}
+   * @param {Y|number|undefined} value
    */
-  day
+  set year(value) {
+    if (this.#year) {
+      this.#year.value = value
+    } else {
+      this.#year = typeof value === "number" ? new Level0Year(value) : value
+    }
+  }
 
   /**
-   * @readonly
-   * @type {H}
+   * @type {M|undefined}
    */
-  hour
+  #month
 
   /**
-   * @readonly
-   * @type {M}
+   * @return {MM|undefined}
    */
-  minute
+  get month() {
+    return this.#month
+  }
 
   /**
-   * @readonly
-   * @type {S}
+   * @param {MM|number|undefined} value
    */
-  second
+  set month(value) {
+    if (this.#month) {
+      this.#month.value = value
+    } else {
+      this.#month = typeof value === "number" ? new Level0Month(value) : value
+    }
+  }
+
+  /**
+   * @type {D|undefined}
+   */
+  #day
+
+  /**
+   * @return {D|undefined}
+   */
+  get day() {
+    return this.#day
+  }
+
+  /**
+   * @param {D|number|undefined} value
+   */
+  set day(value) {
+    if (this.#day) {
+      this.#day.value = value
+    } else {
+      this.#day = typeof value === "number" ? new Level0Day(value) : value
+    }
+  }
+
+  /**
+   * @type {H|undefined}
+   */
+  #hour
+
+  /**
+   * @return {H|undefined}
+   */
+  get hour() {
+    return this.#hour
+  }
+
+  /**
+   * @param {H|number|undefined} value
+   */
+  set hour(value) {
+    if (this.#hour) {
+      this.#hour.value = value
+    } else {
+      this.#hour = typeof value === "number" ? new Level0Hour(value) : value
+    }
+  }
+
+  /**
+   * @type {M|undefined}
+   */
+  #minute
+
+  /**
+   * @return {M||undefined}
+   */
+  get minute() {
+    return this.#minute
+  }
+
+  /**
+   * @param {M|number|undefined} value
+   */
+  set minute(value) {
+    if (this.#minute) {
+      this.#minute.value = value
+    } else {
+      this.#minute = typeof value === "number" ? new Level0Minute(value) : value
+    }
+  }
+
+  /**
+   * @type {S|undefined}
+   */
+  #second
+
+  /**
+   * @return {S|undefined}
+   */
+  get second() {
+    return this.#second
+  }
+
+  /**
+   * @param {S|number|undefined} value
+   */
+  set second(value) {
+    if (this.#second) {
+      this.#second.value = value
+    } else {
+      this.#second = typeof value === "number" ? new Level0Second(value) : value
+    }
+  }
 
   /**
    * @readonly
    * @type {Z}
    */
-  timeshift
+  #timeshift
+
+  /**
+   * @return {Z|undefined}
+   */
+  get timeshift() {
+    return this.#timeshift
+  }
+
+  /**
+   * @param {Z|number|undefined} value
+   */
+  set timeshift(value) {
+    if (this.#timeshift) {
+      this.#timeshift.value = value
+    } else {
+      this.#timeshift = typeof value === "number" ? new Level0Timeshift(value) : value
+    }
+  }
 
   /**
    * @param {Level0DateSpec} spec
    */
   constructor (spec= {year: new Date().getFullYear(), month: new Date().getMonth(), day: new Date().getDate(), hour: new Date().getHours(), minute: new Date().getMinutes(), second: new Date().getSeconds(), timeshift: new Date().getTimezoneOffset()}) {
-    const year = spec.year
-    this.year = typeof year === "number" ? new Level0Year(year) : year
-    const month = spec.month
-    this.month = typeof month === "number" ? new Level0Month(month) : month
-    const day = spec.day
-    this.day = typeof day === "number" ? new Level0Day(day) : day
-    const hour = spec.hour
-    this.hour = typeof hour === "number" ? new Level0Hour(hour) : hour
-    const minute = spec.minute
-    this.minute = typeof minute === "number" ? new Level0Minute(minute) : minute
-    const second = spec.second
-    this.second = typeof second === "number" ? new Level0Second(second) : second
-    const timeshift = spec.timeshift
-    this.timeshift = typeof timeshift === "number" ? new Level0Timeshift(timeshift) : timeshift
+    this.year = spec.year
+    this.month = spec.month
+    this.day = spec.day
+    this.hour = spec.hour
+    this.minute = spec.minute
+    this.second = spec.second
+    this.timeshift = spec.timeshift
   }
 
   /**
    * @protected
    * @param other
    */
-  checkOtherType (other) {
+  #checkOtherType (other) {
     if (this.constructor.name !== other.constructor.name) {
       throw new EDTFValidator(`Date "${this.toString()}" cannot be compared with "${other.toString()}"`)
     }
@@ -106,7 +219,7 @@ export class Level0Date {
    * @return {number}
    */
   compare (other) {
-    this.checkOtherType(other)
+    this.#checkOtherType(other)
     return this.getTime() - other.getTime()
   }
 
