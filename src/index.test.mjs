@@ -4,7 +4,7 @@ import assert from "node:assert"
 import { edtf } from "./index.js"
 import { level2 } from "./level2/index.mjs"
 import * as Level2Date from "./level2/date/Level2Date.mjs"
-import { EdtfDate } from "./level2/date/index.mjs"
+import { Level2Date as EdtfDate } from "./level2/date/index.mjs"
 import { EdtfYear } from "./level2/year/index.mjs"
 
 describe("index", () => {

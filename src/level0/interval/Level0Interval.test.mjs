@@ -1,7 +1,7 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
 
-import Level0Interval from "./Level0Interval.mjs"
+import { Level0Interval } from "./Level0Interval.mjs"
 
 describe("Level0Interval", () => {
 

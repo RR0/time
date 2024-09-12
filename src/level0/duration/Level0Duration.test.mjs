@@ -3,7 +3,7 @@ import assert from "node:assert"
 
 import Level0Duration from "./Level0Duration.mjs"
 import Duration from "./Level0Duration.mjs"
-import Level0Date from "../date/Level0Date.mjs"
+import { Level0Date } from "../date/Level0Date.mjs"
 import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
 
 describe("Duration", () => {

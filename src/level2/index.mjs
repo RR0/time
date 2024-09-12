@@ -4,10 +4,10 @@ import Level2Day from "./day/Level2Day.mjs"
 import Level2Hour from "./hour/Level2Hour.mjs"
 import Level2Minute from "./minute/Level2Minute.mjs"
 import Level2Second from "./second/Level2Second.mjs"
-import Level2Date from "./date/Level2Date.mjs"
+import { Level2Date } from "./date/index.mjs"
 import Level2Timeshift from "./timeshift/Level2Timeshift.mjs"
-import Level2Interval from "./interval/Level2Interval.mjs"
-import Level2Set from "./set/Level2Set.mjs"
+import { Level2Interval } from "./interval/index.mjs"
+import { Level2Set } from "./set/Level2Set.mjs"
 
 export const level2 = {
   Year: Level2Year,

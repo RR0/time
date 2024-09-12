@@ -28,7 +28,7 @@ import Level0Timeshift from "../timeshift/Level0Timeshift.mjs"
  * @template S extends Level0Component = Level0Second
  * @template Z extends Level0Component = Level0Timeshift
  */
-export default class Level0Date {
+export class Level0Date {
   /**
    * @readonly
    * @type Y

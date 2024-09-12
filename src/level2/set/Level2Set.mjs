@@ -1,6 +1,6 @@
 import Level2SetParser from "./Level2SetParser.mjs"
 
-export default class Level2Set extends /** @type Set<Level2Date> */ Set {
+export class Level2Set extends /** @type Set<Level2Date> */ Set {
   /**
    *
    * @param {(Level2Date|Level2Interval)[]} values

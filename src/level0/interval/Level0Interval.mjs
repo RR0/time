@@ -4,7 +4,7 @@ import Level0IntervalParser from "./Level0IntervalParser.mjs"
  * @template S extends Level0Component = Level0Date
  * @template E extends Level0Component = Level0Date
  */
-export default class Level0Interval {
+export class Level0Interval {
   /**
    * @readonly
    * @type S

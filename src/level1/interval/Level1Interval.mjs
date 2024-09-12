@@ -1,11 +1,11 @@
 import Level1IntervalParser from "./Level1IntervalParser.mjs"
-import Level0Interval from "../../level0/interval/Level0Interval.mjs"
+import { Level0Interval } from "../../level0/interval/Level0Interval.mjs"
 
 /**
  * @template S extends Level1Date = Level1Date
  * @template E extends Level1Date = Level1Date
  */
-export default class Level1Interval extends Level0Interval {
+export class Level1Interval extends Level0Interval {
   /**
    * @param {S} start
    * @param {E} end

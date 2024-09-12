@@ -20,16 +20,33 @@ EDTF dates or components (year, month, day, hour, minute, second) can be created
 The parsing API allows to build objects above from an EDTF string.
 
 ### Dates 
-Each date calendar and time component can be individually instantiated.
+Exact of fuzzy dates objects can be instantiated from parsing:
 ```js
-import { EdtfDate } from "@rr0/time/level2/date/index.mjs"
+import { Level2Date as EdtfDate } from "@rr0/time/level2/date/index.mjs"
 
 const maybeAugust = EdtfDate.fromString("2024-?08-25")
+maybeAugust.month.value // 8
+maybeAugust.month.uncertain // true
+maybeAugust.year.uncertain // false
+maybeAugust.uncertain // true
 const aroundMarch2025 = EdtfDate.fromString("2025-03~")  
 ```
 
-### Date components
-Each date calendar and time component can be individually instantiated.
+### Intervals
+Date intervals can be parsed: 
+```js
+import { EdtfInterval } from "@rr0/time/level2/interval/index.mjs"
+
+const maybeAugust = EdtfDate.fromString("2024-?08-25")
+maybeAugust.month.value // 8
+maybeAugust.month.uncertain // true
+maybeAugust.year.uncertain // false
+maybeAugust.uncertain // true
+const aroundMarch2025 = EdtfDate.fromString("2025-03~")  
+```
+
+### Individual date components
+Each date calendar (year, month, day) and time (hour, minute, second) component can also be individually instantiated.
 ```js
 import { EdtfYear } from "@rr0/time/level2/year/index.mjs"
 

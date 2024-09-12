@@ -7,11 +7,9 @@
   "main": "src/index.js",
   "types": "types/*.d.mts",
   "scripts": {
-    "prebuild": "npm test",
-    "build": "rm -Rf types && npx -p typescript tsc src/**/*.?js --declaration --allowJs --emitDeclarationOnly --outDir types",
     "test": "node --test",
     "test-ci": "node --test --experimental-test-coverage --test-reporter spec",
-    "prepublish": "npm run build"
+    "prepublish": "npm test && rm -Rf types && npx -p typescript tsc src/**/*.?js --declaration --allowJs --emitDeclarationOnly --outDir types"
   },
   "publishConfig": {
     "access": "public"

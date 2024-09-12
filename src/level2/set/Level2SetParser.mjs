@@ -1,5 +1,5 @@
-import Level2Date from "../date/Level2Date.mjs"
-import Level2Interval from "../interval/Level2Interval.mjs"
+import { Level2Date } from "../date/index.mjs"
+import { Level2Interval } from "../interval/index.mjs"
 
 export default class Level2SetParser {
   /**

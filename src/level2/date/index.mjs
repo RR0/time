@@ -1,1 +1,1 @@
-export * as EdtfDate from "./Level2Date.mjs"
+export * from "./Level2Date.mjs"

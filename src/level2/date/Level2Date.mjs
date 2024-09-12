@@ -1,11 +1,11 @@
 import Level2DateParser from "./Level2DateParser.mjs"
-import Level1Date from "../../level1/date/Level1Date.mjs"
+import { Level1Date } from "../../level1/date/Level1Date.mjs"
 
 /**
  * @typedef {Level1DateSpec} Level2DateSpec
  */
 
-export default class Level2Date extends Level1Date {
+export class Level2Date extends Level1Date {
   /**
    * @param {Level2DateSpec} spec
    */

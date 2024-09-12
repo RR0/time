@@ -1,10 +1,10 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
 
-import Level2Set from "./Level2Set.mjs"
+import { Level2Set } from "./Level2Set.mjs"
 import Level2Year from "../year/Level2Year.mjs"
-import Level2Interval from "../interval/Level2Interval.mjs"
-import Level2Date from "../date/Level2Date.mjs"
+import { Level2Interval } from "../interval/index.mjs"
+import { Level2Date } from "../date/index.mjs"
 import Level2Month from "../month/Level2Month.mjs"
 
 describe("Level2Set", () => {
@@ -22,7 +22,7 @@ describe("Level2Set", () => {
       assert.ok(!set.has("1759"))
       assert.ok(!set.has("1760-01"))
       assert.ok(set.has("1760-12"))
-      assert.ok(set.has(new Level2Date({year: new Level2Year(1760), month: new Level2Month(12)})))
+      assert.ok(set.has(new Level2Date({ year: new Level2Year(1760), month: new Level2Month(12) })))
       // assert.ok(set.has("1760-12-24"))
       assert.ok(!set.has("1761"))
     })
@@ -33,7 +33,7 @@ describe("Level2Set", () => {
       assert.ok(!set.has("1883"))
       assert.ok(!set.has("1983"))
       assert.ok(set.has("..1984"))
-      assert.ok(set.has(new Level2Interval(null, new Level2Date({year: 1984}))))
+      assert.ok(set.has(new Level2Interval(null, new Level2Date({ year: 1984 }))))
       assert.ok(set[Symbol.iterator]().next().value)
       //  assert.ok(set.has("1984"))
       //   assert.ok(set.has("1984-12-31"))
@@ -106,7 +106,7 @@ describe("Level2Set", () => {
       assert.ok(!set.has("1759"))
       assert.ok(!set.has("1760-01"))
       assert.ok(set.has("1760-12"))
-      assert.ok(set.has(new Level2Date({year: new Level2Year(1760), month: new Level2Month(12)})))
+      assert.ok(set.has(new Level2Date({ year: new Level2Year(1760), month: new Level2Month(12) })))
       // assert.ok(set.has("1760-12-24"))
       assert.ok(!set.has("1761"))
     })
@@ -117,7 +117,7 @@ describe("Level2Set", () => {
       assert.ok(!set.has("1883"))
       assert.ok(!set.has("1983"))
       assert.ok(set.has("..1984"))
-      assert.ok(set.has(new Level2Interval(null, new Level2Date({year: 1984}))))
+      assert.ok(set.has(new Level2Interval(null, new Level2Date({ year: 1984 }))))
       assert.ok(set[Symbol.iterator]().next().value)
       //  assert.ok(set.has("1984"))
       //   assert.ok(set.has("1984-12-31"))

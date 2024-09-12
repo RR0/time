@@ -1,3 +1,3 @@
-import Level1Interval from "../../level1/interval/Level1Interval.mjs"
+import { Level1Interval } from "../../level1/interval/Level1Interval.mjs"
 
-export default class Level2Interval extends Level1Interval {}
+export class Level2Interval extends Level1Interval {}
