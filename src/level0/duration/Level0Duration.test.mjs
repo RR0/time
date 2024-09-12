@@ -1,10 +1,9 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
 
-import Level0Duration from "./Level0Duration.mjs"
-import Duration from "./Level0Duration.mjs"
-import { Level0Date } from "../date/Level0Date.mjs"
-import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
+import { Level0Duration } from "./Level0Duration.mjs"
+import { Level0Date } from "../date/index.mjs"
+import { GregorianCalendar } from "../../calendar/index.mjs"
 
 describe("Duration", () => {
 
@@ -44,7 +43,7 @@ describe("Duration", () => {
     const beforeDate = Level0Date.fromString("1985-04-21")
     const twoDays = Level0Duration.between(beforeDate, Level0Date.fromString("1985-04-23"))
     assert.equal(twoDays.millis, 2 * GregorianCalendar.day.duration)
-    const years = Duration.between(beforeDate, Level0Date.fromString("2001"))
+    const years = Level0Duration.between(beforeDate, Level0Date.fromString("2001"))
     const expected = ((2001 - 1985) * GregorianCalendar.year.duration) - (8 * GregorianCalendar.month.duration) - (7 * GregorianCalendar.day.duration)
     // assert.equal(years.millis, expected)
   })

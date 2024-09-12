@@ -1,4 +1,4 @@
-export default class RegExpFormat {
+export class RegExpFormat {
   /**
    * Produces a valid groupName.
    *

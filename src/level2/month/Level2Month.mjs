@@ -1,13 +1,13 @@
-import Level2MonthParser from "./Level2MonthParser.mjs"
-import Level2Component from "../component/Level2Component.mjs"
+import { Level2MonthParser } from "./Level2MonthParser.mjs"
+import { Level2Component } from "../component/Level2Component.mjs"
 import { Level2MonthValidator } from "./Level2MonthValidator.mjs"
-import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
+import { GregorianCalendar } from "../../calendar/GregorianCalendar.mjs"
 
 import { CalendarUnit } from "../../calendar/unit/CalendarUnit.mjs"
 
 const unit = new CalendarUnit(GregorianCalendar.month.name, 1, 41, GregorianCalendar.day, new Level2MonthValidator())
 
-export default class Level2Month extends Level2Component {
+export class Level2Month extends Level2Component {
   /**
    * @param {Level2ComponentSpec} spec
    */

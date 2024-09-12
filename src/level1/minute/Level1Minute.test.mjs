@@ -3,7 +3,7 @@ import assert from "node:assert"
 
 import { level1Assert } from "../component/Level1TestUtil.mjs"
 
-import Level1Minute from "./Level1Minute.mjs"
+import { Level1Minute } from "./Level1Minute.mjs"
 
 describe("Level1Minute", () => {
 

@@ -1,11 +1,11 @@
-import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
-import EDTFParser from "../../EDTFParser.mjs"
+import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
+import { EDTFParser } from "../../EDTFParser.mjs"
 
 const name = "timeshiftValue"
 const shiftHourGroup = `shiftHour`
 const shiftMinuteGroup = `shiftMinute`
 
-export default class Level0TimeshiftParser extends EDTFParser {
+export class Level0TimeshiftParser extends EDTFParser {
 
   static format (prefix = "") {
     return "Z|"

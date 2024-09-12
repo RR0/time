@@ -1,7 +1,7 @@
-import EDTFParser from "../../EDTFParser.mjs"
-import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
-import Level1DateParser from "../date/Level1DateParser.mjs"
-import { Level1Date } from "../date/Level1Date.mjs"
+import { EDTFParser } from "../../EDTFParser.mjs"
+import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
+import { Level1DateParser } from "../date/Level1DateParser.mjs"
+import { Level1Date } from "../date/index.mjs"
 
 const startGroup = `start`
 const endGroup = `end`

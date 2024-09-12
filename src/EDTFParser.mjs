@@ -4,7 +4,7 @@ import { EDTFError } from "./EDTFError.mjs"
  * @abstract
  * @template P The result type of parsing
  */
-export default class EDTFParser {
+export class EDTFParser {
   /**
    * @readonly
    * @type RegExp

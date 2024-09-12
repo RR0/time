@@ -1,7 +1,7 @@
-import Level1ComponentParser from "../../level1/component/Level1ComponentParser.mjs"
-import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
+import { Level1ComponentParser } from "../../level1/component/Level1ComponentParser.mjs"
+import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
 
-export default class Level2ComponentParser extends Level1ComponentParser {
+export class Level2ComponentParser extends Level1ComponentParser {
   /**
    * @readonly
    * @type {string}

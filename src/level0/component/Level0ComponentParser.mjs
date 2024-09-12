@@ -1,4 +1,4 @@
-import EDTFParser from "../../EDTFParser.mjs"
+import { EDTFParser } from "../../EDTFParser.mjs"
 import { EDTFError } from "../../EDTFError.mjs"
 
 /**
@@ -9,7 +9,7 @@ import { EDTFError } from "../../EDTFError.mjs"
 /**
  * @template P
  */
-export default class Level0ComponentParser extends EDTFParser {
+export class Level0ComponentParser extends EDTFParser {
   /**
    * @param {string} name
    * @param {string} format

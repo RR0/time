@@ -1,8 +1,8 @@
-import Level2Component from "../component/Level2Component.mjs"
-import Level2SecondParser from "./Level2SecondParser.mjs"
-import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
+import { Level2Component } from "../component/index.mjs"
+import { Level2SecondParser } from "./Level2SecondParser.mjs"
+import { GregorianCalendar } from "../../calendar/index.mjs"
 
-export default class Level2Second extends Level2Component {
+export class Level2Second extends Level2Component {
   /**
    * @param {Level2ComponentSpec} spec
    */

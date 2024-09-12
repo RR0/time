@@ -1,4 +1,4 @@
-import { EDTFValidator } from "../../calendar/unit/validator/EDTFValidator.mjs"
+import { EDTFValidator } from "../../calendar/index.mjs"
 
 /**
  * @typedef {Object} Level0ComponentSpec
@@ -10,7 +10,7 @@ import { EDTFValidator } from "../../calendar/unit/validator/EDTFValidator.mjs"
  *
  * @abstract
  */
-export default class Level0Component {
+export class Level0Component {
   /**
    * @readonly
    * @type CalendarUnit

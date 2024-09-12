@@ -1,5 +1,5 @@
-import { Level0Date } from "../../level0/date/Level0Date.mjs"
-import Level1DateParser from "./Level1DateParser.mjs"
+import { Level0Date } from "../../level0/index.mjs"
+import { Level1DateParser } from "./Level1DateParser.mjs"
 
 /**
  * @typedef {Level0DateSpec} Level1DateSpec

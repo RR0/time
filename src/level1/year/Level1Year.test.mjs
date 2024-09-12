@@ -1,7 +1,7 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
 
-import Level1Year from "./Level1Year.mjs"
+import { Level1Year } from "./Level1Year.mjs"
 import { level1Assert } from "../component/Level1TestUtil.mjs"
 
 describe("Level1Year", () => {

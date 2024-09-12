@@ -1,7 +1,7 @@
-import Level1Months from "../../level1/month/Level1Months.mjs"
-import Level2Month from "./Level2Month.mjs"
+import { Level1Months } from "../../level1/month/Level1Months.mjs"
+import { Level2Month } from "./Level2Month.mjs"
 
-export default class Level2Months extends Level1Months {
+export class Level2Months extends Level1Months {
   /**
    * Spring - Northern Hemisphere
    *

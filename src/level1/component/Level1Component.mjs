@@ -1,4 +1,4 @@
-import Level0Component from "../../level0/component/Level0Component.mjs"
+import { Level0Component } from "../../level0/index.mjs"
 
 /**
  * @typedef {Level0ComponentSpec} Level1ComponentSpec
@@ -9,7 +9,7 @@ import Level0Component from "../../level0/component/Level0Component.mjs"
 /**
  * @abstract
  */
-export default class Level1Component extends Level0Component {
+export class Level1Component extends Level0Component {
 
   #uncertain
   #approximate

@@ -1,7 +1,7 @@
 import { EDTFError } from "../../../EDTFError.mjs"
 import { EDTFValidator } from "./EDTFValidator.mjs"
 
-export default class MinMaxValidator extends EDTFValidator {
+export class MinMaxValidator extends EDTFValidator {
   /**
    * @readonly
    * @type number

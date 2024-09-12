@@ -1,3 +1,3 @@
-export default class Calendar {
+export class Calendar {
 
 }

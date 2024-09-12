@@ -1,7 +1,7 @@
-import Level1TimeshiftParser from "./Level1TimeshiftParser.mjs"
+import { Level1TimeshiftParser } from "./Level1TimeshiftParser.mjs"
 import { Level0Timeshift } from "../../level0/index.mjs"
 
-export default class Level1Timeshift extends Level0Timeshift {
+export class Level1Timeshift extends Level0Timeshift {
   /**
    * @param {string} str
    * @return {Level1Timeshift}

@@ -1,5 +1,5 @@
-import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
-import Level0DurationParser from "./Level0DurationParser.mjs"
+import { GregorianCalendar } from "../../calendar/index.mjs"
+import { Level0DurationParser } from "./Level0DurationParser.mjs"
 
 /**
  * @typedef {Object} Level0DurationSpec
@@ -21,7 +21,7 @@ import Level0DurationParser from "./Level0DurationParser.mjs"
  * @template S extends Level0Component = Level0Second
  * @template C extends Level0Component = Level0Millisecond
  */
-export default class Level0Duration {
+export class Level0Duration {
   /**
    * @readonly
    * @type number

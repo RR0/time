@@ -1,9 +1,9 @@
-import Level2ComponentParser from "../component/Level2ComponentParser.mjs"
-import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
+import { Level2ComponentParser } from "../component/Level2ComponentParser.mjs"
+import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
 
 const name = "monthValue"
 
-export default class Level2MonthParser extends Level2ComponentParser {
+export class Level2MonthParser extends Level2ComponentParser {
   /**
    * @param {string} prefix
    * @return {string}

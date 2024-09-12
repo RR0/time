@@ -1,11 +1,11 @@
-import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
-import Level2ComponentParser from "../component/Level2ComponentParser.mjs"
+import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
+import { Level2ComponentParser } from "../component/Level2ComponentParser.mjs"
 
 const name = "yearValue"
 const exponentialGroup = "exp"
 const significantGroup = "signif"
 
-export default class Level2YearParser extends Level2ComponentParser {
+export class Level2YearParser extends Level2ComponentParser {
   /**
    * @param {string} prefix
    * @return {string}

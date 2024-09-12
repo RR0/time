@@ -1,4 +1,4 @@
-import Level0TimeshiftParser from "./Level0TimeshiftParser.mjs"
+import { Level0TimeshiftParser } from "./Level0TimeshiftParser.mjs"
 
 export class Level0Timeshift {
   /**

@@ -1,6 +1,6 @@
-import Level0YearParser from "./Level0YearParser.mjs"
-import Level0Component from "../component/Level0Component.mjs"
-import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
+import { Level0YearParser } from "./Level0YearParser.mjs"
+import { Level0Component } from "../component/index.mjs"
+import { GregorianCalendar } from "../../calendar/GregorianCalendar.mjs"
 
 export class Level0Year extends Level0Component {
   /**

@@ -1,5 +1,5 @@
-import EDTFParser from "../../EDTFParser.mjs"
-import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
+import { EDTFParser } from "../../EDTFParser.mjs"
+import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
 
 /**
  * @typedef {Object} Level0DurationParseResult
@@ -18,7 +18,7 @@ const hoursGroup = "hours"
 const minutesGroup = "minutes"
 const secondsGroup = "seconds"
 
-export default class Level0DurationParser extends EDTFParser {
+export class Level0DurationParser extends EDTFParser {
   /**
    * @param {string} prefix
    * @return {string}

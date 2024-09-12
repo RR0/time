@@ -1,8 +1,8 @@
-import Level1DayParser from "./Level1DayParser.mjs"
-import Level1Component from "../component/Level1Component.mjs"
-import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
+import { Level1DayParser } from "./Level1DayParser.mjs"
+import { Level1Component } from "../component/index.mjs"
+import { GregorianCalendar } from "../../calendar/index.mjs"
 
-export default class Level1Day extends Level1Component {
+export class Level1Day extends Level1Component {
   /**
    * @param {Level1ComponentSpec|number} spec
    */

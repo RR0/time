@@ -1,7 +1,7 @@
-import Calendar from "./Calendar.mjs"
+import { Calendar } from "./Calendar.mjs"
 import { CalendarUnit } from "./unit/CalendarUnit.mjs"
 
-export default class GregorianCalendar extends Calendar {
+export class GregorianCalendar extends Calendar {
   /**
    * @readonly
    * @type CalendarUnit

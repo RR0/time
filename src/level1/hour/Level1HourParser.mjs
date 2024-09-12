@@ -1,9 +1,9 @@
-import Level1ComponentParser from "../component/Level1ComponentParser.mjs"
-import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
+import { Level1ComponentParser } from "../component/Level1ComponentParser.mjs"
+import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
 
 const name = "hourValue"
 
-export default class Level1HourParser extends Level1ComponentParser {
+export class Level1HourParser extends Level1ComponentParser {
   /**
    * @param {string} prefix
    * @return {string}

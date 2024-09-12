@@ -1,6 +1,6 @@
-import Level2YearParser from "./Level2YearParser.mjs"
-import Level2Component from "../component/Level2Component.mjs"
-import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
+import { Level2YearParser } from "./Level2YearParser.mjs"
+import { Level2Component } from "../component/Level2Component.mjs"
+import { GregorianCalendar } from "../../calendar/GregorianCalendar.mjs"
 import { Level1YearValidator } from "../../level1/year/Level1YearValidator.mjs"
 import { CalendarUnit } from "../../calendar/unit/CalendarUnit.mjs"
 

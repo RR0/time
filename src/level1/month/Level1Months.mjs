@@ -1,7 +1,7 @@
-import Level0Months from "../../level0/month/Level0Months.mjs"
-import Level1Month from "./Level1Month.mjs"
+import { Level0Months } from "../../level0/month/Level0Months.mjs"
+import { Level1Month } from "./Level1Month.mjs"
 
-export default class Level1Months extends Level0Months {
+export class Level1Months extends Level0Months {
   /**
    * Spring (independent of location)
    *

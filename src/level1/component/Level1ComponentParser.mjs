@@ -1,5 +1,5 @@
-import Level0ComponentParser from "../../level0/component/Level0ComponentParser.mjs"
-import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
+import { Level0ComponentParser } from "../../level0/component/Level0ComponentParser.mjs"
+import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
 
 const uncertainGroup = "uncertain"
 const approximateGroup = "approx"
@@ -11,7 +11,7 @@ const uncertainAndApproximateGroup = uncertainGroup + approximateGroup
  * @property {boolean} [approximateComponent]
  */
 
-export default class Level1ComponentParser extends Level0ComponentParser {
+export class Level1ComponentParser extends Level0ComponentParser {
   /**
    * Produces an optional group expecting a given char.
    *

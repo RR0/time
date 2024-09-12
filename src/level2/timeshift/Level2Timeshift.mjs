@@ -1,3 +1,3 @@
-import Level1Timeshift from "../../level1/timeshift/Level1Timeshift.mjs"
+import { Level1Timeshift } from "../../level1/index.mjs"
 
-export default class Level2Timeshift extends Level1Timeshift {}
+export class Level2Timeshift extends Level1Timeshift {}

@@ -1,7 +1,7 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
 
-import MinMaxValidator from "./MinMaxValidator.mjs"
+import { MinMaxValidator } from "./MinMaxValidator.mjs"
 
 describe("MinMaxValidator", () => {
   const validator= new MinMaxValidator("field", 1, 100)

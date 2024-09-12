@@ -2,7 +2,7 @@ import { describe, test } from "node:test"
 
 import { level2Assert } from "../component/Level2TestUtil.mjs"
 
-import Level2Minute from "./Level2Minute.mjs"
+import { Level2Minute } from "./Level2Minute.mjs"
 
 describe("Level2Minute", () => {
 

@@ -1,9 +1,9 @@
-import Level0ComponentParser from "../component/Level0ComponentParser.mjs"
-import RegExpFormat from "../../util/regexp/RegExpFormat.mjs"
+import { Level0ComponentParser } from "../component/Level0ComponentParser.mjs"
+import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
 
 const name = "dayValue"
 
-export default class Level0DayParser extends Level0ComponentParser {
+export class Level0DayParser extends Level0ComponentParser {
   /**
    * @param {string} prefix
    * @return {string}

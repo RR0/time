@@ -1,4 +1,4 @@
-import Level1Component from "../../level1/component/Level1Component.mjs"
+import { Level1Component } from "../../level1/index.mjs"
 
 /**
  * @typedef {Level1ComponentSpec} Level2ComponentSpec
@@ -6,7 +6,7 @@ import Level1Component from "../../level1/component/Level1Component.mjs"
  * @property {boolean} [approximateComponent]
  */
 
-export default class Level2Component extends Level1Component {
+export class Level2Component extends Level1Component {
   /**
    * @readonly
    * @type boolean

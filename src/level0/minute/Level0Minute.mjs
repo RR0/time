@@ -1,6 +1,6 @@
-import Level0Component from "../component/Level0Component.mjs"
-import Level0MinuteParser from "./Level0MinuteParser.mjs"
-import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
+import { Level0Component } from "../component/index.mjs"
+import { Level0MinuteParser } from "./Level0MinuteParser.mjs"
+import { GregorianCalendar } from "../../calendar/index.mjs"
 
 export class Level0Minute extends Level0Component {
   /**
