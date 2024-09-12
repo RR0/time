@@ -8,7 +8,7 @@
   "types": "types/*.d.mts",
   "scripts": {
     "prebuild": "npm test",
-    "build": "rimraf ./types && npx -package typescript tsc src/**/*.?js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "build": "rimraf ./types && ./node_modules/typescript/bin/tsc src/**/*.?js --declaration --allowJs --emitDeclarationOnly --outDir types",
     "test": "node --test",
     "test-ci": "node --test --experimental-test-coverage --test-reporter spec",
     "prepublishOnly": "npm run build"
