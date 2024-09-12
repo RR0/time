@@ -1,22 +1,10 @@
-import Level1Year from "./year/Level1Year.mjs"
-import Level1Month from "./month/Level1Month.mjs"
-import Level1Day from "./day/Level1Day.mjs"
-import { Level1Date } from "./date/Level1Date.mjs"
-import Level1Hour from "./hour/Level1Hour.mjs"
-import Level1Minute from "./minute/Level1Minute.mjs"
-import Level1Second from "./second/Level1Second.mjs"
-import Level1Timeshift from "./timeshift/Level1Timeshift.mjs"
-import { Level1Interval } from "./interval/Level1Interval.mjs"
-
-export const level1 = {
-  Year: Level1Year,
-  Month: Level1Month,
-  Day: Level1Day,
-  Hour: Level1Hour,
-  Minute: Level1Minute,
-  Second: Level1Second,
-  Timeshift: Level1Timeshift,
-  Date: Level1Date,
-  Interval: Level1Interval
-}
-export default level1
+export * from "./component/index.mjs"
+export * from "./year/index.mjs"
+export * from "./month/index.mjs"
+export * from "./day/index.mjs"
+export * from "./hour/index.mjs"
+export * from "./minute/index.mjs"
+export * from "./second/index.mjs"
+export * from "./timeshift/index.mjs"
+export * from "./date/index.mjs"
+export * from "./interval/index.mjs"

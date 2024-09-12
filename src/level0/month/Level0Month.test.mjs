@@ -2,7 +2,7 @@ import { describe, test } from "node:test"
 import assert from "node:assert"
 
 import Level0Months from "./Level0Months.mjs"
-import Level0Month from "./Level0Month.mjs"
+import { Level0Month } from "./Level0Month.mjs"
 
 describe("Level0Month", () => {
 

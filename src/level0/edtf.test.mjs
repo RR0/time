@@ -1,6 +1,6 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
-import level0 from "./index.mjs"
+import level0 from "./edtf.mjs"
 
 describe("Level0", () => {
 

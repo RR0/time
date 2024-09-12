@@ -1,6 +1,6 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
-import Level0Second from "./Level0Second.mjs"
+import { Level0Second } from "./Level0Second.mjs"
 
 describe("Level0Second", () => {
 

@@ -1,6 +1,6 @@
 import Level0TimeshiftParser from "./Level0TimeshiftParser.mjs"
 
-export default class Level0Timeshift {
+export class Level0Timeshift {
   /**
    * @readonly
    * @type number

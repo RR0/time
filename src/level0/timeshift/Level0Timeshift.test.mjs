@@ -1,6 +1,6 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
-import Level0Timeshift from "./Level0Timeshift.mjs"
+import { Level0Timeshift } from "./Level0Timeshift.mjs"
 
 describe("Level0Timeshift", () => {
 

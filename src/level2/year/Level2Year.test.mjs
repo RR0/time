@@ -2,7 +2,7 @@ import { describe, test } from "node:test"
 import assert from "node:assert"
 
 import { level2Assert } from "../component/Level2TestUtil.mjs"
-import Level2Year from "./Level2Year.mjs"
+import { Level2Year } from "./Level2Year.mjs"
 
 describe("Level2Year", () => {
 
@@ -86,16 +86,16 @@ describe("Level2Year", () => {
     describe("programmatic", () => {
 
       test("positive", () => {
-        const uncertainPositiveFromString = new Level2Year({value: yearValue, uncertain: true})
+        const uncertainPositiveFromString = new Level2Year({ value: yearValue, uncertain: true })
         level2Assert(uncertainPositiveFromString, yearValue, true)
-        const uncertainPositive1 = new Level2Year({value: yearValue, uncertainComponent: true})
+        const uncertainPositive1 = new Level2Year({ value: yearValue, uncertainComponent: true })
         level2Assert(uncertainPositive1, yearValue, true, false, true)
       })
 
       test("negative", () => {
-        const uncertainNegative = new Level2Year({value: -yearValue, uncertain: true})
+        const uncertainNegative = new Level2Year({ value: -yearValue, uncertain: true })
         level2Assert(uncertainNegative, -yearValue, true)
-        const uncertainNegative1 = new Level2Year({value: -yearValue, uncertainComponent: true})
+        const uncertainNegative1 = new Level2Year({ value: -yearValue, uncertainComponent: true })
         level2Assert(uncertainNegative1, -yearValue, true, false, true)
       })
     })

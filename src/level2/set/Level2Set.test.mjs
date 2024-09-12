@@ -2,7 +2,7 @@ import { describe, test } from "node:test"
 import assert from "node:assert"
 
 import { Level2Set } from "./Level2Set.mjs"
-import Level2Year from "../year/Level2Year.mjs"
+import { Level2Year } from "../year/index.mjs"
 import { Level2Interval } from "../interval/index.mjs"
 import { Level2Date } from "../date/index.mjs"
 import Level2Month from "../month/Level2Month.mjs"

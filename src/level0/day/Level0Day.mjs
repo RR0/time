@@ -2,7 +2,7 @@ import Level0Component from "../component/Level0Component.mjs"
 import Level0DayParser from "./Level0DayParser.mjs"
 import GregorianCalendar from "../../calendar/GregorianCalendar.mjs"
 
-export default class Level0Day extends Level0Component {
+export class Level0Day extends Level0Component {
   /**
    * @param {Level0ComponentSpec|number} spec
    */

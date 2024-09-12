@@ -6,7 +6,7 @@ import { CalendarUnit } from "../../calendar/unit/CalendarUnit.mjs"
 
 const unit = new CalendarUnit(GregorianCalendar.year.name, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, GregorianCalendar.day, new Level1YearValidator())
 
-export default class Level2Year extends Level2Component {
+export class Level2Year extends Level2Component {
   /**
    * @param {Level2ComponentSpec} spec
    */

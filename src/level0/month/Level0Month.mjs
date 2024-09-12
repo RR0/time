@@ -3,7 +3,7 @@ import Level0Component from "../component/Level0Component.mjs"
 
 import { GregorianMonth } from "../../calendar/unit/GregorianMonth.mjs"
 
-export default class Level0Month extends Level0Component {
+export class Level0Month extends Level0Component {
   /**
    * @param {Level0ComponentSpec|number} spec
    * @param {GregorianMonth} unit
