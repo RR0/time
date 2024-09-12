@@ -48,8 +48,17 @@ export class Level0Date {
     if (this.#year) {
       this.#year.value = value
     } else {
-      this.#year = typeof value === "number" ? new Level0Year(value) : value
+      this.#year = typeof value === "number" ? this.newYear(value) : value
     }
+  }
+
+  /**
+   * @protected
+   * @param {number} value
+   * @return {Y}
+   */
+  newYear (value) {
+    return new Level0Year(value)
   }
 
   /**
@@ -71,8 +80,17 @@ export class Level0Date {
     if (this.#month) {
       this.#month.value = value
     } else {
-      this.#month = typeof value === "number" ? new Level0Month(value) : value
+      this.#month = typeof value === "number" ? this.newMonth(value) : value
     }
+  }
+
+  /**
+   * @protected
+   * @param {number} value
+   * @return {MM}
+   */
+  newMonth (value) {
+    return new Level0Month(value)
   }
 
   /**
@@ -94,8 +112,17 @@ export class Level0Date {
     if (this.#day) {
       this.#day.value = value
     } else {
-      this.#day = typeof value === "number" ? new Level0Day(value) : value
+      this.#day = typeof value === "number" ? this.newDay(value) : value
     }
+  }
+
+  /**
+   * @protected
+   * @param {number} value
+   * @return {D}
+   */
+  newDay (value) {
+    return new Level0Day(value)
   }
 
   /**
@@ -117,8 +144,17 @@ export class Level0Date {
     if (this.#hour) {
       this.#hour.value = value
     } else {
-      this.#hour = typeof value === "number" ? new Level0Hour(value) : value
+      this.#hour = typeof value === "number" ? this.newHour(value) : value
     }
+  }
+
+  /**
+   * @protected
+   * @param {number} value
+   * @return {H}
+   */
+  newHour (value) {
+    return new Level0Hour(value)
   }
 
   /**
@@ -140,8 +176,17 @@ export class Level0Date {
     if (this.#minute) {
       this.#minute.value = value
     } else {
-      this.#minute = typeof value === "number" ? new Level0Minute(value) : value
+      this.#minute = typeof value === "number" ? this.newMinute(value) : value
     }
+  }
+
+  /**
+   * @protected
+   * @param {number} value
+   * @return {M}
+   */
+  newMinute (value) {
+    return new Level0Minute(value)
   }
 
   /**
@@ -163,8 +208,17 @@ export class Level0Date {
     if (this.#second) {
       this.#second.value = value
     } else {
-      this.#second = typeof value === "number" ? new Level0Second(value) : value
+      this.#second = typeof value === "number" ? this.newSecond(value) : value
     }
+  }
+
+  /**
+   * @protected
+   * @param {number} value
+   * @return {S}
+   */
+  newSecond (value) {
+    return new Level0Second(value)
   }
 
   /**

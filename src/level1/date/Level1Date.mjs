@@ -1,5 +1,11 @@
 import { Level0Date } from "../../level0/index.mjs"
 import { Level1DateParser } from "./Level1DateParser.mjs"
+import { Level1Year } from "../year/index.mjs"
+import { Level1Second } from "../second/index.mjs"
+import { Level1Minute } from "../minute/index.mjs"
+import { Level1Hour } from "../hour/index.mjs"
+import { Level1Day } from "../day/index.mjs"
+import { Level1Month } from "../month/index.mjs"
 
 /**
  * @typedef {Level0DateSpec} Level1DateSpec
@@ -11,6 +17,30 @@ export class Level1Date extends Level0Date {
    */
   constructor (spec) {
     super(spec)
+  }
+
+  newYear (value) {
+    return new Level1Year(value)
+  }
+
+  newMonth (value) {
+    return new Level1Month(value)
+  }
+
+  newDay (value) {
+    return new Level1Day(value)
+  }
+
+  newHour (value) {
+    return new Level1Hour(value)
+  }
+
+  newMinute (value) {
+    return new Level1Minute(value)
+  }
+
+  newSecond (value) {
+    return new Level1Second(value)
   }
 
   /**
