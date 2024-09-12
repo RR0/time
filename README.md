@@ -22,18 +22,18 @@ The parsing API allows to build objects above from an EDTF string.
 ### Dates 
 Each date calendar and time component can be individually instantiated.
 ```js
-import level2 from "@rr0/time"
+import { EdtfDate } from "@rr0/time/level2/date/index.mjs"
 
-const maybeAugust = level2.Date.fromString("2024-?08-25")
-const someYear = level2.Date.fromString("?08-25")  
+const maybeAugust = EdtfDate.fromString("2024-?08-25")
+const aroundMarch2025 = EdtfDate.fromString("2025-03~")  
 ```
 
 ### Date components
 Each date calendar and time component can be individually instantiated.
 ```js
-import level0 from "@rr0/time"
+import { EdtfYear } from "@rr0/time/level2/year/index.mjs"
 
-const someYear = level0.Date.fromString("1985")
+const inTheFifities = EdtfYear.fromString("195X")
 ```
 
 ### Date

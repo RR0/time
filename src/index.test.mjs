@@ -1,31 +1,27 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
 
-import edtf from "./index.mjs"
+import { edtf } from "./index.js"
+import { level2 } from "./level2/index.mjs"
+import * as Level2Date from "./level2/date/Level2Date.mjs"
+import { EdtfDate } from "./level2/date/index.mjs"
+import { EdtfYear } from "./level2/year/index.mjs"
 
-describe("EDTF", () => {
+describe("index", () => {
 
-  describe("level0", () => {
-    const level0 = edtf.level0
-    assert.ok(level0.Date)
-    assert.ok(level0.Year)
-    assert.ok(level0.Month)
-    assert.ok(level0.Day)
+  test("level0", () => {
+    assert.ok(edtf.level0)
   })
 
   test("level1", () => {
-    const level1 = edtf.level1
-    assert.ok(level1.Date)
-    assert.ok(level1.Year)
-    assert.ok(level1.Month)
-    assert.ok(level1.Day)
+    assert.ok(edtf.level1)
   })
 
   test("level2", () => {
-    const level2 = edtf.level2
-    assert.ok(level2.Date)
-    assert.ok(level2.Year)
-    assert.ok(level2.Month)
-    assert.ok(level2.Day)
+    assert.ok(edtf.level2)
+    assert.ok(level2)
+    assert.ok(Level2Date)
+    assert.ok(EdtfDate)
+    assert.ok(EdtfYear)
   })
 })

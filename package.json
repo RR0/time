@@ -1,6 +1,7 @@
 {
   "name": "@rr0/time",
-  "version": "0.1.2",
+  "type": "module",
+  "version": "0.1.4",
   "author": "RR0 <rr0@rr0.org>",
   "description": "EDTF parsing",
   "main": "src/index.js",

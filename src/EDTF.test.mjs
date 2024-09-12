@@ -1,7 +1,7 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
 
-import edtf from "./EDTF.mjs"
+import { edtf} from "./EDTF.mjs"
 
 describe("EDTF", () => {
 

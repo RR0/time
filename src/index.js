@@ -1,1 +1,1 @@
-export default from "./EDTF.mjs"
+export * from "./EDTF.mjs"
