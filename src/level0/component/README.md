@@ -3,13 +3,23 @@
 ## Data type
 
 Any level 0 date/time components (year, month, day, hour, minute, second) share the same properties:
+- a **[unit](../../calendar/unit/README.md)**
+- a **value** in this unit
+- a **renderer** to format this value for display.
 
 ```mermaid
 classDiagram
     class Level0Component {
-        name: string
         value: number
+        toString(renderer?: Level0ComponentRenderer): string
     }
+    class Level0ComponentRenderer {
+        render(comp): string
+    }
+    class CalendarUnit {
+    }
+    Level0Component --> CalendarUnit: unit
+    Level0Component ..> Level0ComponentRenderer: renderer
 ```
 
 ## Parsing

@@ -1,4 +1,5 @@
 import { Level0Component } from "../../level0/index.mjs"
+import { Level1ComponentRenderer } from "./Level1ComponentRenderer.mjs"
 
 /**
  * @typedef {Level0ComponentSpec} Level1ComponentSpec
@@ -12,6 +13,7 @@ import { Level0Component } from "../../level0/index.mjs"
 export class Level1Component extends Level0Component {
 
   #uncertain
+
   #approximate
 
   /**
@@ -78,7 +80,7 @@ export class Level1Component extends Level0Component {
     return this.isCertainAndPrecise() && super.isAfter(other)
   }
 
-  toString () {
-    return super.toString() + (this.uncertain ? this.approximate ? "%" : "?" : this.approximate ? "~" : "")
+  toString (renderer = Level1ComponentRenderer.instance) {
+    return super.toString(renderer)
   }
 }

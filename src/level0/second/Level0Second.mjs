@@ -1,6 +1,7 @@
 import { Level0Component } from "../component/index.mjs"
 import { Level0SecondParser } from "./Level0SecondParser.mjs"
 import { GregorianCalendar } from "../../calendar/index.mjs"
+import { PaddedComponentRenderer } from "../PaddedComponentRenderer.mjs"
 
 export class Level0Second extends Level0Component {
   /**
@@ -10,8 +11,8 @@ export class Level0Second extends Level0Component {
     super(spec, GregorianCalendar.second)
   }
 
-  toString () {
-    return super.toString().padStart(2, "0")
+  toString (renderer = PaddedComponentRenderer.default) {
+    return super.toString(renderer)
   }
 
   /**

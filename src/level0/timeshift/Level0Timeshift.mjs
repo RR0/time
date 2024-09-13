@@ -1,4 +1,5 @@
 import { Level0TimeshiftParser } from "./Level0TimeshiftParser.mjs"
+import { DefaultTimeshiftRenderer } from "./DefaultTimeshiftRenderer.mjs"
 
 export class Level0Timeshift {
   /**
@@ -14,17 +15,22 @@ export class Level0Timeshift {
   name = "timeshift"
 
   /**
-   * @param {number} value
+   * @readonly
+   * @type DefaultTimeshiftRenderer
    */
-  constructor (value = 0) {
+  renderer
+
+  /**
+   * @param {number} value
+   * @param {TimeshiftRenderer} renderer
+   */
+  constructor (value = 0, renderer = new DefaultTimeshiftRenderer()) {
     this.value = value
+    this.renderer = renderer
   }
 
   toString () {
-    const absValue = Math.abs(this.value)
-    const hours = Math.floor(absValue / 60)
-    const minutes = absValue % 60
-    return hours === 0 && minutes === 0 ? "Z" : (this.value < 0 ? "-" : "+") + hours.toString().padStart(2, "0") + (minutes ? ":" + minutes.toString().padEnd(2, "0") : "")
+    return this.renderer.render(this)
   }
 
   /**

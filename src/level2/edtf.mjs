@@ -8,6 +8,7 @@ import { Level2Second } from "./second/Level2Second.mjs"
 import { Level2Timeshift } from "./timeshift/Level2Timeshift.mjs"
 import { Level2Interval } from "./interval/index.mjs"
 import { Level2Set } from "./set/index.mjs"
+import { Level2Duration } from "./duration/index.mjs"
 
 export const level2 = {
   Year: Level2Year,
@@ -19,6 +20,7 @@ export const level2 = {
   Timeshift: Level2Timeshift,
   Date: Level2Date,
   Interval: Level2Interval,
-  Set: Level2Set
+  Set: Level2Set,
+  Duration: Level2Duration
 }
 export default level2

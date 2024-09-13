@@ -1,4 +1,5 @@
 import { EDTFValidator } from "../../calendar/index.mjs"
+import { Level0ComponentRenderer } from "./Level0ComponentRenderer.mjs"
 
 /**
  * @typedef {Object} Level0ComponentSpec
@@ -83,7 +84,11 @@ export class Level0Component {
     return this.value * this.unit.duration
   }
 
-  toString () {
-    return this.value.toString()
+  /**
+   * @param {Level0ComponentRenderer} [renderer]
+   * @return {string}
+   */
+  toString (renderer = Level0ComponentRenderer.instance) {
+    return renderer.render(this)
   }
 }

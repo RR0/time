@@ -1,17 +1,32 @@
 import { Level0ComponentParser } from "../../level0/component/Level0ComponentParser.mjs"
 import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
 
-const uncertainGroup = "uncertain"
-const approximateGroup = "approx"
-const uncertainAndApproximateGroup = uncertainGroup + approximateGroup
-
 /**
  * @typedef {Level0YearParseResult} Level1YearParseResult
  * @property {number|{start: number, end: number}} value
- * @property {boolean} [approximateComponent]
+ * @property {boolean} [uncertain]
+ * @property {boolean} [approximate]
  */
 
 export class Level1ComponentParser extends Level0ComponentParser {
+  /**
+   * @readonly
+   * @type {string}
+   */
+  static uncertainGroup = "uncertain"
+
+  /**
+   * @readonly
+   * @type {string}
+   */
+  static approximateGroup = "approx"
+
+  /**
+   * @readonly
+   * @type {string}
+   */
+  static uncertainAndApproximateGroup = Level1ComponentParser.uncertainGroup + Level1ComponentParser.approximateGroup
+
   /**
    * Produces an optional group expecting a given char.
    *
@@ -24,16 +39,23 @@ export class Level1ComponentParser extends Level0ComponentParser {
   }
 
   /**
+   * @param {string} name The group name
+   * @return {string} The relevant regex pattern.
+   */
+  static formatSuffix (name) {
+    return this.qualifierFormat(RegExpFormat.groupName(Level1ComponentParser.uncertainGroup, name), "?")
+      + this.qualifierFormat(RegExpFormat.groupName(Level1ComponentParser.approximateGroup, name), "~")
+      + this.qualifierFormat(RegExpFormat.groupName(Level1ComponentParser.uncertainAndApproximateGroup, name), "%")
+  }
+
+  /**
    * @param {string} count
    * @param {string} name The group name
    * @param {string} prefix This can be allowed signs or "Y"
    * @return {string} The relevant regex pattern.
    */
   static numberFormat (name, count, prefix) {
-    return RegExpFormat.numberGroup(name, count, prefix, "\\dX")
-      + this.qualifierFormat(RegExpFormat.groupName(uncertainGroup, name), "?")
-      + this.qualifierFormat(RegExpFormat.groupName(approximateGroup, name), "~")
-      + this.qualifierFormat(RegExpFormat.groupName(uncertainAndApproximateGroup, name), "%")
+    return RegExpFormat.numberGroup(name, count, prefix, "\\dX") + this.formatSuffix(name)
   }
 
   /**
@@ -70,9 +92,9 @@ export class Level1ComponentParser extends Level0ComponentParser {
     } else {
       value *= sign
     }
-    const uncertainApproximate = groups[RegExpFormat.groupName(uncertainAndApproximateGroup, this.name)]
-    const approximate = groups[RegExpFormat.groupName(approximateGroup, this.name)] || uncertainApproximate
-    const uncertain = groups[RegExpFormat.groupName(uncertainGroup, this.name)] || uncertainApproximate
+    const uncertainApproximate = groups[RegExpFormat.groupName(Level1ComponentParser.uncertainAndApproximateGroup, this.name)]
+    const approximate = groups[RegExpFormat.groupName(Level1ComponentParser.approximateGroup, this.name)] || uncertainApproximate
+    const uncertain = groups[RegExpFormat.groupName(Level1ComponentParser.uncertainGroup, this.name)] || uncertainApproximate
     return {
       value,
       approximate: approximate ? Boolean(approximate) : false,

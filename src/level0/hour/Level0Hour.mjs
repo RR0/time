@@ -1,6 +1,7 @@
 import { Level0Component } from "../component/index.mjs"
 import { Level0HourParser } from "./Level0HourParser.mjs"
 import { GregorianCalendar } from "../../calendar/index.mjs"
+import { PaddedComponentRenderer } from "../PaddedComponentRenderer.mjs"
 
 export class Level0Hour extends Level0Component {
   /**
@@ -10,16 +11,16 @@ export class Level0Hour extends Level0Component {
     super(spec, GregorianCalendar.hour)
   }
 
-  toString () {
-    return super.toString().padStart(2, "0")
+  toString (renderer = PaddedComponentRenderer.default) {
+    return super.toString(renderer)
   }
 
   /**
    * @param {string} str
+   * @param {Level0HourParser} parser
    * @return {Level0Hour}
    */
-  static fromString (str) {
-    const parser = new Level0HourParser()
+  static fromString (str, parser = new Level0HourParser()) {
     return new Level0Hour(parser.parse(str))
   }
 }

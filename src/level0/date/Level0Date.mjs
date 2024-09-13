@@ -7,6 +7,7 @@ import { Level0Hour } from "../hour/index.mjs"
 import { Level0Minute } from "../minute/index.mjs"
 import { Level0Second } from "../second/index.mjs"
 import { Level0Timeshift } from "../timeshift/index.mjs"
+import { Level0DateRenderer } from "./Level0DateRenderer.mjs"
 
 /**
  * @typedef {Object} Level0DateSpec
@@ -35,16 +36,16 @@ export class Level0Date {
   #year
 
   /**
-   * @return {Y|undefined}
+   * @return {Level0Year|undefined}
    */
-  get year() {
+  get year () {
     return this.#year
   }
 
   /**
    * @param {Y|number|undefined} value
    */
-  set year(value) {
+  set year (value) {
     if (this.#year) {
       this.#year.value = value
     } else {
@@ -62,21 +63,21 @@ export class Level0Date {
   }
 
   /**
-   * @type {M|undefined}
+   * @type {Level0Month|undefined}
    */
   #month
 
   /**
-   * @return {MM|undefined}
+   * @return {Level0Month|undefined}
    */
-  get month() {
+  get month () {
     return this.#month
   }
 
   /**
    * @param {MM|number|undefined} value
    */
-  set month(value) {
+  set month (value) {
     if (this.#month) {
       this.#month.value = value
     } else {
@@ -99,16 +100,16 @@ export class Level0Date {
   #day
 
   /**
-   * @return {D|undefined}
+   * @return {Level0Day|undefined}
    */
-  get day() {
+  get day () {
     return this.#day
   }
 
   /**
    * @param {D|number|undefined} value
    */
-  set day(value) {
+  set day (value) {
     if (this.#day) {
       this.#day.value = value
     } else {
@@ -131,16 +132,16 @@ export class Level0Date {
   #hour
 
   /**
-   * @return {H|undefined}
+   * @return {Level0Hour|undefined}
    */
-  get hour() {
+  get hour () {
     return this.#hour
   }
 
   /**
-   * @param {H|number|undefined} value
+   * @param {Level0Hour|number|undefined} value
    */
-  set hour(value) {
+  set hour (value) {
     if (this.#hour) {
       this.#hour.value = value
     } else {
@@ -151,28 +152,28 @@ export class Level0Date {
   /**
    * @protected
    * @param {number} value
-   * @return {H}
+   * @return {Level0Hour}
    */
   newHour (value) {
     return new Level0Hour(value)
   }
 
   /**
-   * @type {M|undefined}
+   * @type {Level0Minute|undefined}
    */
   #minute
 
   /**
-   * @return {M||undefined}
+   * @return {Level0Minute||undefined}
    */
-  get minute() {
+  get minute () {
     return this.#minute
   }
 
   /**
-   * @param {M|number|undefined} value
+   * @param {Level0Minute|number|undefined} value
    */
-  set minute(value) {
+  set minute (value) {
     if (this.#minute) {
       this.#minute.value = value
     } else {
@@ -183,28 +184,28 @@ export class Level0Date {
   /**
    * @protected
    * @param {number} value
-   * @return {M}
+   * @return {Level0Minute}
    */
   newMinute (value) {
     return new Level0Minute(value)
   }
 
   /**
-   * @type {S|undefined}
+   * @type {Level0Second|undefined}
    */
   #second
 
   /**
-   * @return {S|undefined}
+   * @return {Level0Second|undefined}
    */
-  get second() {
+  get second () {
     return this.#second
   }
 
   /**
-   * @param {S|number|undefined} value
+   * @param {Level0Second|number|undefined} value
    */
-  set second(value) {
+  set second (value) {
     if (this.#second) {
       this.#second.value = value
     } else {
@@ -215,7 +216,7 @@ export class Level0Date {
   /**
    * @protected
    * @param {number} value
-   * @return {S}
+   * @return {Level0Second}
    */
   newSecond (value) {
     return new Level0Second(value)
@@ -223,21 +224,21 @@ export class Level0Date {
 
   /**
    * @readonly
-   * @type {Z}
+   * @type {Level0Timeshift}
    */
   #timeshift
 
   /**
-   * @return {Z|undefined}
+   * @return {Level0Timeshift|undefined}
    */
-  get timeshift() {
+  get timeshift () {
     return this.#timeshift
   }
 
   /**
-   * @param {Z|number|undefined} value
+   * @param {Level0Timeshift|number|undefined} value
    */
-  set timeshift(value) {
+  set timeshift (value) {
     if (this.#timeshift) {
       this.#timeshift.value = value
     } else {
@@ -248,7 +249,15 @@ export class Level0Date {
   /**
    * @param {Level0DateSpec} spec
    */
-  constructor (spec= {year: new Date().getFullYear(), month: new Date().getMonth(), day: new Date().getDate(), hour: new Date().getHours(), minute: new Date().getMinutes(), second: new Date().getSeconds(), timeshift: new Date().getTimezoneOffset()}) {
+  constructor (spec = {
+    year: new Date().getFullYear(),
+    month: new Date().getMonth(),
+    day: new Date().getDate(),
+    hour: new Date().getHours(),
+    minute: new Date().getMinutes(),
+    second: new Date().getSeconds(),
+    timeshift: new Date().getTimezoneOffset()
+  }) {
     this.year = spec.year
     this.month = spec.month
     this.day = spec.day
@@ -315,43 +324,23 @@ export class Level0Date {
     return this.compare(other) > 0
   }
 
-  toString () {
-    const dateCompStr = []
-    if (this.year) {
-      dateCompStr.push(this.year.toString())
-    }
-    if (this.month) {
-      dateCompStr.push(this.month.toString())
-    }
-    if (this.day) {
-      dateCompStr.push(this.day.toString())
-    }
-    const hourCompStr = []
-    if (this.hour) {
-      hourCompStr.push(this.hour.toString())
-    }
-    if (this.minute) {
-      hourCompStr.push(this.minute.toString())
-    }
-    if (this.second) {
-      hourCompStr.push(this.second.toString())
-    }
-    const dateStr = dateCompStr.join("-")
-    const hourStr = hourCompStr.join(":") + (this.timeshift ? this.timeshift.toString() : "")
-    return dateStr + (hourStr.length > 0 ? "T" + hourStr : "")
+  toString (renderer = Level0DateRenderer.instance) {
+    return renderer.render(this)
   }
 
   /**
    * @param {string} spec
+   * @param {Level0DateParser} parser
    * @return {Level0Date}
    */
-  static fromString (spec) {
-    const parser = /** Level0DateParser<Level0Year, Level0Month, Level0Day> */ new Level0DateParser()
+  static fromString (spec, parser = new Level0DateParser()) {
     const { year, month, day, hour, minute, second, timeshift } = parser.parse(spec)
-    return new Level0Date({year, month, day, hour, minute, second, timeshift})
+    return new Level0Date({ year, month, day, hour, minute, second, timeshift })
   }
 
   /**
+   * Creates a level 0 current date.
+   *
    * @return {Level0Date}
    */
   static newInstance () {

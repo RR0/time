@@ -4,16 +4,38 @@ import assert from "node:assert"
 import { Level0Duration } from "./Level0Duration.mjs"
 import { Level0Date } from "../date/index.mjs"
 import { GregorianCalendar } from "../../calendar/index.mjs"
+import { Level0ComponentRenderer } from "../component/Level0ComponentRenderer.mjs"
+import { Level0Minute } from "../minute/index.mjs"
 
 describe("Duration", () => {
+
+  describe("rendering", () => {
+
+    test("default", () => {
+      const threeSecondsStr = `P3S`
+      const durationMs = Level0Duration.fromString(threeSecondsStr)
+      assert.equal(durationMs.toString(), threeSecondsStr)
+    })
+
+    test("custom renderer", () => {
+      const customRenderer = new class extends Level0ComponentRenderer {
+        render (comp) {
+          const value = comp.value
+          return value + " second" + (value > 1 ? "s" : "")
+        }
+      }()
+      assert.equal(new Level0Minute(GregorianCalendar.second.min).toString(customRenderer), "0 second")
+      assert.equal(new Level0Minute(GregorianCalendar.second.min + 1).toString(customRenderer), "1 second")
+      assert.equal(new Level0Minute(GregorianCalendar.second.max).toString(customRenderer), "59 seconds")
+    })
+  })
 
   describe("parsing", () => {
 
     test("in seconds", () => {
       const seconds = 3
-      const toString = `P${seconds}S`
-      const durationMs = Level0Duration.fromString(toString)
-      assert.equal(durationMs.millis, seconds * GregorianCalendar.second.duration)
+      const durationMs = Level0Duration.fromString(`P${seconds}S`)
+      assert.equal(durationMs.value, seconds * GregorianCalendar.second.duration)
     })
   })
 
@@ -21,11 +43,11 @@ describe("Duration", () => {
 
     test("in seconds", () => {
       const seconds = 3
-      const durationMs = new Level0Duration(seconds * GregorianCalendar.second.duration)
+      const threeSeconds = new Level0Duration(seconds * GregorianCalendar.second.duration)
       const toString = `P${seconds}S`
-      assert.equal(durationMs.toString(), toString)
+      assert.equal(threeSeconds.value, 3 * GregorianCalendar.second.duration)
       const durationObj = new Level0Duration({ seconds })
-      assert.equal(durationObj.toString(), toString)
+      assert.equal(durationObj.value, 3 * GregorianCalendar.second.duration)
     })
 
     test("in minutes", () => {
@@ -42,7 +64,7 @@ describe("Duration", () => {
   test("between", () => {
     const beforeDate = Level0Date.fromString("1985-04-21")
     const twoDays = Level0Duration.between(beforeDate, Level0Date.fromString("1985-04-23"))
-    assert.equal(twoDays.millis, 2 * GregorianCalendar.day.duration)
+    assert.equal(twoDays.value, 2 * GregorianCalendar.day.duration)
     const years = Level0Duration.between(beforeDate, Level0Date.fromString("2001"))
     const expected = ((2001 - 1985) * GregorianCalendar.year.duration) - (8 * GregorianCalendar.month.duration) - (7 * GregorianCalendar.day.duration)
     // assert.equal(years.millis, expected)

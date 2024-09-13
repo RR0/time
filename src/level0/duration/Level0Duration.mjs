@@ -1,5 +1,13 @@
-import { GregorianCalendar } from "../../calendar/index.mjs"
+import { CalendarUnit, GregorianCalendar } from "../../calendar/index.mjs"
 import { Level0DurationParser } from "./Level0DurationParser.mjs"
+import { Level0Year } from "../year/index.mjs"
+import { Level0Month } from "../month/index.mjs"
+import { Level0Day } from "../day/index.mjs"
+import { Level0Hour } from "../hour/index.mjs"
+import { Level0Minute } from "../minute/index.mjs"
+import { Level0Second } from "../second/index.mjs"
+import { Level0DurationRenderer } from "./Level0DurationRenderer.mjs"
+import { Level0Component } from "../component/index.mjs"
 
 /**
  * @typedef {Object} Level0DurationSpec
@@ -21,13 +29,7 @@ import { Level0DurationParser } from "./Level0DurationParser.mjs"
  * @template S extends Level0Component = Level0Second
  * @template C extends Level0Component = Level0Millisecond
  */
-export class Level0Duration {
-  /**
-   * @readonly
-   * @type number
-   */
-  millis
-
+export class Level0Duration extends Level0Component {
   /**
    * @param {Level0DurationSpec|number} spec
    */
@@ -40,69 +42,27 @@ export class Level0Duration {
     seconds: new Date().getSeconds(),
     milliseconds: new Date().getMilliseconds()
   }) {
-    const years = spec.years
-    const months = spec.months
-    const days = spec.days
-    const hours = spec.hours
-    const minutes = spec.minutes
-    const seconds = spec.seconds
-    this.millis = typeof spec === "number" ? spec :
-      +(years ? years * GregorianCalendar.year.duration : 0)
-      + (months ? months * GregorianCalendar.month.duration : 0)
-      + (days ? days * GregorianCalendar.day.duration : 0)
-      + (hours ? hours * GregorianCalendar.hour.duration : 0)
-      + (minutes ? minutes * GregorianCalendar.minute.duration : 0)
-      + (seconds ? seconds * GregorianCalendar.second.duration : 0)
+    super({
+      value: typeof spec === "number" ? spec :
+        +(spec.years ? spec.years * GregorianCalendar.year.duration : 0)
+        + (spec.months ? spec.months * GregorianCalendar.month.duration : 0)
+        + (spec.days ? spec.days * GregorianCalendar.day.duration : 0)
+        + (spec.hours ? spec.hours * GregorianCalendar.hour.duration : 0)
+        + (spec.minutes ? spec.minutes * GregorianCalendar.minute.duration : 0)
+        + (spec.seconds ? spec.seconds * GregorianCalendar.second.duration : 0)
+    }, new CalendarUnit("millisecond", 0, Number.MAX_SAFE_INTEGER, undefined))
   }
 
-  toString () {
-    let string = "P"
-    let millis = this.millis
-    const yearDuration = millis / GregorianCalendar.year.duration
-    const years = Math.floor(yearDuration)
-    if (years > 0) {
-      string += years + "Y"
-      millis -= GregorianCalendar.year.duration
-    }
-    const monthDuration = millis / GregorianCalendar.month.duration
-    const months = Math.floor(monthDuration)
-    if (months > 0) {
-      string += months + "MM"
-      millis -= GregorianCalendar.month.duration
-    }
-    const dayDuration = millis / GregorianCalendar.day.duration
-    const days = Math.floor(dayDuration)
-    if (days > 0) {
-      string += days + "D"
-      millis -= GregorianCalendar.day.duration
-    }
-    const hourDuration = millis / GregorianCalendar.hour.duration
-    const hours = Math.floor(hourDuration)
-    if (hours > 0) {
-      string += hours + "H"
-      millis -= GregorianCalendar.hour.duration
-    }
-    const minuteDuration = millis / GregorianCalendar.minute.duration
-    const minutes = Math.floor(minuteDuration)
-    if (minutes > 0) {
-      string += minutes + "M"
-      millis -= GregorianCalendar.minute.duration
-    }
-    const secondDuration = millis / GregorianCalendar.second.duration
-    const seconds = Math.floor(secondDuration)
-    if (seconds > 0) {
-      string += seconds + "S"
-      // millis -= GregorianCalendar.second.duration
-    }
-    return string
+  toString (renderer = Level0DurationRenderer.instance) {
+    return renderer.render(this)
   }
 
   /**
    * @param {string} str
+   * @param {Level0DurationParser} [parser]
    * @return {Level0Duration}
    */
-  static fromString (str) {
-    const parser = new Level0DurationParser()
+  static fromString (str, parser = new Level0DurationParser()) {
     return new Level0Duration(parser.parse(str))
   }
 
