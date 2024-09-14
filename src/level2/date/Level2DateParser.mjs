@@ -35,7 +35,7 @@ export default class Level2DateParser extends Level1DateParser {
         RegExpFormat.group(RegExpFormat.groupName(prefix, Level2DateParser.monthGroup), Level2MonthParser.format(prefix)),
         RegExpFormat.optionalNonCapturingGroup("-",
           RegExpFormat.group(RegExpFormat.groupName(prefix, Level2DateParser.dayGroup), Level2DayParser.format(prefix)),
-          RegExpFormat.optionalNonCapturingGroup("T",
+          RegExpFormat.optionalNonCapturingGroup("[T ]",
             RegExpFormat.group(RegExpFormat.groupName(prefix, Level2DateParser.hourGroup), Level2HourParser.format(prefix)), ":", RegExpFormat.group(RegExpFormat.groupName(prefix, Level2DateParser.minuteGroup), Level2MinuteParser.format(prefix)),
             RegExpFormat.optionalNonCapturingGroup(":", RegExpFormat.group(RegExpFormat.groupName(prefix, Level2DateParser.secondGroup), Level2SecondParser.format(prefix))),
             RegExpFormat.optionalGroup(RegExpFormat.groupName(prefix, Level2DateParser.timeshiftGroup), Level2TimeshiftParser.format(prefix))

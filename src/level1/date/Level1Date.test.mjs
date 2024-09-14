@@ -46,15 +46,28 @@ describe("Level1", () => {
       assert.equal(certainDay.approximate, false)
     })
 
-    test("year, month, day and time", () => {
-      const certainTime = Level1Date.fromString("1985-04-12T08:56")
-      level1Assert(certainTime.year, 1985)
-      level1Assert(certainTime.month, 4)
-      level1Assert(certainTime.day, 12)
-      level1Assert(certainTime.hour, 8)
-      level1Assert(certainTime.minute, 56)
-      assert.equal(certainTime.uncertain, false)
-      assert.equal(certainTime.approximate, false)
+    describe("year, month, day and time", () => {
+      test("with 'T' time separator", () => {
+        const certainTime = Level1Date.fromString("1985-04-12T08:56")
+        level1Assert(certainTime.year, 1985)
+        level1Assert(certainTime.month, 4)
+        level1Assert(certainTime.day, 12)
+        level1Assert(certainTime.hour, 8)
+        level1Assert(certainTime.minute, 56)
+        assert.equal(certainTime.uncertain, false)
+        assert.equal(certainTime.approximate, false)
+      })
+
+      test("with space time separator", () => {
+        const certainTime = Level1Date.fromString("1985-04-12 08:56")
+        level1Assert(certainTime.year, 1985)
+        level1Assert(certainTime.month, 4)
+        level1Assert(certainTime.day, 12)
+        level1Assert(certainTime.hour, 8)
+        level1Assert(certainTime.minute, 56)
+        assert.equal(certainTime.uncertain, false)
+        assert.equal(certainTime.approximate, false)
+      })
     })
 
     test("year, month, day and UTC time", () => {

@@ -45,10 +45,10 @@ export class Level2Date extends Level1Date {
 
   /**
    * @param {string} str An EDTF level 0-1 string
+   * @param {Level2DateParser} parser
    * @return {Level2Date}
    */
-  static fromString (str) {
-    const parser = new Level2DateParser()
+  static fromString (str, parser = new Level2DateParser()) {
     const spec = parser.parse(str)
     return new Level2Date(spec)
   }
