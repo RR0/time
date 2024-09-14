@@ -6,18 +6,30 @@ import { level2Assert } from "../component/Level2TestUtil.mjs"
 
 describe("Level2", () => {
 
-  describe("certain and precise", () => {
+  test("default", () => {
+    const current = Level2Date.newInstance()
+    assert.notStrictEqual(current.year.value, undefined)
+    assert.notStrictEqual(current.month.value, undefined)
+    assert.notStrictEqual(current.day.value, undefined)
+    assert.notStrictEqual(current.hour.value, undefined)
+    assert.notStrictEqual(current.minute.value, undefined)
+    assert.notStrictEqual(current.second.value, undefined)
+    assert.notStrictEqual(current.timeshift, undefined)
+    current.year = undefined
+    assert.strictEqual(current.year, undefined)
+    current.month = undefined
+    assert.strictEqual(current.month, undefined)
+    current.day = undefined
+    assert.strictEqual(current.day, undefined)
+    current.hour = undefined
+    assert.strictEqual(current.hour, undefined)
+    current.minute = undefined
+    assert.strictEqual(current.minute, undefined)
+    current.second = undefined
+    assert.strictEqual(current.second, undefined)
+  })
 
-    test("year", () => {
-      const current = Level2Date.newInstance()
-      assert.notStrictEqual(current.year.value, undefined)
-      assert.notStrictEqual(current.month.value, undefined)
-      assert.notStrictEqual(current.day.value, undefined)
-      assert.notStrictEqual(current.hour.value, undefined)
-      assert.notStrictEqual(current.minute.value, undefined)
-      assert.notStrictEqual(current.second.value, undefined)
-      assert.notStrictEqual(current.timeshift, undefined)
-    })
+  describe("certain and precise", () => {
 
     test("year", () => {
       const certainYear = Level2Date.fromString("1985")
@@ -47,7 +59,7 @@ describe("Level2", () => {
     })
 
     describe("year, month, day and time", () => {
-      
+
       test("with 'T' time separator", () => {
         const certainTime = Level2Date.fromString("1985-04-12T08:56")
         level2Assert(certainTime.year, 1985)

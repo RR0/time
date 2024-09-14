@@ -46,7 +46,7 @@ export class Level0Date {
    * @param {Level0Year|number|undefined} value
    */
   set year (value) {
-    if (this.#year) {
+    if (this.#year && value) {
       this.#year.value = value
     } else {
       this.#year = typeof value === "number" ? this.newYear(value) : value
@@ -78,7 +78,7 @@ export class Level0Date {
    * @param {Level0Month|number|undefined} value
    */
   set month (value) {
-    if (this.#month) {
+    if (this.#month && value) {
       this.#month.value = value
     } else {
       this.#month = typeof value === "number" ? this.newMonth(value) : value
@@ -110,7 +110,7 @@ export class Level0Date {
    * @param {Level0Day|number|undefined} value
    */
   set day (value) {
-    if (this.#day) {
+    if (this.#day && value) {
       this.#day.value = value
     } else {
       this.#day = typeof value === "number" ? this.newDay(value) : value
@@ -142,7 +142,7 @@ export class Level0Date {
    * @param {Level0Hour|number|undefined} value
    */
   set hour (value) {
-    if (this.#hour) {
+    if (this.#hour && value) {
       this.#hour.value = value
     } else {
       this.#hour = typeof value === "number" ? this.newHour(value) : value
@@ -174,7 +174,7 @@ export class Level0Date {
    * @param {Level0Minute|number|undefined} value
    */
   set minute (value) {
-    if (this.#minute) {
+    if (this.#minute && value) {
       this.#minute.value = value
     } else {
       this.#minute = typeof value === "number" ? this.newMinute(value) : value
@@ -206,7 +206,7 @@ export class Level0Date {
    * @param {Level0Second|number|undefined} value
    */
   set second (value) {
-    if (this.#second) {
+    if (this.#second && value) {
       this.#second.value = value
     } else {
       this.#second = typeof value === "number" ? this.newSecond(value) : value
@@ -239,7 +239,7 @@ export class Level0Date {
    * @param {Level0Timeshift|number|undefined} value
    */
   set timeshift (value) {
-    if (this.#timeshift) {
+    if (this.#timeshift && value) {
       this.#timeshift.value = value
     } else {
       this.#timeshift = typeof value === "number" ? new Level0Timeshift(value) : value

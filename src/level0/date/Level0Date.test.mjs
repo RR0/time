@@ -15,6 +15,18 @@ describe("Level0Date", () => {
     assert.notStrictEqual(current.minute.value, undefined)
     assert.notStrictEqual(current.second.value, undefined)
     assert.notStrictEqual(current.timeshift, undefined)
+    current.year = undefined
+    assert.strictEqual(current.year, undefined)
+    current.month = undefined
+    assert.strictEqual(current.month, undefined)
+    current.day = undefined
+    assert.strictEqual(current.day, undefined)
+    current.hour = undefined
+    assert.strictEqual(current.hour, undefined)
+    current.minute = undefined
+    assert.strictEqual(current.minute, undefined)
+    current.second = undefined
+    assert.strictEqual(current.second, undefined)
   })
 
   describe("parsing", () => {
