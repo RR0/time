@@ -55,16 +55,31 @@ describe("Level0Date", () => {
       assert.equal(certain.toString(), str)
     })
 
-    test("year, month, day and local time", () => {
-      const str = "1985-04-12T08:56"
-      const certain = Level0Date.fromString(str)
-      assert.equal(certain.year.value, 1985)
-      assert.equal(certain.month.value, 4)
-      assert.equal(certain.day.value, 12)
-      assert.equal(certain.hour.value, 8)
-      assert.equal(certain.minute.value, 56)
-      assert.equal(certain.timeshift, undefined)
-      assert.equal(certain.toString(), str)
+    describe("year, month, day and local time", () => {
+
+      test("with 'T' time separator", () => {
+        const str = "1985-04-12T08:56"
+        const certain = Level0Date.fromString(str)
+        assert.equal(certain.year.value, 1985)
+        assert.equal(certain.month.value, 4)
+        assert.equal(certain.day.value, 12)
+        assert.equal(certain.hour.value, 8)
+        assert.equal(certain.minute.value, 56)
+        assert.equal(certain.timeshift, undefined)
+        assert.equal(certain.toString(), str)
+      })
+
+      test("with space time separator", () => {
+        const str = "1985-04-12 08:56"
+        const certain = Level0Date.fromString(str)
+        assert.equal(certain.year.value, 1985)
+        assert.equal(certain.month.value, 4)
+        assert.equal(certain.day.value, 12)
+        assert.equal(certain.hour.value, 8)
+        assert.equal(certain.minute.value, 56)
+        assert.equal(certain.timeshift, undefined)
+        assert.equal(certain.toString(), str.replace(" ", "T"))
+      })
     })
 
     test("year, month, day, and UTC time", () => {

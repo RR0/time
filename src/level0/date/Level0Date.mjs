@@ -31,7 +31,7 @@ import { Level0DateRenderer } from "./Level0DateRenderer.mjs"
  */
 export class Level0Date {
   /**
-   * @type {Y|undefined}
+   * @type {Level0Year|undefined}
    */
   #year
 
@@ -43,7 +43,7 @@ export class Level0Date {
   }
 
   /**
-   * @param {Y|number|undefined} value
+   * @param {Level0Year|number|undefined} value
    */
   set year (value) {
     if (this.#year) {
@@ -75,7 +75,7 @@ export class Level0Date {
   }
 
   /**
-   * @param {MM|number|undefined} value
+   * @param {Level0Month|number|undefined} value
    */
   set month (value) {
     if (this.#month) {
@@ -88,14 +88,14 @@ export class Level0Date {
   /**
    * @protected
    * @param {number} value
-   * @return {MM}
+   * @return {Level0Month}
    */
   newMonth (value) {
     return new Level0Month(value)
   }
 
   /**
-   * @type {D|undefined}
+   * @type {Level0Day|undefined}
    */
   #day
 
@@ -107,7 +107,7 @@ export class Level0Date {
   }
 
   /**
-   * @param {D|number|undefined} value
+   * @param {Level0Day|number|undefined} value
    */
   set day (value) {
     if (this.#day) {
@@ -120,14 +120,14 @@ export class Level0Date {
   /**
    * @protected
    * @param {number} value
-   * @return {D}
+   * @return {Level0Day}
    */
   newDay (value) {
     return new Level0Day(value)
   }
 
   /**
-   * @type {H|undefined}
+   * @type {Level0Hour|undefined}
    */
   #hour
 

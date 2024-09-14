@@ -45,7 +45,7 @@ export class Level0DateParser extends EDTFParser {
         RegExpFormat.group(RegExpFormat.groupName(prefix, monthGroup), Level0MonthParser.format(prefix)),
         RegExpFormat.optionalNonCapturingGroup("-",
           RegExpFormat.group(RegExpFormat.groupName(prefix, dayGroup), Level0DayParser.format(prefix)),
-          RegExpFormat.optionalNonCapturingGroup("T",
+          RegExpFormat.optionalNonCapturingGroup("[T ]",
             RegExpFormat.group(RegExpFormat.groupName(prefix, hourGroup), Level0HourParser.format(prefix)), ":", RegExpFormat.group(RegExpFormat.groupName(prefix, minuteGroup), Level0MinuteParser.format(prefix)),
             RegExpFormat.optionalNonCapturingGroup(":", RegExpFormat.group(RegExpFormat.groupName(prefix, secondGroup), Level0SecondParser.format(prefix))),
             RegExpFormat.optionalGroup(RegExpFormat.groupName(prefix, timeshiftGroup), Level0TimeshiftParser.format(prefix))
