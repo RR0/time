@@ -1,5 +1,6 @@
 import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
 import { EDTFParser } from "../../EDTFParser.mjs"
+import { timeZones } from "./TimeZones.mjs"
 
 const name = "timeshiftValue"
 const shiftHourGroup = `shiftHour`
@@ -8,10 +9,10 @@ const shiftMinuteGroup = `shiftMinute`
 export class Level0TimeshiftParser extends EDTFParser {
 
   static format (prefix = "") {
-    return "Z|"
+    return timeZones.map(timeZone => timeZone.name).join("|") + "|"
       + RegExpFormat.nonCapturingGroup(
         RegExpFormat.group(prefix + shiftHourGroup, RegExpFormat.numberGroup(RegExpFormat.groupName(prefix, name), "{2}", "[+-]")),
-        RegExpFormat.optionalNonCapturingGroup(":", RegExpFormat.numberGroup(RegExpFormat.groupName(prefix, shiftMinuteGroup), "{2}", undefined))
+        RegExpFormat.optionalNonCapturingGroup(":?", RegExpFormat.numberGroup(RegExpFormat.groupName(prefix, shiftMinuteGroup), "{2}", undefined))
       )
   }
 
@@ -25,6 +26,10 @@ export class Level0TimeshiftParser extends EDTFParser {
    */
   parse (str) {
     let shiftMinutes = 0
+    const tz = timeZones.find(timeZone => timeZone.name === str)
+    if (tz) {
+      str = tz.timeshift
+    }
     if (str !== "Z") {
       const groups = this.regexGroups(str)
       const hourStr = groups[shiftHourGroup]

@@ -22,23 +22,26 @@ export class Level0Timeshift {
 
   /**
    * @param {number} value
-   * @param {TimeshiftRenderer} renderer
    */
-  constructor (value = 0, renderer = new DefaultTimeshiftRenderer()) {
+  constructor (value = 0) {
     this.value = value
-    this.renderer = renderer
   }
 
-  toString () {
-    return this.renderer.render(this)
+  /**
+   * @param {TimeshiftRenderer} renderer
+   * @return {string}
+   */
+  toString (renderer = new DefaultTimeshiftRenderer()) {
+    return renderer.render(this)
   }
 
   /**
    * @param {string} str
+   * @param {Level0TimeshiftParser} parser
    * @return {Level0Timeshift}
    */
-  static fromString (str) {
-    const parser = new Level0TimeshiftParser()
-    return new Level0Timeshift(parser.parse(str))
+  static fromString (str, parser = new Level0TimeshiftParser()) {
+    const groups = parser.parse(str)
+    return new Level0Timeshift(groups)
   }
 }

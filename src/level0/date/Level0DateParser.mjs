@@ -36,8 +36,8 @@ const timeshiftGroup = `timeshift`
  */
 export class Level0DateParser extends EDTFParser {
   /**
-   * &param {string} prefix
-   * @return string
+   * &param {string} prefix to distinguish dates fields in intervals, typically.
+   * @return string The RegExp pattern.
    */
   static format (prefix = "") {
     return RegExpFormat.group(RegExpFormat.groupName(prefix, yearGroup), Level0YearParser.format(prefix))
@@ -46,8 +46,9 @@ export class Level0DateParser extends EDTFParser {
         RegExpFormat.optionalNonCapturingGroup("-",
           RegExpFormat.group(RegExpFormat.groupName(prefix, dayGroup), Level0DayParser.format(prefix)),
           RegExpFormat.optionalNonCapturingGroup("[T ]",
-            RegExpFormat.group(RegExpFormat.groupName(prefix, hourGroup), Level0HourParser.format(prefix)), ":", RegExpFormat.group(RegExpFormat.groupName(prefix, minuteGroup), Level0MinuteParser.format(prefix)),
+            RegExpFormat.group(RegExpFormat.groupName(prefix, hourGroup), Level0HourParser.format(prefix)), ":?", RegExpFormat.group(RegExpFormat.groupName(prefix, minuteGroup), Level0MinuteParser.format(prefix)),
             RegExpFormat.optionalNonCapturingGroup(":", RegExpFormat.group(RegExpFormat.groupName(prefix, secondGroup), Level0SecondParser.format(prefix))),
+            "\\s*",
             RegExpFormat.optionalGroup(RegExpFormat.groupName(prefix, timeshiftGroup), Level0TimeshiftParser.format(prefix))
           )
         )

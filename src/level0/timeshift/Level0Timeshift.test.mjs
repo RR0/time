@@ -4,9 +4,13 @@ import { Level0Timeshift } from "./Level0Timeshift.mjs"
 
 describe("Level0Timeshift", () => {
 
-  test("UTC", () => {
-    const timeshift = Level0Timeshift.fromString("Z")
-    assert.equal(timeshift.value, 0)
+  test("Timezones", () => {
+    const utc = Level0Timeshift.fromString("Z")
+    assert.equal(utc.value, 0)
+    const edt = Level0Timeshift.fromString("EDT")
+    assert.equal(edt.value, -4 * 60)
+    const cet = Level0Timeshift.fromString("CET")
+    assert.equal(cet.value, +1 * 60)
   })
 
   test("toString", () => {
@@ -32,10 +36,14 @@ describe("Level0Timeshift", () => {
   test("positive hour and minutes", () => {
     const timeshift = Level0Timeshift.fromString("+05:30")
     assert.equal(timeshift.value, 5 * 60 + 30)
+    const timeshift2 = Level0Timeshift.fromString("+0530")
+    assert.equal(timeshift2.value, 5 * 60 + 30)
   })
 
   test("negative hour and minutes", () => {
     const timeshift = Level0Timeshift.fromString("-05:30")
     assert.equal(timeshift.value, -5 * 60 + 30)
+    const timeshift2 = Level0Timeshift.fromString("-0530")
+    assert.equal(timeshift2.value, -5 * 60 + 30)
   })
 })

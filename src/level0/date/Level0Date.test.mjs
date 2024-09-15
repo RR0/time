@@ -92,6 +92,18 @@ describe("Level0Date", () => {
         assert.equal(certain.timeshift, undefined)
         assert.equal(certain.toString(), str.replace(" ", "T"))
       })
+
+      test("with no time separator", () => {
+        const str = "1985-04-12 0856"
+        const certain = Level0Date.fromString(str)
+        assert.equal(certain.year.value, 1985)
+        assert.equal(certain.month.value, 4)
+        assert.equal(certain.day.value, 12)
+        assert.equal(certain.hour.value, 8)
+        assert.equal(certain.minute.value, 56)
+        assert.equal(certain.timeshift, undefined)
+        assert.equal(certain.toString(), "1985-04-12T08:56")
+      })
     })
 
     test("year, month, day, and UTC time", () => {
@@ -116,6 +128,10 @@ describe("Level0Date", () => {
       assert.equal(certain.minute.value, 56)
       assert.equal(certain.timeshift.value, -5 * 60)
       assert.equal(certain.toString(), str)
+      const cdt = Level0Date.fromString("1985-04-12T08:56CDT")
+      assert.equal(cdt.toString(), str)
+      const cdtSpace = Level0Date.fromString("1985-04-12T08:56 CDT")
+      assert.equal(cdtSpace.toString(), str)
     })
 
     test("year, month, day, and +5:30 time shift", () => {
