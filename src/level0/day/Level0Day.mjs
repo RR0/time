@@ -21,6 +21,7 @@ export class Level0Day extends Level0Component {
    * @return {Level0Day}
    */
   static fromString (str, parser = new Level0DayParser()) {
-    return new Level0Day(parser.parse(str))
+    const parsed = parser.parse(str)
+    return new Level0Day(parsed)
   }
 }

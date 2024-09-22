@@ -40,11 +40,12 @@ export class Level2Duration extends Level1Duration {
 
   /**
    * @param {string} str The duration string to parse.
-   * @param {Level2DurationParser} [parser]
+   * @param {Level2DurationParser} [parser] The parser to use.
    * @return {Level2Duration}
    */
   static fromString (str, parser = new Level2DurationParser()) {
-    return new Level2Duration(parser.parse(str))
+    const parsed = parser.parse(str)
+    return new Level2Duration(parsed)
   }
 
   /**

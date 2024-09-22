@@ -30,6 +30,14 @@ export class Level0ComponentParser extends EDTFParser {
   }
 
   /**
+   * @protected
+   * @param {{ [p: string]: string }} groups
+   */
+  parseGroups (groups) {
+    return Level0ComponentParser.read(groups[this.name])
+  }
+
+  /**
    * @param {string} str
    * @return {Level0YearParseResult}
    */
@@ -37,7 +45,6 @@ export class Level0ComponentParser extends EDTFParser {
     if (str.startsWith("-")) {
       throw new EDTFError(`${this.name} cannot be negative`)
     }
-    const groups = this.regexGroups(str)
-    return Level0ComponentParser.read(groups[this.name])
+    return super.parse(str)
   }
 }

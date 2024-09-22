@@ -90,13 +90,7 @@ export class Level1DateParser extends EDTFParser {
     super("date", format)
   }
 
-  /**
-   * @protected
-   * @param {string} str An EDTF level 1 string.
-   * @return {{year: Y, month: M, day: D, hour: H, minute: M, timeshift: Z}}
-   */
-  parse (str) {
-    const groups = this.regexGroups(str)
+  parseGroups(groups) {
     const timeshiftStr = groups[Level1DateParser.timeshiftGroup]
     const timeshift = timeshiftStr ? Level1Timeshift.fromString(timeshiftStr) : undefined
     const secondStr = groups[Level1DateParser.secondGroup]

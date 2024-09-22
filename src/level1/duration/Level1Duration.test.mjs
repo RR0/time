@@ -49,6 +49,11 @@ describe("Duration", () => {
       const durationMs = Level1Duration.fromString(`P${seconds}S?`)
       level1Assert(durationMs, seconds * GregorianCalendar.second.duration, true)
     })
+
+    test("approximate", () => {
+      const durationMs = Level1Duration.fromString(`P${seconds}S~`)
+      level1Assert(durationMs, seconds * GregorianCalendar.second.duration, false, true)
+    })
   })
 
   describe("programmatic", () => {

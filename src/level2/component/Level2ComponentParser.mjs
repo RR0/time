@@ -33,6 +33,15 @@ export class Level2ComponentParser extends Level1ComponentParser {
       + Level1ComponentParser.numberFormat(name, count, prefix)
   }
 
+  /**
+   * @param {string} name
+   * @param {string} format
+   * @return {number}
+   */
+  constructor (name, format) {
+    super(name, format)
+  }
+
   parseGroups (groups) {
     const result = super.parseGroups(groups)
     const uncertainAndApproximate = groups[RegExpFormat.groupName(Level2ComponentParser.uncertainAndApproximateGroup, this.name)]

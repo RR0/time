@@ -16,6 +16,8 @@ import { Level2MinuteParser } from "../minute/Level2MinuteParser.mjs"
 import { Level2TimeshiftParser } from "../timeshift/Level2TimeshiftParser.mjs"
 
 /**
+ * Parses date strings in the EDTF/ISO-8601 level 2 format.
+ *
  * @template Y extends Level1Year
  * @template M extends Level1Month
  * @template D extends Level1Day
@@ -48,17 +50,16 @@ export default class Level2DateParser extends Level1DateParser {
     super(Level2DateParser.format(), "date")
   }
 
-  /**
-   * @protected
-   * @param {string} str An EDTF level 1 string.
-   * @return {{year: Y, month: M, day: D, hour: H, minute: M, timeshift: Z}}
-   */
-  parse (str) {
-    const groups = this.regexGroups(str)
+  parseGroups (groups) {
     const timeshiftStr = groups[Level2DateParser.timeshiftGroup]
     const timeshift = timeshiftStr ? Level2Timeshift.fromString(timeshiftStr) : undefined
     const secondStr = groups[Level2DateParser.secondGroup]
-    const second = secondStr ? Level2Second.fromString(secondStr) : undefined
+    let second
+    if (secondStr) {
+      second = Level2Second.fromString(secondStr)
+      second.uncertain = second?.uncertain || false
+      second.approximate = second?.approximate || false
+    }
     const minuteStr = groups[Level2DateParser.minuteGroup]
     let minute
     if (minuteStr) {

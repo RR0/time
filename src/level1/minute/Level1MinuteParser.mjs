@@ -13,6 +13,6 @@ export class Level1MinuteParser extends Level1ComponentParser {
   }
 
   constructor () {
-    super(Level1MinuteParser.format(), name)
+    super(name, Level1MinuteParser.format())
   }
 }

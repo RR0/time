@@ -20,7 +20,7 @@ export class Level2YearParser extends Level2ComponentParser {
   }
 
   constructor () {
-    super(Level2YearParser.format(), name)
+    super(name, Level2YearParser.format())
   }
 
   parseGroups (groups) {

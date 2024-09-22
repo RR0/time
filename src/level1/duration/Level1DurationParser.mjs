@@ -35,13 +35,12 @@ export class Level1DurationParser extends Level1ComponentParser {
   }
 
   constructor () {
-    super(Level1DurationParser.format(), "duration")
+    super("duration", Level1DurationParser.format())
   }
 
   /**
-   *
-   * @param groups
-   * @return {Level0DurationParseResult}
+   * @protected
+   * @param {{ [p: string]: string }} groups
    */
   parseGroups (groups) {
     return {
@@ -54,14 +53,5 @@ export class Level1DurationParser extends Level1ComponentParser {
       uncertain: Boolean(groups[Level1ComponentParser.uncertainGroup]),
       approximate: Boolean(groups[Level1ComponentParser.approximateGroup])
     }
-  }
-
-  /**
-   * @param {string} str
-   * @return {Level0DurationParseResult}
-   */
-  parse (str) {
-    const groups = this.regexGroups(str)
-    return this.parseGroups(groups)
   }
 }

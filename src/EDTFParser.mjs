@@ -36,10 +36,18 @@ export class EDTFParser {
 
   /**
    * @abstract
+   * @param {{[p: string]: string}} groups
+   */
+  parseGroups (groups) {
+    throw new EDTFError(`${this.constructor.name} is abstract`)
+  }
+
+  /**
    * @param {string} str
    * @return {P}
    */
   parse (str) {
-    throw new EDTFError(`${this.constructor.name} is abstract`)
+    const groups = this.regexGroups(str)
+    return this.parseGroups(groups)
   }
 }

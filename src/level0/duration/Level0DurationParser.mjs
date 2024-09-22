@@ -52,13 +52,4 @@ export class Level0DurationParser extends EDTFParser {
       seconds: groups[secondsGroup]
     }
   }
-
-  /**
-   * @param {string} str
-   * @return {Level0DurationParseResult}
-   */
-  parse (str) {
-    const groups = this.regexGroups(str)
-    return this.parseGroups(groups)
-  }
 }

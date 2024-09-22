@@ -5,6 +5,7 @@ import { Level2Duration } from "./Level2Duration.mjs"
 import { GregorianCalendar } from "../../calendar/index.mjs"
 import { Level0ComponentRenderer } from "../../level0/component/Level0ComponentRenderer.mjs"
 import { Level2Date } from "../date/index.mjs"
+import { level1Assert } from "../../level1/component/Level1TestUtil.mjs"
 
 describe("Duration", () => {
 
@@ -37,11 +38,16 @@ describe("Duration", () => {
 
   describe("parsing", () => {
 
+    const seconds = 3
+
     test("in seconds", () => {
-      const seconds = 3
-      const toString = `P${seconds}S`
-      const durationMs = Level2Duration.fromString(toString)
+      const durationMs = Level2Duration.fromString(`P${seconds}S`)
       assert.equal(durationMs.value, seconds * GregorianCalendar.second.duration)
+    })
+
+    test("approximate component", () => {
+      const durationMs = Level2Duration.fromString(`P~${seconds}S`)
+      level1Assert(durationMs, seconds * GregorianCalendar.second.duration, false, true)
     })
   })
 

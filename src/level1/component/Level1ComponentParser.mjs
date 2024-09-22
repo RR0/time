@@ -59,19 +59,14 @@ export class Level1ComponentParser extends Level0ComponentParser {
   }
 
   /**
+   * @param {string} name
    * @param {string} format
-   * @param {string} [name]
    * @return {number}
    */
-  constructor (format, name) {
+  constructor (name, format) {
     super(name, format)
   }
 
-  /**
-   * @protected
-   * @param groups
-   * @return {Level1YearParseResult}
-   */
   parseGroups (groups) {
     const { valueStr, sign } = this.getValueAndSign(groups)
     let value = 0
@@ -119,10 +114,6 @@ export class Level1ComponentParser extends Level0ComponentParser {
     return { valueStr, sign }
   }
 
-  /**
-   * @param {string} str The EDTF string.
-   * @return {Level1YearParseResult}
-   */
   parse (str) {
     const groups = this.regexGroups(str)
     return this.parseGroups(groups)

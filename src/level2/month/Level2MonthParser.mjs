@@ -13,6 +13,6 @@ export class Level2MonthParser extends Level2ComponentParser {
   }
 
   constructor () {
-    super(Level2MonthParser.format(), name)
+    super(name, Level2MonthParser.format())
   }
 }

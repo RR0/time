@@ -3,6 +3,8 @@ import { Level1Year } from "../year/index.mjs"
 import { Level1Component } from "../component/index.mjs"
 import { CalendarUnit, GregorianCalendar } from "../../calendar/index.mjs"
 import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
+import { Level1DateParser } from "../date/Level1DateParser.mjs"
+import { Level1ComponentParser } from "../component/Level1ComponentParser.mjs"
 
 /**
  * @typedef {Object} Level1DurationSpec
@@ -32,29 +34,64 @@ export class Level1Duration extends Level1Component {
    */
   constructor (spec = {
     value: {
-      years: new Date().getFullYear(),
-      months: new Date().getMonth(),
-      days: new Date().getDate(),
-      hours: new Date().getHours(),
-      minutes: new Date().getMinutes(),
+      milliseconds: new Date().getMilliseconds(),
       seconds: new Date().getSeconds(),
-      milliseconds: new Date().getMilliseconds()
+      minutes: new Date().getMinutes(),
+      hours: new Date().getHours(),
+      days: new Date().getDate(),
+      months: new Date().getMonth(),
+      years: new Date().getFullYear()
     }
   }) {
     super(
       typeof spec === "number" ? spec :
         {
-          value: (spec.years ? spec.years * GregorianCalendar.year.duration : 0)
-            + (spec.months ? spec.months * GregorianCalendar.month.duration : 0)
-            + (spec.days ? spec.days * GregorianCalendar.day.duration : 0)
-            + (spec.hours ? spec.hours * GregorianCalendar.hour.duration : 0)
-            + (spec.minutes ? spec.minutes * GregorianCalendar.minute.duration : 0)
-            + (spec.seconds ? spec.seconds * GregorianCalendar.second.duration : 0),
-          uncertain: spec.uncertain || false,
-          approximate: spec.approximate || false
+          value: Level1Duration.getValue(spec, Level1DateParser.yearGroup)
+            + Level1Duration.getValue(spec, Level1DateParser.monthGroup)
+            + Level1Duration.getValue(spec, Level1DateParser.dayGroup)
+            + Level1Duration.getValue(spec, Level1DateParser.hourGroup)
+            + Level1Duration.getValue(spec, Level1DateParser.minuteGroup)
+            + Level1Duration.getValue(spec, Level1DateParser.secondGroup),
+          uncertain: Level1Duration.getBoolean(spec, Level1ComponentParser.uncertainGroup),
+          approximate: Level1Duration.getBoolean(spec, "approximate")
         },
       new CalendarUnit("millisecond", 0, Number.MAX_SAFE_INTEGER, undefined)
     )
+  }
+
+  /**
+   * @protected
+   * @param spec
+   * @param {string} durCompName
+   * @return {boolean}
+   */
+  static getBoolean (spec, durCompName) {
+    return spec[durCompName]
+      || (spec[Level1DateParser.yearGroup + "s"])?.[durCompName]
+      || (spec[Level1DateParser.monthGroup + "s"])?.[durCompName]
+      || (spec[Level1DateParser.dayGroup + "s"])?.[durCompName]
+      || (spec[Level1DateParser.hourGroup + "s"])?.[durCompName]
+      || (spec[Level1DateParser.minuteGroup + "s"])?.[durCompName]
+      || (spec[Level1DateParser.secondGroup + "s"])?.[durCompName]
+      || false
+  }
+
+  /**
+   * @protected
+   * @param spec
+   * @param {string} durCompName
+   * @return {number}
+   */
+  static getValue (spec, durCompName) {
+    let time = 0
+    let durationValue = spec[durCompName + "s"]
+    if (durationValue instanceof Level1Component) {
+      durationValue = durationValue.value
+    }
+    if (durationValue) {
+      time = durationValue * GregorianCalendar[durCompName].duration
+    }
+    return time
   }
 
   toString (renderer = Level1DurationRenderer.instance) {
@@ -67,7 +104,8 @@ export class Level1Duration extends Level1Component {
    * @return {Level1Duration}
    */
   static fromString (str, parser = new Level1DurationParser()) {
-    return new Level1Duration(parser.parse(str))
+    const parsed = parser.parse(str)
+    return new Level1Duration(parsed)
   }
 
   /**
