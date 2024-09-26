@@ -24,31 +24,31 @@ export class Level0DurationRenderer {
     const years = Math.floor(yearDuration)
     if (years > 0) {
       string += new Level0Year(years).toString() + "Y"
-      millis -= GregorianCalendar.year.duration
+      millis -= years * GregorianCalendar.year.duration
     }
     const monthDuration = millis / GregorianCalendar.month.duration
     const months = Math.floor(monthDuration)
     if (months > 0) {
-      string += new Level0Month(months, Level0ComponentRenderer.instance).toString() + "MM"
-      millis -= GregorianCalendar.month.duration
+      string += new Level0Month(months).toString(Level0ComponentRenderer.instance) + "MM"
+      millis -= months * GregorianCalendar.month.duration
     }
     const dayDuration = millis / GregorianCalendar.day.duration
     const days = Math.floor(dayDuration)
     if (days > 0) {
       string += new Level0Day(days).toString(Level0ComponentRenderer.instance) + "D"
-      millis -= GregorianCalendar.day.duration
+      millis -= days * GregorianCalendar.day.duration
     }
     const hourDuration = millis / GregorianCalendar.hour.duration
     const hours = Math.floor(hourDuration)
     if (hours > 0) {
       string += new Level0Hour(hours).toString(Level0ComponentRenderer.instance) + "H"
-      millis -= GregorianCalendar.hour.duration
+      millis -= hours * GregorianCalendar.hour.duration
     }
     const minuteDuration = millis / GregorianCalendar.minute.duration
     const minutes = Math.floor(minuteDuration)
     if (minutes > 0) {
       string += new Level0Minute(minutes).toString(Level0ComponentRenderer.instance) + "M"
-      millis -= GregorianCalendar.minute.duration
+      millis -= minutes * GregorianCalendar.minute.duration
     }
     const secondDuration = millis / GregorianCalendar.second.duration
     const seconds = Math.floor(secondDuration)

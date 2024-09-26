@@ -2,6 +2,7 @@ import Level0IntervalParser from "./Level0IntervalParser.mjs"
 import { Level0IntervalRenderer } from "./Level0IntervalRenderer.mjs"
 import { Level0Date } from "../date/index.mjs"
 import { EDTFError } from "../../EDTFError.mjs"
+import { Level0Duration } from "../duration/index.mjs"
 
 /**
  * @template S extends Level0Component = Level0Date
@@ -10,9 +11,10 @@ import { EDTFError } from "../../EDTFError.mjs"
 export class Level0Interval {
   /**
    * @readonly
+   * @protected
    * @type {Level0Date|null|undefined}
    */
-  #start
+  _start
 
   /**
    * @param {Level0Date|null|undefined} start
@@ -21,24 +23,25 @@ export class Level0Interval {
     if (typeof start === "string") {
       start = Level0Date.fromString(start)
     }
-    if (start && !(start instanceof Level0Date)) {
-      throw new EDTFError("Interval start is not a date: " + start)
+    if (start && !(start instanceof Level0Date) && !(start instanceof Level0Duration)) {
+      throw new EDTFError("Interval start is not a level 0 date or duration: " + start)
     }
-    this.#start = start
+    this._start = start
   }
 
   /**
    * @return {Level0Date|null|undefined}
    */
   get start() {
-    return this.#start
+    return this._start
   }
 
   /**
+   * @protected
    * @readonly
    * @type {Level0Date|null|undefined}
    */
-  #end
+  _end
 
   /**
    * @param {Level0Date|null|undefined} end
@@ -47,17 +50,17 @@ export class Level0Interval {
     if (typeof end === "string") {
       end = Level0Date.fromString(end)
     }
-    if (end && !(end instanceof Level0Date)) {
-      throw new EDTFError("Interval end is not a date: " + end)
+    if (end && !(end instanceof Level0Date) && !(end instanceof Level0Duration)) {
+      throw new EDTFError("Interval end is not a level 0 date or duration: " + end)
     }
-    this.#end = end
+    this._end = end
   }
 
   /**
    * @return {Level0Date|null|undefined}
    */
   get end() {
-    return this.#end
+    return this._end
   }
 
   /**

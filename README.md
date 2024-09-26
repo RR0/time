@@ -34,9 +34,27 @@ Each data type can be:
 
 ## Examples
 
+The examples below apply for both JavaScript and TypeScript.
+
+### Imports
+To allow using only what you need, the API is exported per level. 
+
+You can import a type from its precise location:
+```js
+import { Level2Date } from "@rr0/time/src/level2/date/Level2Date.mjs"
+```
+or from package root (but it will load all code):
+```js
+import { Level2Date } from "@rr0/time"
+```
+You can also add the alias of your choice to an imported type:
+```js
+import { Level2Date as EdtfDate } from "@rr0/time"
+```
+
 ### Dates
 ```js
-import { Level2Date as EdtfDate } from "@rr0/time/level2/date/index.mjs"
+import { Level2Date as EdtfDate } from "@rr0/time"
 
 const maybeAugust = EdtfDate.fromString("2024-?08-25")
 maybeAugust.month.value // 8

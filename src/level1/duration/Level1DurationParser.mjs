@@ -46,7 +46,7 @@ export class Level1DurationParser extends Level1ComponentParser {
     return {
       years: groups[yearsGroup],
       months: groups[monthsGroup],
-      days: groups[monthsGroup],
+      days: groups[daysGroup],
       hours: groups[hoursGroup],
       minutes: groups[minutesGroup],
       seconds: groups[secondsGroup],

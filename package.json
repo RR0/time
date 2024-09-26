@@ -1,7 +1,7 @@
 {
   "name": "@rr0/time",
   "type": "module",
-  "version": "0.4.1",
+  "version": "0.5.0",
   "author": "RR0 <rr0@rr0.org>",
   "description": "EDTF parsing",
   "main": "src/index.js",
@@ -16,6 +16,13 @@
   "publishConfig": {
     "access": "public"
   },
+  "keywords": [
+    "EDTF",
+    "date",
+    "time",
+    "parsing",
+    "ISO-8601"
+  ],
   "devDependencies": {
     "rimraf": "^6.0.1",
     "typescript": "^5.6.2",
