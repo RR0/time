@@ -56,10 +56,10 @@ export class Level1Interval extends Level0Interval {
 
   /**
    * @param {string} spec
+   * @param {EDTFParser} parser
    * @return {Level1Interval}
    */
-  static fromString (spec) {
-    const parser = /** Level1DateParser<Level1Year, Level1Month, Level1Day> */ new Level1IntervalParser()
+  static fromString (spec, parser = new Level1IntervalParser()) {
     const { start, end } = parser.parse(spec)
     return new Level1Interval(start, end)
   }

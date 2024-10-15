@@ -100,7 +100,7 @@ export class Level1Duration extends Level1Component {
 
   /**
    * @param {string} str The duration string to parse.
-   * @param {Level1DurationParser} [parser]
+   * @param {EDTFParser} [parser]
    * @return {Level1Duration}
    */
   static fromString (str, parser = new Level1DurationParser()) {

@@ -37,7 +37,7 @@ export class Level0Timeshift {
 
   /**
    * @param {string} str
-   * @param {Level0TimeshiftParser} parser
+   * @param {EDTFParser} parser
    * @return {Level0Timeshift}
    */
   static fromString (str, parser = new Level0TimeshiftParser()) {

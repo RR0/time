@@ -1,5 +1,6 @@
 import { EDTFValidator } from "../../calendar/index.mjs"
 import { Level0ComponentRenderer } from "./Level0ComponentRenderer.mjs"
+import { CalendarUnit } from "../../calendar/unit/CalendarUnit.mjs"
 
 /**
  * @typedef {Object} Level0ComponentSpec
@@ -54,7 +55,7 @@ export class Level0Component {
   }
 
   /**
-   * @param {Level0Component} other
+   * @param {this} other
    * @return {boolean}
    */
   isEqual (other) {
@@ -62,7 +63,7 @@ export class Level0Component {
   }
 
   /**
-   * @param other {Level0Component}
+   * @param {this} other
    * @return {boolean}
    */
   isBefore (other) {
@@ -70,7 +71,7 @@ export class Level0Component {
   }
 
   /**
-   * @param other {Level0Component}
+   * @param {this} other
    * @return {boolean}
    */
   isAfter (other) {

@@ -18,7 +18,7 @@ const durationMaxGroup = `durationMax`
  * @template E extends Level1Date
  */
 export default class Level1IntervalParser extends EDTFParser {
-  /**
+  /**<>
    * @type string
    * @readonly
    */

@@ -1,14 +1,18 @@
 import { Level0ComponentParser } from "../../level0/component/Level0ComponentParser.mjs"
+/** @import { Level0ComponentParseResult } from "../../level0/component/Level0ComponentParser.mjs" */
 import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
 
 /**
- * @typedef {Level0YearParseResult} Level1YearParseResult
+ * @typedef {Level0ComponentParseResult} Level1ComponentParseResult
  * @property {number|{start: number, end: number}} value
  * @property {boolean} [uncertain]
  * @property {boolean} [approximate]
  */
 
-export class Level1ComponentParser extends Level0ComponentParser {
+/**
+ * @template P extends Level1YearParseResult = Level1YearParseResult
+ */
+export class Level1ComponentParser extends /** @type {EDTFParser<Level1ComponentParseResult>} */ Level0ComponentParser {
   /**
    * @readonly
    * @type {string}
@@ -67,6 +71,10 @@ export class Level1ComponentParser extends Level0ComponentParser {
     super(name, format)
   }
 
+  /**
+   * @param {{ [p: string]: string }} groups
+   * @return {Level1ComponentParseResult}
+   */
   parseGroups (groups) {
     const { valueStr, sign } = this.getValueAndSign(groups)
     let value = 0
@@ -114,6 +122,10 @@ export class Level1ComponentParser extends Level0ComponentParser {
     return { valueStr, sign }
   }
 
+  /**
+   * @param {string} str
+   * @return {P}
+   */
   parse (str) {
     const groups = this.regexGroups(str)
     return this.parseGroups(groups)

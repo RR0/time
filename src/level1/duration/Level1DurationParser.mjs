@@ -39,7 +39,6 @@ export class Level1DurationParser extends Level1ComponentParser {
   }
 
   /**
-   * @protected
    * @param {{ [p: string]: string }} groups
    */
   parseGroups (groups) {

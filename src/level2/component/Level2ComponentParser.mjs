@@ -1,5 +1,16 @@
 import { Level1ComponentParser } from "../../level1/component/Level1ComponentParser.mjs"
+/** @import { Level1YearParseResult } from "../../level1/component/Level1ComponentParser.mjs" */
 import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
+
+/**
+ * @typedef {Level1YearParseResult} Level2YearParseResult
+ * @property {number|{start: number, end: number}} value
+ * @property {boolean} [uncertain]
+ * @property {boolean} [uncertain1]
+ * @property {boolean} [approximate]
+ * @property {boolean} [approximate1]
+ * @property {boolean} [uncertain1approximate1]
+ */
 
 export class Level2ComponentParser extends Level1ComponentParser {
   /**
@@ -42,6 +53,10 @@ export class Level2ComponentParser extends Level1ComponentParser {
     super(name, format)
   }
 
+  /**
+   * @param {{ [p: string]: string }} groups
+   * @return {Level2YearParseResult}
+   */
   parseGroups (groups) {
     const result = super.parseGroups(groups)
     const uncertainAndApproximate = groups[RegExpFormat.groupName(Level2ComponentParser.uncertainAndApproximateGroup, this.name)]

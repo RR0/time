@@ -330,7 +330,7 @@ export class Level0Date {
 
   /**
    * @param {string} spec
-   * @param {Level0DateParser} parser
+   * @param {EDTFParser} parser
    * @return {Level0Date}
    */
   static fromString (spec, parser = new Level0DateParser()) {

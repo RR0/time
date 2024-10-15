@@ -26,7 +26,7 @@ import { Level2TimeshiftParser } from "../timeshift/Level2TimeshiftParser.mjs"
  * @template S extends Level1Second
  * @template Z extends Level1Timeshift
  */
-export default class Level2DateParser extends Level1DateParser {
+export class Level2DateParser extends Level1DateParser {
   /**
    * &param {string} prefix
    * @return string

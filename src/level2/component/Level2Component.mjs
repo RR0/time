@@ -1,4 +1,6 @@
-import { Level1Component } from "../../level1/index.mjs"
+import { Level1Component } from "../../level1/component/Level1Component.mjs"
+/** @import { Level1ComponentSpec } from "../../level1/component/Level1Component.mjs" */
+/** @import { CalendarUnit } from "../../calendar/unit/CalendarUnit.mjs" */
 
 /**
  * @typedef {Level1ComponentSpec} Level2ComponentSpec

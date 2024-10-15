@@ -6,7 +6,7 @@ import { Level2Hour } from "../hour/index.mjs"
 import { Level2Day } from "../day/index.mjs"
 import { Level2Month } from "../month/index.mjs"
 import { Level2Year } from "../year/index.mjs"
-import Level2DateParser from "../date/Level2DateParser.mjs"
+import { Level2DateParser } from "../date/Level2DateParser.mjs"
 
 /**
  * @typedef {Object} Level0DurationParseResult
@@ -77,6 +77,10 @@ export class Level2DurationParser extends Level2ComponentParser {
     super("duration", Level2DurationParser.format())
   }
 
+  /**
+   * @param {{ [p: string]: string }} groups
+   * @return { years, months, days, hours, minutes, seconds }
+   */
   parseGroups (groups) {
     const secondStr = groups[Level2DurationParser.secondsGroup]
     let seconds

@@ -23,6 +23,10 @@ export class Level2YearParser extends Level2ComponentParser {
     super(name, Level2YearParser.format())
   }
 
+  /**
+   * @param {{ [p: string]: string }} groups
+   * @return {Level2YearParseResult}
+   */
   parseGroups (groups) {
     const exp = groups[exponentialGroup]
     if (exp) {

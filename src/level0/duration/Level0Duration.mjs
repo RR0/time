@@ -59,7 +59,7 @@ export class Level0Duration extends Level0Component {
 
   /**
    * @param {string} str
-   * @param {Level0DurationParser} [parser]
+   * @param {EDTFParser} [parser]
    * @return {Level0Duration}
    */
   static fromString (str, parser = new Level0DurationParser()) {

@@ -1,5 +1,6 @@
 import { Level1DayParser } from "./Level1DayParser.mjs"
 import { Level1Component } from "../component/index.mjs"
+/** @import { Level1ComponentSpec } from "../component/index.mjs" */
 import { GregorianCalendar } from "../../calendar/index.mjs"
 
 export class Level1Day extends Level1Component {

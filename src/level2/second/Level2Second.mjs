@@ -1,6 +1,7 @@
 import { Level2Component } from "../component/index.mjs"
 import { Level2SecondParser } from "./Level2SecondParser.mjs"
 import { GregorianCalendar } from "../../calendar/index.mjs"
+/** @import { Level2ComponentSpec } from "../component/Level2Component.mjs" */
 
 export class Level2Second extends Level2Component {
   /**

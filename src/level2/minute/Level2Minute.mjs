@@ -1,4 +1,5 @@
 import { Level2Component } from "../component/Level2Component.mjs"
+/** @import { Level2ComponentSpec } from "../component/Level2Component.mjs" */
 import { Level2MinuteParser } from "../minute/Level2MinuteParser.mjs"
 import { GregorianCalendar } from "../../calendar/GregorianCalendar.mjs"
 

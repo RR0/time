@@ -1,4 +1,4 @@
-import Level2DateParser from "./Level2DateParser.mjs"
+import { Level2DateParser } from "./Level2DateParser.mjs"
 import { Level1Date } from "../../level1/date/Level1Date.mjs"
 import { Level2Second } from "../second/index.mjs"
 import { Level2Minute } from "../minute/index.mjs"
@@ -6,6 +6,8 @@ import { Level2Hour } from "../hour/index.mjs"
 import { Level2Day } from "../day/index.mjs"
 import { Level2Month } from "../month/index.mjs"
 import { Level2Year } from "../year/index.mjs"
+/** @import { EDTFParser } from "../../EDTFParser.mjs" */
+/** @import { Level1DateSpec } from "../../level1/date/Level1Date.mjs" */
 
 /**
  * @typedef {Level1DateSpec} Level2DateSpec
@@ -45,7 +47,7 @@ export class Level2Date extends Level1Date {
 
   /**
    * @param {string} str An EDTF level 0-1 string
-   * @param {Level2DateParser} parser
+   * @param {EDTFParser} parser
    * @return {Level2Date}
    */
   static fromString (str, parser = new Level2DateParser()) {

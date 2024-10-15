@@ -289,5 +289,18 @@ describe("Level0Date", () => {
       assert.equal(certain.timeshift.value, 0)
       assert.equal(certain.toString(), str)
     })
+
+    test("year, month, day and LST time with seconds", {skip: true}, () => {
+      const str = "1967-05-13 15:40LST"
+      const certain = Level0Date.fromString(str)
+      assert.equal(certain.year.value, 1985)
+      assert.equal(certain.month.value, 4)
+      assert.equal(certain.day.value, 12)
+      assert.equal(certain.hour.value, 8)
+      assert.equal(certain.minute.value, 56)
+      assert.equal(certain.second.value, 44)
+      assert.equal(certain.timeshift.value, 0)
+      assert.equal(certain.toString(), str)
+    })
   })
 })

@@ -1,4 +1,6 @@
-import Level2SetParser from "./Level2SetParser.mjs"
+import { Level2SetParser } from "./Level2SetParser.mjs"
+/** @import { Level2Date } from "../date/Level2Date.mjs" */
+/** @import { Level2Interval } from "../interval/Level2Interval.mjs" */
 
 export class Level2Set extends /** @type Set<Level2Date> */ Set {
   /**

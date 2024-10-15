@@ -78,7 +78,8 @@ export class Level0Interval {
 
   /**
    * @param {string} spec
-   * @param {Level0IntervalParser} parser
+   * @param {EDTFParser} parser
+   * @return {Level0Interval}
    */
   static fromString (spec, parser = new Level0IntervalParser()) {
     const { start, end } = parser.parse(spec)

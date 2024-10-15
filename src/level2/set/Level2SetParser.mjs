@@ -1,7 +1,7 @@
 import { Level2Date } from "../date/index.mjs"
 import { Level2Interval } from "../interval/index.mjs"
 
-export default class Level2SetParser {
+export class Level2SetParser {
   /**
    * @param {string} str
    * @return {{exclusive: boolean, values: (Level2Date|Level2Interval)[]}}

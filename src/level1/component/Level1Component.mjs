@@ -1,5 +1,7 @@
-import { Level0Component } from "../../level0/index.mjs"
+import { Level0Component } from "../../level0/component/Level0Component.mjs"
+/** @import { Level0ComponentSpec } from "../../level0/component/Level0Component.mjs" */
 import { Level1ComponentRenderer } from "./Level1ComponentRenderer.mjs"
+/** @import { CalendarUnit } from "../../calendar/unit/CalendarUnit.mjs" */
 
 /**
  * @typedef {Level0ComponentSpec} Level1ComponentSpec
@@ -27,7 +29,6 @@ export class Level1Component extends Level0Component {
   }
 
   /**
-   * @readonly
    * @type boolean
    */
   get uncertain () {
@@ -49,7 +50,6 @@ export class Level1Component extends Level0Component {
   }
 
   /**
-   * @readonly
    * @type boolean
    */
   get approximate () {
@@ -65,17 +65,25 @@ export class Level1Component extends Level0Component {
   }
 
   /**
-   * @param {Level1Component} other
+   * @param {this} other
    * @return {boolean}
    */
   isEqual (other) {
     return this.isCertainAndPrecise() && super.isEqual(other)
   }
 
+  /**
+   * @param {this} other
+   * @return {boolean}
+   */
   isBefore (other) {
     return this.isCertainAndPrecise() && super.isBefore(other)
   }
 
+  /**
+   * @param {this} other
+   * @return {boolean}
+   */
   isAfter (other) {
     return this.isCertainAndPrecise() && super.isAfter(other)
   }

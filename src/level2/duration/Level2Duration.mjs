@@ -1,6 +1,12 @@
 import { Level2DurationParser } from "./Level2DurationParser.mjs"
 import { Level2Year } from "../year/index.mjs"
+import { Level2Month } from "../month/index.mjs"
+import { Level2Day } from "../day/index.mjs"
+import { Level2Hour } from "../hour/index.mjs"
+import { Level2Minute } from "../minute/index.mjs"
+import { Level2Second } from "../second/index.mjs"
 import { Level1Duration } from "../../level1/index.mjs"
+import { EDTFParser } from "../../EDTFParser.mjs"
 
 /**
  * @typedef {Object} Level2DurationSpec
@@ -40,7 +46,7 @@ export class Level2Duration extends Level1Duration {
 
   /**
    * @param {string} str The duration string to parse.
-   * @param {Level2DurationParser} [parser] The parser to use.
+   * @param {EDTFParser} [parser] The parser to use.
    * @return {Level2Duration}
    */
   static fromString (str, parser = new Level2DurationParser()) {
