@@ -2,11 +2,11 @@ import { describe, test } from "node:test"
 import assert from "node:assert"
 import { GregorianCalendar } from "../../calendar/index.mjs"
 import { Level2Date } from "../date/index.mjs"
-import { level2Assert } from "../../Level2/component/Level2TestUtil.mjs"
 import { Level2DurationRenderer } from "./Level2DurationRenderer.mjs"
 import { Level2Duration } from "./Level2Duration.mjs"
 import { Level2Second } from "../second/index.mjs"
 import { Level2Minute } from "../minute/index.mjs"
+import { level2Assert } from "../component/Level2TestUtil.mjs"
 
 describe("Duration", () => {
 
