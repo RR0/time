@@ -4,7 +4,9 @@ import { Level1Date } from "../date/Level1Date.mjs"
 import { GregorianCalendar } from "../../calendar/GregorianCalendar.mjs"
 import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
 import { level1Assert } from "../component/Level1TestUtil.mjs"
-import { Level1Duration, Level1Minute, Level1Second } from "../../Level1/index.mjs"
+import { Level1Duration } from "./Level1Duration.mjs"
+import { Level1Second } from "../second/index.mjs"
+import { Level1Minute } from "../minute/index.mjs"
 
 describe("Duration", () => {
 
