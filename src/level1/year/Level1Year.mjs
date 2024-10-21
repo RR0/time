@@ -4,7 +4,7 @@ import { GregorianCalendar } from "../../calendar/index.mjs"
 import { Level1YearValidator } from "./Level1YearValidator.mjs"
 import { CalendarUnit } from "../../calendar/index.mjs"
 
-const unit = new CalendarUnit(GregorianCalendar.year.name, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, GregorianCalendar.day, new Level1YearValidator())
+const unit = new CalendarUnit(GregorianCalendar.year.name, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, GregorianCalendar.month, new Level1YearValidator())
 
 export class Level1Year extends Level1Component {
   /**
