@@ -1,13 +1,29 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
-
-import { Level2Duration } from "./Level2Duration.mjs"
 import { GregorianCalendar } from "../../calendar/index.mjs"
-import { Level0ComponentRenderer } from "../../level0/component/Level0ComponentRenderer.mjs"
 import { Level2Date } from "../date/index.mjs"
-import { level1Assert } from "../../level1/component/Level1TestUtil.mjs"
+import { level2Assert } from "../../Level2/component/Level2TestUtil.mjs"
+import { Level2DurationRenderer } from "./Level2DurationRenderer.mjs"
+import { Level2Duration, Level2Minute, Level2Second } from "../../Level2/index.mjs"
 
 describe("Duration", () => {
+
+  test("toSpec", () => {
+    const minutes = 2
+    const seconds = 3
+    const value = (minutes * GregorianCalendar.minute.duration) + (seconds * GregorianCalendar.second.duration)
+    const duration = new Level2Duration(value)
+    const expectedSpec = /** @type Level2DurationSpec */ {
+      seconds: new Level2Second(seconds),
+      minutes: new Level2Minute(minutes),
+      uncertain: false,
+      approximate: false
+    }
+    const durationSpec = duration.toSpec()
+    assert.deepEqual(durationSpec, expectedSpec)
+    const durationStaticSpec = Level2Duration.toSpec(duration)
+    assert.deepEqual(durationStaticSpec, expectedSpec)
+  })
 
   describe("rendering", () => {
 
@@ -19,7 +35,7 @@ describe("Duration", () => {
     })
 
     test("custom", () => {
-      const customRenderer = new class extends Level0ComponentRenderer {
+      const customRenderer = new class extends Level2DurationRenderer {
         render (comp) {
           const value = comp.value / GregorianCalendar.second.duration
           return (comp.uncertain ? "maybe " : "") + "during " + value + " second" + (value > 1 ? "s" : "") + (comp.approximate ? " approximately" : "")
@@ -47,7 +63,7 @@ describe("Duration", () => {
 
     test("approximate component", () => {
       const durationMs = Level2Duration.fromString(`P~${seconds}S`)
-      level1Assert(durationMs, seconds * GregorianCalendar.second.duration, false, true)
+      level2Assert(durationMs, seconds * GregorianCalendar.second.duration, false, true)
     })
   })
 

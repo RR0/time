@@ -8,6 +8,17 @@ describe("Demo samples", () => {
 
   describe("Dates", () => {
 
+    test("comparison", () => {
+      const maybeAugust = EdtfDate.fromString("2024-?08-15")
+      const aroundMarch2025 = EdtfDate.fromString("2025-03~")
+      assert.ok(!maybeAugust.isEqual(aroundMarch2025))
+      assert.ok(maybeAugust.isBefore(aroundMarch2025))
+      assert.ok(aroundMarch2025.isAfter(maybeAugust))
+      const delta = aroundMarch2025.delta(maybeAugust).toSpec()
+      assert.equal(delta.months, 6)
+      assert.equal(delta.days, 16)
+    })
+
     test("uncertain", () => {
       const maybeAugust = EdtfDate.fromString("2024-?08-25")
       assert.equal(maybeAugust.month.value, 8)

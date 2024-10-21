@@ -6,8 +6,21 @@ import { Level0Date } from "../date/index.mjs"
 import { GregorianCalendar } from "../../calendar/index.mjs"
 import { Level0ComponentRenderer } from "../component/Level0ComponentRenderer.mjs"
 import { Level0Minute } from "../minute/index.mjs"
+import { Level0Second } from "../second/index.mjs"
 
 describe("Duration", () => {
+
+  test("toSpec", () => {
+    const minutes = 2
+    const seconds = 3
+    const value = (minutes * GregorianCalendar.minute.duration) + (seconds * GregorianCalendar.second.duration)
+    const duration = new Level0Duration(value)
+    const expectedSpec = { seconds: new Level0Second(seconds), minutes: new Level0Minute(minutes) }
+    const durationSpec = duration.toSpec()
+    assert.deepEqual(durationSpec, expectedSpec)
+    const durationStaticSpec = Level0Duration.toSpec(duration)
+    assert.deepEqual(durationStaticSpec, expectedSpec)
+  })
 
   describe("rendering", () => {
 
@@ -44,7 +57,6 @@ describe("Duration", () => {
     test("in seconds", () => {
       const seconds = 3
       const threeSeconds = new Level0Duration(seconds * GregorianCalendar.second.duration)
-      const toString = `P${seconds}S`
       assert.equal(threeSeconds.value, 3 * GregorianCalendar.second.duration)
       const durationObj = new Level0Duration({ seconds })
       assert.equal(durationObj.value, 3 * GregorianCalendar.second.duration)

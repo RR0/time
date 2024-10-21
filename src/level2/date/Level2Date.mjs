@@ -1,11 +1,5 @@
 import { Level2DateParser } from "./Level2DateParser.mjs"
 import { Level1Date } from "../../level1/date/Level1Date.mjs"
-import { Level2Second } from "../second/index.mjs"
-import { Level2Minute } from "../minute/index.mjs"
-import { Level2Hour } from "../hour/index.mjs"
-import { Level2Day } from "../day/index.mjs"
-import { Level2Month } from "../month/index.mjs"
-import { Level2Year } from "../year/index.mjs"
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 /** @import { Level1DateSpec } from "../../level1/date/Level1Date.mjs" */
 
@@ -13,36 +7,21 @@ import { Level2Year } from "../year/index.mjs"
  * @typedef {Level1DateSpec} Level2DateSpec
  */
 
+/**
+ * @template Y extends Level2Component = Level2Year
+ * @template MM extends Level2Component = Level2Month
+ * @template D extends Level2Component = Level2Day
+ * @template H extends Level2Component = Level2Hour
+ * @template M extends Level2Component = Level2Minute
+ * @template S extends Level2Component = Level2Second
+ * @template Z extends Level2Component = Level2Timeshift
+ */
 export class Level2Date extends Level1Date {
   /**
    * @param {Level2DateSpec} spec
    */
   constructor (spec) {
     super(spec)
-  }
-
-  newYear (value) {
-    return new Level2Year(value)
-  }
-
-  newMonth (value) {
-    return new Level2Month(value)
-  }
-
-  newDay (value) {
-    return new Level2Day(value)
-  }
-
-  newHour (value) {
-    return new Level2Hour(value)
-  }
-
-  newMinute (value) {
-    return new Level2Minute(value)
-  }
-
-  newSecond (value) {
-    return new Level2Second(value)
   }
 
   /**

@@ -5,6 +5,8 @@ import { CalendarUnit, GregorianCalendar } from "../../calendar/index.mjs"
 import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
 import { Level1DateParser } from "../date/Level1DateParser.mjs"
 import { Level1ComponentParser } from "../component/Level1ComponentParser.mjs"
+import { Level0Duration } from "../../level0/index.mjs"
+import { Level1Factory } from "../Level1Factory.mjs"
 
 /**
  * @typedef {Object} Level1DurationSpec
@@ -27,6 +29,7 @@ import { Level1ComponentParser } from "../component/Level1ComponentParser.mjs"
  * @template M extends Level1Component = Level1Minute
  * @template S extends Level1Component = Level1Second
  * @template C extends Level1Component = Level1Millisecond
+ * @template DD extends Level1Date = Level1Date
  */
 export class Level1Duration extends Level1Component {
   /**
@@ -78,24 +81,46 @@ export class Level1Duration extends Level1Component {
 
   /**
    * @protected
-   * @param spec
-   * @param {string} durCompName
+   * @param spec The object containing group values.
+   * @param {string} durCompGroupName The regex duration component group name (for year, month, etc.) as singular.
    * @return {number}
    */
-  static getValue (spec, durCompName) {
+  static getValue (spec, durCompGroupName) {
     let time = 0
-    let durationValue = spec[durCompName + "s"]
+    let durationValue = spec[durCompGroupName + "s"]  // Duration components names are suffixed with plural.
     if (durationValue instanceof Level1Component) {
       durationValue = durationValue.value
     }
     if (durationValue) {
-      time = durationValue * GregorianCalendar[durCompName].duration
+      const unit = /** @type CalendarUnit */ GregorianCalendar[durCompGroupName]
+      time = durationValue * unit.duration
     }
     return time
   }
 
   toString (renderer = Level1DurationRenderer.instance) {
     return super.toString(renderer)
+  }
+
+  /**
+   * @return {Level1DurationSpec}
+   */
+  toSpec () {
+    return Level1Duration.toSpec(this)
+  }
+
+  /**
+   * @param {Level1Duration} comp
+   * @param {LevelFactory} [factory]
+   * @return {Level1DurationSpec}
+   */
+  static toSpec (comp, factory = Level1Factory.instance) {
+    const level0Spec = Level0Duration.toSpec(comp, factory)
+    return {
+      ...level0Spec,
+      uncertain: comp.uncertain,
+      approximate: comp.approximate
+    }
   }
 
   /**
@@ -109,8 +134,8 @@ export class Level1Duration extends Level1Component {
   }
 
   /**
-   * @param {Level1Date} beforeDate
-   * @param {Level1Date} afterDate
+   * @param {DD} beforeDate
+   * @param {DD} afterDate
    * @return {Level1Duration}
    */
   static between (beforeDate, afterDate) {

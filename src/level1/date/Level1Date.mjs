@@ -6,6 +6,7 @@ import { Level1Minute } from "../minute/index.mjs"
 import { Level1Hour } from "../hour/index.mjs"
 import { Level1Day } from "../day/index.mjs"
 import { Level1Month } from "../month/index.mjs"
+import { Level1Factory } from "../Level1Factory.mjs"
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 /** @import { Level0DateSpec } from "../../level0/date/Level0Date.mjs" */
 
@@ -13,60 +14,27 @@ import { Level1Month } from "../month/index.mjs"
  * @typedef {Level0DateSpec} Level1DateSpec
  */
 
+/**
+ * @template Y extends Level1Component = Level1Year
+ * @template MM extends Level1Component = Level1Month
+ * @template D extends Level1Component = Level1Day
+ * @template H extends Level1Component = Level1Hour
+ * @template M extends Level1Component = Level1Minute
+ * @template S extends Level1Component = Level1Second
+ * @template Z extends Level1Component = Level1Timeshift
+ */
 export class Level1Date extends /** @type {Level0Date<Level1Year, Level1Month, Level1Day, Level1Hour, Level1Minute, Level1Second, Level1Timeshift>} */ Level0Date {
+  /**
+   * @readonly
+   * @type {Level1Factory}
+   */
+  factory = new Level1Factory()
+
   /**
    * @param {Level1DateSpec} spec
    */
   constructor (spec) {
     super(spec)
-  }
-
-  /**
-   * @param {number} value
-   * @return {Level1Year}
-   */
-  newYear (value) {
-    return new Level1Year(value)
-  }
-
-  /**
-   * @param {number} value
-   * @return {Level1Month}
-   */
-  newMonth (value) {
-    return new Level1Month(value)
-  }
-
-  /**
-   * @param {number} value
-   * @return {Level1Day}
-   */
-  newDay (value) {
-    return new Level1Day(value)
-  }
-
-  /**
-   * @param {number} value
-   * @return {Level1Hour}
-   */
-  newHour (value) {
-    return new Level1Hour(value)
-  }
-
-  /**
-   * @param {number} value
-   * @return {Level1Minute}
-   */
-  newMinute (value) {
-    return new Level1Minute(value)
-  }
-
-  /**
-   * @param {number} value
-   * @return {Level1Second}
-   */
-  newSecond (value) {
-    return new Level1Second(value)
   }
 
   /**

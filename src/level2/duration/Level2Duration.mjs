@@ -7,6 +7,7 @@ import { Level2Minute } from "../minute/index.mjs"
 import { Level2Second } from "../second/index.mjs"
 import { Level1Duration } from "../../level1/index.mjs"
 import { EDTFParser } from "../../EDTFParser.mjs"
+import { Level2Factory } from "../Level2Factory.mjs"
 
 /**
  * @typedef {Object} Level2DurationSpec
@@ -27,6 +28,7 @@ import { EDTFParser } from "../../EDTFParser.mjs"
  * @template M extends Level2Component = Level2Minute
  * @template S extends Level2Component = Level2Second
  * @template C extends Level2Component = Level2Millisecond
+ * @template DD extends Level2Date = Level2Date
  */
 export class Level2Duration extends Level1Duration {
   /**
@@ -45,6 +47,22 @@ export class Level2Duration extends Level1Duration {
   }
 
   /**
+   * @return {Level2DurationSpec}
+   */
+  toSpec () {
+    return Level2Duration.toSpec(this)
+  }
+
+  /**
+   * @param {Level2Duration} comp
+   * @param {LevelFactory} [factory]
+   * @return {Level2DurationSpec}
+   */
+  static toSpec (comp, factory = Level2Factory.instance) {
+    return Level1Duration.toSpec(comp, factory)
+  }
+
+  /**
    * @param {string} str The duration string to parse.
    * @param {EDTFParser} [parser] The parser to use.
    * @return {Level2Duration}
@@ -55,8 +73,8 @@ export class Level2Duration extends Level1Duration {
   }
 
   /**
-   * @param {Level2Date} beforeDate
-   * @param {Level2Date} afterDate
+   * @param {DD} beforeDate
+   * @param {DD} afterDate
    * @return {Level2Duration}
    */
   static between (beforeDate, afterDate) {

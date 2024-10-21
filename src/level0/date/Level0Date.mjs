@@ -8,6 +8,8 @@ import { Level0Minute } from "../minute/index.mjs"
 import { Level0Second } from "../second/index.mjs"
 import { Level0Timeshift } from "../timeshift/index.mjs"
 import { Level0DateRenderer } from "./Level0DateRenderer.mjs"
+import { Level0Factory } from "../Level0Factory.mjs"
+import { Level0Duration } from "../duration/index.mjs"
 
 /**
  * @typedef {Object} Level0DateSpec
@@ -36,30 +38,21 @@ export class Level0Date {
   #year
 
   /**
-   * @return {Level0Year|undefined}
+   * @return {Y|undefined}
    */
   get year () {
     return this.#year
   }
 
   /**
-   * @param {Level0Year|number|undefined} value
+   * @param {Y|number|undefined} value
    */
   set year (value) {
     if (this.#year && value) {
       this.#year.value = value
     } else {
-      this.#year = typeof value === "number" ? this.newYear(value) : value
+      this.#year = typeof value === "number" ? this.factory.newYear(value) : value
     }
-  }
-
-  /**
-   * @protected
-   * @param {number} value
-   * @return {Y}
-   */
-  newYear (value) {
-    return new Level0Year(value)
   }
 
   /**
@@ -68,158 +61,113 @@ export class Level0Date {
   #month
 
   /**
-   * @return {Level0Month|undefined}
+   * @return {MM|undefined}
    */
   get month () {
     return this.#month
   }
 
   /**
-   * @param {Level0Month|number|undefined} value
+   * @param {MM|number|undefined} value
    */
   set month (value) {
     if (this.#month && value) {
       this.#month.value = value
     } else {
-      this.#month = typeof value === "number" ? this.newMonth(value) : value
+      this.#month = typeof value === "number" ? this.factory.newMonth(value) : value
     }
   }
 
   /**
-   * @protected
-   * @param {number} value
-   * @return {Level0Month}
-   */
-  newMonth (value) {
-    return new Level0Month(value)
-  }
-
-  /**
-   * @type {Level0Day|undefined}
+   * @type {D|undefined}
    */
   #day
 
   /**
-   * @return {Level0Day|undefined}
+   * @return {D|undefined}
    */
   get day () {
     return this.#day
   }
 
   /**
-   * @param {Level0Day|number|undefined} value
+   * @param {D|number|undefined} value
    */
   set day (value) {
     if (this.#day && value) {
       this.#day.value = value
     } else {
-      this.#day = typeof value === "number" ? this.newDay(value) : value
+      this.#day = typeof value === "number" ? this.factory.newDay(value) : value
     }
   }
 
   /**
-   * @protected
-   * @param {number} value
-   * @return {Level0Day}
-   */
-  newDay (value) {
-    return new Level0Day(value)
-  }
-
-  /**
-   * @type {Level0Hour|undefined}
+   * @type {H|undefined}
    */
   #hour
 
   /**
-   * @return {Level0Hour|undefined}
+   * @return {H|undefined}
    */
   get hour () {
     return this.#hour
   }
 
   /**
-   * @param {Level0Hour|number|undefined} value
+   * @param {H|number|undefined} value
    */
   set hour (value) {
     if (this.#hour && value) {
       this.#hour.value = value
     } else {
-      this.#hour = typeof value === "number" ? this.newHour(value) : value
+      this.#hour = typeof value === "number" ? this.factory.newHour(value) : value
     }
   }
 
   /**
-   * @protected
-   * @param {number} value
-   * @return {Level0Hour}
-   */
-  newHour (value) {
-    return new Level0Hour(value)
-  }
-
-  /**
-   * @type {Level0Minute|undefined}
+   * @type {M|undefined}
    */
   #minute
 
   /**
-   * @return {Level0Minute||undefined}
+   * @return {M||undefined}
    */
   get minute () {
     return this.#minute
   }
 
   /**
-   * @param {Level0Minute|number|undefined} value
+   * @param {M|number|undefined} value
    */
   set minute (value) {
     if (this.#minute && value) {
       this.#minute.value = value
     } else {
-      this.#minute = typeof value === "number" ? this.newMinute(value) : value
+      this.#minute = typeof value === "number" ? this.factory.newMinute(value) : value
     }
   }
 
   /**
-   * @protected
-   * @param {number} value
-   * @return {Level0Minute}
-   */
-  newMinute (value) {
-    return new Level0Minute(value)
-  }
-
-  /**
-   * @type {Level0Second|undefined}
+   * @type {S|undefined}
    */
   #second
 
   /**
-   * @return {Level0Second|undefined}
+   * @return {S|undefined}
    */
   get second () {
     return this.#second
   }
 
   /**
-   * @param {Level0Second|number|undefined} value
+   * @param {S|number|undefined} value
    */
   set second (value) {
     if (this.#second && value) {
       this.#second.value = value
     } else {
-      this.#second = typeof value === "number" ? this.newSecond(value) : value
+      this.#second = typeof value === "number" ? this.factory.newSecond(value) : value
     }
-  }
-
-  /**
-   * @protected
-   * @param {number} value
-   * @return {Level0Second}
-   */
-  newSecond (value) {
-    return new Level0Second(value)
   }
 
   /**
@@ -245,6 +193,12 @@ export class Level0Date {
       this.#timeshift = typeof value === "number" ? new Level0Timeshift(value) : value
     }
   }
+
+  /**
+   * @readonly
+   * @type {Level0Factory}
+   */
+  factory = Level0Factory.instance
 
   /**
    * @param {Level0DateSpec} spec
@@ -284,6 +238,16 @@ export class Level0Date {
   compare (other) {
     this.#checkOtherType(other)
     return this.getTime() - other.getTime()
+  }
+
+  /**
+   * @param {Level0Date} other
+   * @return {Level0Duration}
+   */
+  delta (other) {
+    this.#checkOtherType(other)
+    const delta = this.getTime() - other.getTime()
+    return new Level0Duration(delta)
   }
 
   /**

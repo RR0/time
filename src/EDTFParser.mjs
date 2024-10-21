@@ -1,4 +1,5 @@
 import { EDTFError } from "./EDTFError.mjs"
+import { AbstractMethodError } from "./AbstractMethodError.mjs"
 
 /**
  * @abstract
@@ -40,7 +41,7 @@ export class EDTFParser {
    * @return any
    */
   parseGroups (groups) {
-    throw new EDTFError(`${this.constructor.name} is abstract`)
+    throw new AbstractMethodError(`${this.constructor.name} is abstract`)
   }
 
   /**

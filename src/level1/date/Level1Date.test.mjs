@@ -3,8 +3,26 @@ import assert from "node:assert"
 
 import { Level1Date } from "./Level1Date.mjs"
 import { level1Assert } from "../component/Level1TestUtil.mjs"
+import { Level1Year } from "../year/index.mjs"
 
 describe("Level1", () => {
+
+  describe("update", () => {
+
+    test("year", () => {
+      const year1 = 1985
+      const date = new Level1Date({year: year1})
+      assert.equal(date.year.value, year1)
+      const year2 = 2001
+      date.year = year2
+      assert.equal(date.year.value, year2)
+      date.year = undefined
+      assert.equal(date.year, undefined)
+      date.year = year1
+      assert.ok(date.year instanceof Level1Year)
+      assert.equal(date.year.value, year1)
+    })
+  })
 
   describe("certain and precise", () => {
 

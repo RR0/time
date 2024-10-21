@@ -1,13 +1,29 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
-
-import { Level1Duration } from "./Level1Duration.mjs"
-import { Level1Date } from "../date/index.mjs"
-import { GregorianCalendar } from "../../calendar/index.mjs"
+import { Level1Date } from "../date/Level1Date.mjs"
+import { GregorianCalendar } from "../../calendar/GregorianCalendar.mjs"
 import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
 import { level1Assert } from "../component/Level1TestUtil.mjs"
+import { Level1Duration, Level1Minute, Level1Second } from "../../Level1/index.mjs"
 
 describe("Duration", () => {
+
+  test("toSpec", () => {
+    const minutes = 2
+    const seconds = 3
+    const value = (minutes * GregorianCalendar.minute.duration) + (seconds * GregorianCalendar.second.duration)
+    const duration = new Level1Duration(value)
+    const expectedSpec = /** @type Level1DurationSpec */ {
+      seconds: new Level1Second(seconds),
+      minutes: new Level1Minute(minutes),
+      uncertain: false,
+      approximate: false
+    }
+    const durationSpec = duration.toSpec()
+    assert.deepEqual(durationSpec, expectedSpec)
+    const durationStaticSpec = Level1Duration.toSpec(duration)
+    assert.deepEqual(durationStaticSpec, expectedSpec)
+  })
 
   describe("rendering", () => {
 

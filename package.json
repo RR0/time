@@ -1,7 +1,7 @@
 {
   "name": "@rr0/time",
   "type": "module",
-  "version": "0.5.1",
+  "version": "0.6.0",
   "author": "RR0 <rr0@rr0.org>",
   "description": "EDTF parsing",
   "main": "src/index.js",
@@ -26,6 +26,7 @@
   "devDependencies": {
     "rimraf": "^6.0.1",
     "typescript": "^5.6.2",
-    "tsc": "^2.0.4"
+    "tsc": "^2.0.4",
+    "@types/node": "^22.7.7"
   }
 }

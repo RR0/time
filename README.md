@@ -61,7 +61,13 @@ maybeAugust.month.value // 8
 maybeAugust.month.uncertain // true
 maybeAugust.year.uncertain // false
 maybeAugust.uncertain // true
-const aroundMarch2025 = EdtfDate.fromString("2025-03~")  
+const aroundMarch2025 = EdtfDate.fromString("2025-03~")
+maybeAugust.isEqual(aroundMarch2025)  // false
+maybeAugust.isBefore(aroundMarch2025) // true
+aroundMarch2025.isAfter(maybeAugust)  // true
+const delta = aroundMarch2025.delta(maybeAugust).toSpec()
+delta.months //  6
+delta.days   // 16
 ```
 
 ### Intervals
