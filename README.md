@@ -52,7 +52,11 @@ You can also add the alias of your choice to an imported type:
 import { Level2Date as EdtfDate } from "@rr0/time"
 ```
 
-### Dates
+### Parsing
+
+Dates, date components (year, month, etc.), intervals or durations can be instantiated `fromString`.
+
+#### Dates
 ```js
 import { Level2Date as EdtfDate } from "@rr0/time"
 
@@ -62,15 +66,10 @@ maybeAugust.month.uncertain // true
 maybeAugust.year.uncertain // false
 maybeAugust.uncertain // true
 const aroundMarch2025 = EdtfDate.fromString("2025-03~")
-maybeAugust.isEqual(aroundMarch2025)  // false
-maybeAugust.isBefore(aroundMarch2025) // true
-aroundMarch2025.isAfter(maybeAugust)  // true
-const delta = aroundMarch2025.delta(maybeAugust).toSpec()
-delta.months //  6
-delta.days   // 16
+aroundMarch2025.approximate = true
 ```
 
-### Intervals
+#### Intervals
 Date intervals can be parsed: 
 ```js
 import { Level2Interval as EdtfInterval } from "@rr0/time/level2/interval/index.mjs"
@@ -82,7 +81,7 @@ maybeAugust.end.month // 6
 maybeAugust.end.approximate // true
 ```
 
-### Individual date components
+#### Individual date components
 Each date calendar (year, month, day) and time (hour, minute, second) component can also be individually instantiated.
 ```js
 import { Level2Year as EdtfYear } from "@rr0/time/level2/year/index.mjs"
@@ -90,7 +89,7 @@ import { Level2Year as EdtfYear } from "@rr0/time/level2/year/index.mjs"
 const inTheFifities = EdtfYear.fromString("195X")
 ```
 
-### Duration
+#### Duration
 
 You can select the API level you want to use. For example using level 0:
 ```js
@@ -99,24 +98,39 @@ import {Level1Duration as Duration} from "@rr0/time"
 const aroundTenMinutes = Duration.fromString("P10M~")
 ```
 
-## Programmatic API
+### Programmatic API
 
-### Components
+Dates, date components (year, month, etc.), intervals or durations can be instantiated through their own constructors.
+
+#### Components
 Each date calendar and time component can be individually instantiated.
 ```js
 import { Level2Year as EdtfYear } from "@rr0/time/level2/year/index.mjs"
 
-const currentYear = EdtfYear.newInstance()
 const someYear = new EdtfYear(1985)
 console.log(someYear.value)  // "1985"
+const currentYear = EdtfYear.newInstance()
+console.log(someYear.value)  // Displays current year
 ```
 
-### Date
-
+#### Date
 You can select the API level you want to use. For example using level 0:
 ```js
 import { Level2Date as EdtfDate } from "@rr0/time/level2/date/index.mjs"
 
 const currentDate = EdtfDate.newInstance()
 const someDate = new EdtfDate({ year: 1985, month: 4, day: 12 })
+```
+
+## API
+
+### Date
+Several APIs are available on dates, such as:
+```js
+maybeAugust.isEqual(aroundMarch2025)  // false
+maybeAugust.isBefore(aroundMarch2025) // true
+aroundMarch2025.isAfter(maybeAugust)  // true
+const delta = aroundMarch2025.delta(maybeAugust).toSpec()
+delta.months //  6
+delta.days   // 16
 ```
