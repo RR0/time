@@ -25,7 +25,7 @@ export class Level1Interval extends Level0Interval {
   }
 
   /**
-   * @param {Level1Date|Level1Interval|null|undefined} start
+   * @param {Level1Date|null|undefined} start
    */
   set start (start) {
     if (typeof start === "string") {
@@ -38,7 +38,7 @@ export class Level1Interval extends Level0Interval {
   }
 
   /**
-   * @return {Level1Date|Level1Interval|null|undefined}
+   * @return {Level1Date|null|undefined}
    */
   get end () {
     return this._end
