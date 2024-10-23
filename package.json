@@ -1,14 +1,19 @@
 {
   "name": "@rr0/time",
   "type": "module",
-  "version": "0.6.2",
+  "version": "0.7.1",
   "author": "RR0 <rr0@rr0.org>",
   "description": "EDTF parsing",
+  "homepage": "https://github.com/RR0/time#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RR0/time.git"
+  },
   "main": "src/index.js",
   "types": "types/*.d.mts",
   "scripts": {
     "prebuild": "npm test",
-    "build": "rimraf ./types && ./node_modules/typescript/bin/tsc src/**/*.?js --declaration --allowJs --emitDeclarationOnly --outDir types",
+    "build": "rimraf ./types && ./node_modules/typescript/bin/tsc",
     "test": "node --test",
     "test-ci": "node --test --experimental-test-coverage --test-reporter spec",
     "prepublishOnly": "npm run build"

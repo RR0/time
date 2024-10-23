@@ -13,6 +13,7 @@ export class EDTFParser {
   regExp
 
   /**
+   * @protected
    * @param {string} name
    * @param {string} format
    * @return {number}

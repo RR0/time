@@ -8,7 +8,7 @@ import { Level1Date } from "../../level1/date/Level1Date.mjs"
  */
 
 /**
- * @template Y extends Level2Component = Level2Year
+ * @template Y Year type
  * @template MM extends Level2Component = Level2Month
  * @template D extends Level2Component = Level2Day
  * @template H extends Level2Component = Level2Hour

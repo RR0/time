@@ -1,0 +1,10 @@
+{
+  "include": ["src/*.mjs"],
+  "exclude": ["src/*.test.mjs"],
+  "compilerOptions": {
+    "declaration": true,
+    "allowJs": true,
+    "emitDeclarationOnly": true,
+    "outDir": "types"
+  },
+}
