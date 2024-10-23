@@ -12,7 +12,7 @@ import { TimeContext as Date } from "../../TimeContext.mjs"
 import { Level2DurationRenderer } from "./Level2DurationRenderer.mjs"
 
 /**
- * @typedef {Object} Level2DurationSpec
+ * @typedef {Object} Level2DurationInSpec
  * @property {Level2Year|number} years
  * @property {Level2Month|number} months
  * @property {Level2Day|number} days
@@ -20,6 +20,16 @@ import { Level2DurationRenderer } from "./Level2DurationRenderer.mjs"
  * @property {Level2Minute|number} minutes
  * @property {Level2Second|number} seconds
  * @property {Level2Millisecond|number} [milliseconds]
+ */
+/**
+ * @typedef {Object} Level2DurationOutSpec
+ * @property {Level2Year} years
+ * @property {Level2Month} months
+ * @property {Level2Day} days
+ * @property {Level2Hour} hours
+ * @property {Level2Minute} minutes
+ * @property {Level2Second} seconds
+ * @property {Level2Millisecond} [milliseconds]
  */
 
 /**
@@ -34,7 +44,7 @@ import { Level2DurationRenderer } from "./Level2DurationRenderer.mjs"
  */
 export class Level2Duration extends Level1Duration {
   /**
-   * @param {Level2DurationSpec|number} spec
+   * @param {Level2DurationInSpec|number} spec
    */
   constructor (spec = {
     years: new Date().getFullYear(),
@@ -49,7 +59,7 @@ export class Level2Duration extends Level1Duration {
   }
 
   /**
-   * @return {Level2DurationSpec}
+   * @return {Level2DurationOutSpec}
    */
   toSpec () {
     return Level2Duration.toSpec(this)
@@ -58,7 +68,7 @@ export class Level2Duration extends Level1Duration {
   /**
    * @param {Level2Duration} comp
    * @param {LevelFactory} [factory]
-   * @return {Level2DurationSpec}
+   * @return {Level2DurationOutSpec}
    */
   static toSpec (comp, factory = Level2Factory.instance) {
     return Level1Duration.toSpec(comp, factory)

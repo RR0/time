@@ -9,7 +9,7 @@ import { Level1Factory } from "../Level1Factory.mjs"
 import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
 
 /**
- * @typedef {Object} Level1DurationSpec
+ * @typedef {Object} Level1DurationInSpec
  * @property {Level1Year|number} years
  * @property {Level1Month|number} months
  * @property {Level1Day|number} days
@@ -17,6 +17,18 @@ import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
  * @property {Level1Minute|number} minutes
  * @property {Level1Second|number} seconds
  * @property {Level1Millisecond|number} [milliseconds]
+ * @property {boolean} [uncertain]
+ * @property {boolean} [approximate]
+ */
+/**
+ * @typedef {Object} Level1DurationOutSpec
+ * @property {Level1Year} years
+ * @property {Level1Month} months
+ * @property {Level1Day} days
+ * @property {Level1Hour} hours
+ * @property {Level1Minute} minutes
+ * @property {Level1Second} seconds
+ * @property {Level1Millisecond} [milliseconds]
  * @property {boolean} [uncertain]
  * @property {boolean} [approximate]
  */
@@ -33,7 +45,7 @@ import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
  */
 export class Level1Duration extends Level1Component {
   /**
-   * @param {Level1DurationSpec|number} spec
+   * @param {Level1DurationInSpec|number} spec
    */
   constructor (spec = {
     value: {
@@ -103,7 +115,7 @@ export class Level1Duration extends Level1Component {
   }
 
   /**
-   * @return {Level1DurationSpec}
+   * @return {Level1DurationOutSpec}
    */
   toSpec () {
     return Level1Duration.toSpec(this)
@@ -112,7 +124,7 @@ export class Level1Duration extends Level1Component {
   /**
    * @param {Level1Duration} comp
    * @param {LevelFactory} [factory]
-   * @return {Level1DurationSpec}
+   * @return {Level1DurationOutSpec}
    */
   static toSpec (comp, factory = Level1Factory.instance) {
     const level0Spec = Level0Duration.toSpec(comp, factory)
