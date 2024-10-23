@@ -1,13 +1,10 @@
 import { Level0ComponentRenderer } from "../component/Level0ComponentRenderer.mjs"
 import { Level0Duration } from "./Level0Duration.mjs"
 
-/**
- * @template extends Level0Duration DU=Level0Duration
- */
 export class Level0DurationRenderer {
   /**
    * @readonly
-   * @type {Level0DurationRenderer}
+   * @type Level0DurationRenderer
    */
   static instance = new Level0DurationRenderer()
 

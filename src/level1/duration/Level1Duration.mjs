@@ -2,11 +2,11 @@ import { Level1DurationParser } from "./Level1DurationParser.mjs"
 import { Level1Year } from "../year/index.mjs"
 import { Level1Component } from "../component/index.mjs"
 import { CalendarUnit, GregorianCalendar } from "../../calendar/index.mjs"
-import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
 import { Level1DateParser } from "../date/Level1DateParser.mjs"
 import { Level1ComponentParser } from "../component/Level1ComponentParser.mjs"
 import { Level0Duration } from "../../level0/index.mjs"
 import { Level1Factory } from "../Level1Factory.mjs"
+import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
 
 /**
  * @typedef {Object} Level1DurationSpec

@@ -8,6 +8,8 @@ import { Level2Second } from "../second/index.mjs"
 import { Level1Duration } from "../../level1/index.mjs"
 import { EDTFParser } from "../../EDTFParser.mjs"
 import { Level2Factory } from "../Level2Factory.mjs"
+import { TimeContext as Date } from "../../TimeContext.mjs"
+import { Level2DurationRenderer } from "./Level2DurationRenderer.mjs"
 
 /**
  * @typedef {Object} Level2DurationSpec
@@ -60,6 +62,14 @@ export class Level2Duration extends Level1Duration {
    */
   static toSpec (comp, factory = Level2Factory.instance) {
     return Level1Duration.toSpec(comp, factory)
+  }
+
+  /**
+   * @param {Level2DurationRenderer} renderer
+   * @return {string}
+   */
+  toString (renderer = Level2DurationRenderer.instance) {
+    return super.toString(renderer)
   }
 
   /**
