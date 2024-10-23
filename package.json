@@ -1,7 +1,7 @@
 {
   "name": "@rr0/time",
   "type": "module",
-  "version": "0.7.3",
+  "version": "0.7.4",
   "author": "RR0 <rr0@rr0.org>",
   "description": "EDTF parsing",
   "homepage": "https://github.com/RR0/time#readme",

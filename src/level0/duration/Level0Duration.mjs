@@ -9,9 +9,12 @@ import { Level0Second } from "../second/index.mjs"
 import { Level0DurationRenderer } from "./Level0DurationRenderer.mjs"
 import { Level0Component } from "../component/index.mjs"
 import { Level0Factory } from "../Level0Factory.mjs"
+/** @import { Level0Date } from "../date/Level0Date.mjs" */
+/** @import { EDTFParser } from "../../EDTFParser.mjs" */
+/** @import { LevelFactory } from "../../LevelFactory.mjs" */
 
 /**
- * @typedef {Object} Level0DurationSpec
+ * @typedef {Object} Level0DurationInSpec
  * @property {Level0Year|number} years
  * @property {Level0Month|number} months
  * @property {Level0Day|number} days
@@ -19,6 +22,16 @@ import { Level0Factory } from "../Level0Factory.mjs"
  * @property {Level0Minute|number} minutes
  * @property {Level0Second|number} seconds
  * @property {Level0Millisecond|number} [milliseconds]
+ */
+/**
+ * @typedef {Object} Level0DurationOutSpec
+ * @property {Level0Year} years
+ * @property {Level0Month} months
+ * @property {Level0Day} days
+ * @property {Level0Hour} hours
+ * @property {Level0Minute} minutes
+ * @property {Level0Second} seconds
+ * @property {Level0Millisecond} [milliseconds]
  */
 
 /**
@@ -32,7 +45,7 @@ import { Level0Factory } from "../Level0Factory.mjs"
  */
 export class Level0Duration extends Level0Component {
   /**
-   * @param {Level0DurationSpec|number} spec
+   * @param {Level0DurationInSpec|number} spec
    */
   constructor (spec = {
     years: new Date().getFullYear(),
@@ -55,7 +68,7 @@ export class Level0Duration extends Level0Component {
   }
 
   /**
-   * @return {Level0DurationSpec}
+   * @return {Level0DurationOutSpec}
    */
   toSpec () {
     return Level0Duration.toSpec(this)
@@ -64,10 +77,10 @@ export class Level0Duration extends Level0Component {
   /**
    * @param {Level0Duration} comp
    * @param {LevelFactory} [factory]
-   * @return {Level0DurationSpec}
+   * @return {Level0DurationOutSpec}
    */
   static toSpec (comp, factory = Level0Factory.instance) {
-    const spec = /** @type Level0DurationSpec */ {}
+    const spec = /** @type Level0DurationOutSpec */ {}
     let millis = comp.value
     const yearDuration = millis / GregorianCalendar.year.duration
     const years = Math.floor(yearDuration)
