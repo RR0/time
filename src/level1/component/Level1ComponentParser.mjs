@@ -1,13 +1,24 @@
-import { Level0ComponentParser } from "../../level0/component/Level0ComponentParser.mjs"
+import { Level0ComponentParser, Level0ComponentParseResult } from "../../level0/component/Level0ComponentParser.mjs"
 /** @import { Level0ComponentParseResult } from "../../level0/component/Level0ComponentParser.mjs" */
 import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
 
-/**
- * @typedef {Level0ComponentParseResult} Level1ComponentParseResult
- * @property {number|{start: number, end: number}} value
- * @property {boolean} [uncertain]
- * @property {boolean} [approximate]
- */
+export class Level1ComponentParseResult extends Level0ComponentParseResult {
+  /**
+   * @type {number|{start: number, end: number}}
+   */
+  value
+
+  /**
+   * @optional
+   * @type boolean
+   */
+  uncertain
+  /**
+   * @optional
+   * @type boolean
+   */
+  approximate
+}
 
 /**
  * @template P extends Level1YearParseResult = Level1YearParseResult

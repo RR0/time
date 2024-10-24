@@ -1,10 +1,12 @@
 import { EDTFParser } from "../../EDTFParser.mjs"
 import { EDTFError } from "../../EDTFError.mjs"
 
-/**
- * @typedef {Object} Level0ComponentParseResult
- * @property {number} value
- */
+export class Level0ComponentParseResult {
+  /**
+   * @type number
+   */
+  value
+}
 
 /**
  * @template P extends Level0YearParseResult = Level0YearParseResult

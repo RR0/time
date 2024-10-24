@@ -1,4 +1,5 @@
 import { MinMaxValidator } from "./validator/MinMaxValidator.mjs"
+/** @import { EDTFValidator } from "./validator/EDTFValidator.mjs" */
 
 export class CalendarUnit {
   /**

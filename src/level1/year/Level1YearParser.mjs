@@ -1,5 +1,8 @@
-import { Level1ComponentParser } from "../component/Level1ComponentParser.mjs"
+import { Level1ComponentParser, Level1ComponentParseResult } from "../component/Level1ComponentParser.mjs"
 import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
+
+export class Level1YearParseResult extends Level1ComponentParseResult {
+}
 
 const name = "yearValue"
 

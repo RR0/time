@@ -1,6 +1,10 @@
 import { Level0ComponentParser } from "../component/Level0ComponentParser.mjs"
 import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
 
+/**
+ * @typedef {Level0ComponentParseResult} Level0YearParseResult
+ */
+
 const name = "yearValue"
 
 export class Level0YearParser extends Level0ComponentParser {
