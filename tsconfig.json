@@ -2,8 +2,9 @@
   "include": ["src/*.mjs"],
   "exclude": ["src/*.test.mjs"],
   "compilerOptions": {
-    "declaration": true,
     "allowJs": true,
+    "declaration": true,
+    "declarationMap": true,
     "emitDeclarationOnly": true,
     "outDir": "types"
   },

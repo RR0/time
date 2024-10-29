@@ -59,16 +59,19 @@ export class Level2Duration extends Level1Duration {
   }
 
   /**
-   * @return {Level2DurationOutSpec}
+   * @template S=Level2DurationOutSpec
+   * @return {S}
    */
   toSpec () {
     return Level2Duration.toSpec(this)
   }
 
   /**
-   * @param {Level2Duration} comp
+   * @template D=Level2Duration
+   * @template O=Level2DurationOutSpec
+   * @param {D} comp
    * @param {LevelFactory} [factory]
-   * @return {Level2DurationOutSpec}
+   * @return {O}
    */
   static toSpec (comp, factory = Level2Factory.instance) {
     return Level1Duration.toSpec(comp, factory)

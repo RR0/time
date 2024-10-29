@@ -75,13 +75,14 @@ export class Level0Duration extends Level0Component {
   }
 
   /**
-   * @param {Level0Duration} comp
-   * @param {LevelFactory} [factory]
+   * @template F=Level0Factory
+   * @param {Level0Duration | number} value Duration or milliseconds
+   * @param {F} [factory] The factory to create duration components (year, month, etc.)
    * @return {Level0DurationOutSpec}
    */
-  static toSpec (comp, factory = Level0Factory.instance) {
+  static toSpec (value, factory = Level0Factory.instance) {
+    let millis = typeof value === "number" ? value : value.value
     const spec = /** @type Level0DurationOutSpec */ {}
-    let millis = comp.value
     const yearDuration = millis / GregorianCalendar.year.duration
     const years = Math.floor(yearDuration)
     if (years > 0) {

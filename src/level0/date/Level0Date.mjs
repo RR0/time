@@ -56,11 +56,13 @@ export class Level0Date {
   }
 
   /**
-   * @type {Level0Month|undefined}
+   * @template MM=Level0Month
+   * @type {MM|undefined}
    */
   #month
 
   /**
+   * @template MM=Level0Month
    * @return {MM|undefined}
    */
   get month () {
@@ -68,6 +70,7 @@ export class Level0Date {
   }
 
   /**
+   * @template MM=Level0Month
    * @param {MM|number|undefined} value
    */
   set month (value) {
@@ -79,12 +82,14 @@ export class Level0Date {
   }
 
   /**
-   * @type {D|undefined}
+   * @template D=Level0Day
+   * @type D
    */
   #day
 
   /**
-   * @return {D|undefined}
+   * @template D=Level0Day
+   * @return {D}
    */
   get day () {
     return this.#day
@@ -232,8 +237,10 @@ export class Level0Date {
   }
 
   /**
-   * @param {Level0Date} other
-   * @return {number}
+   * Return the difference between this date and a previous one.
+   *
+   * @param {Level0Date} other A date before.
+   * @return {number} The difference, in milliseconds.
    */
   compare (other) {
     this.#checkOtherType(other)
@@ -241,12 +248,14 @@ export class Level0Date {
   }
 
   /**
-   * @param {Level0Date} other
+   * Returns the duration between this date and a previous one.
+   * Basically, it is a Duration built from #compare()
+   *
+   * @param {Level0Date} other A date before.
    * @return {Level0Duration}
    */
   delta (other) {
-    this.#checkOtherType(other)
-    const delta = this.getTime() - other.getTime()
+    const delta = this.compare(other)
     return new Level0Duration(delta)
   }
 

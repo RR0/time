@@ -15,7 +15,7 @@ describe("Duration", () => {
     const seconds = 3
     const value = (minutes * GregorianCalendar.minute.duration) + (seconds * GregorianCalendar.second.duration)
     const duration = new Level2Duration(value)
-    const expectedSpec = /** @type Level2DurationSpec */ {
+    const expectedSpec = /** @type Level2DurationOutSpec */ {
       seconds: new Level2Second(seconds),
       minutes: new Level2Minute(minutes),
       uncertain: false,

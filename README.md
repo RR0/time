@@ -7,7 +7,8 @@ which extended over the [ISO-8601](https://www.iso.org/iso-8601-date-and-time-fo
 and was eventually integrated in [ISO 8601-2019](https://www.iso.org/obp/ui/#iso:std:iso:8601:-1:ed-1:v1:en).
 
 By fuzziness, we mean:
-- **uncertainty** (`?`, `X`), like "maybe June 2025"
+- **uncertainty** (`?`), like "maybe June 2025"
+- **(im)precision** (`X`), to express that some date has missing component(s) info 
 - **approximation** (`~`), like "around June 2025"
 - **both** (`%`), like "maybe around June 2025"
 
@@ -18,12 +19,15 @@ By fuzziness, we mean:
 | Level 2 (2019) | ISO-8601-2 (Extensions)  | Per-component date fuzziness, digits uncertainty, extended seasons w/ quarters, dates sets, exponential years |
 | Level 3        | ISO-8601-3               | Seasons intervals                                                                                             |
 
+Accordingly, this API is split in level-specific sub-packages. 
+You can use `Level0Date` only for instance, but using `Level2Date` will implicitly rely on `Level1Date` which implicitly rely on `Level0Date`,
+as each of those standards are extending one on another.
 
 ## Data types
-This package supports fuzziness (or not) for:
+This package supports fuzziness/no fuzziness for:
 - **Dates**
-- **Date components** (year, year, month, day, hour, minute, second, timeshift), each of these referencing a **Unit**
-- **Intervals**
+- **Date components** (year, month, day, hour, minute, second, timeshift), each of these referencing a **Unit**
+- **Intervals** between two dates
 - **Durations**
 
 ## Features
@@ -75,9 +79,9 @@ Date intervals can be parsed:
 import { Level2Interval as EdtfInterval } from "@rr0/time/level2/interval/index.mjs"
 
 const maybeAugust = EdtfDate.fromString("2024/2025-~06")
-maybeAugust.start.year // 2024
-maybeAugust.end.year // 2025
-maybeAugust.end.month // 6
+maybeAugust.start.year      // 2024
+maybeAugust.end.year        // 2025
+maybeAugust.end.month       // 6
 maybeAugust.end.approximate // true
 ```
 
@@ -93,9 +97,12 @@ const inTheFifities = EdtfYear.fromString("195X")
 
 You can select the API level you want to use. For example using level 0:
 ```js
-import {Level1Duration as Duration} from "@rr0/time"
+import {Level2Duration as Duration} from "@rr0/time"
 
 const aroundTenMinutes = Duration.fromString("P10M~")
+aroundTenMinutes.value            // 10 * GregorianCalendar.minute.duration
+aroundTenMinutes.toSpec().minutes // 10
+
 ```
 
 ### Programmatic API
@@ -108,9 +115,9 @@ Each date calendar and time component can be individually instantiated.
 import { Level2Year as EdtfYear } from "@rr0/time/level2/year/index.mjs"
 
 const someYear = new EdtfYear(1985)
-console.log(someYear.value)  // "1985"
+someYear.value  // "1985"
 const currentYear = EdtfYear.newInstance()
-console.log(someYear.value)  // Displays current year
+someYear.value  // Displays current year
 ```
 
 #### Date

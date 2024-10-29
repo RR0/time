@@ -11,13 +11,6 @@ import {
 export class TimeContext {
   /**
    * @readonly
-   * @type {RegExp}
-   */
-  static dateTimeRegexp = new RegExp(
-    "^(~)?(-?\\d{3,})?(?:-?([0-1]\\d)(?!\:))?(?:-?([0-3]\\d{1,2}(?!\:)))?(?:[T ]?(?:([0-2]\\d):([0-5]\\d))?)?(?: ?([A-Z]{3}))?"
-  )
-  /**
-   * @readonly
    */
   static MINUTE = 60
   /**
