@@ -12,6 +12,20 @@ import { AbstractMethodError } from "./AbstractMethodError.mjs"
  */
 export class LevelFactory {
   /**
+   * @readonly
+   * @type TimeUnits
+   */
+  units
+
+  /**
+   *
+   * @param {TimeUnits} units
+   */
+  constructor (units ) {
+    this.units = units
+  }
+
+  /**
    * @protected
    * @param {number} value
    * @return {Y}

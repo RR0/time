@@ -6,7 +6,7 @@ import { Level1Minute } from "../minute/index.mjs"
 import { Level1Hour } from "../hour/index.mjs"
 import { Level1Day } from "../day/index.mjs"
 import { Level1Month } from "../month/index.mjs"
-import { Level1Factory } from "../Level1Factory.mjs"
+import { level1Factory, Level1Factory } from "../Level1Factory.mjs"
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 /** @import { Level0DateSpec } from "../../level0/date/Level0Date.mjs" */
 
@@ -28,7 +28,7 @@ export class Level1Date extends /** @type {Level0Date<Level1Year, Level1Month, L
    * @readonly
    * @type {Level1Factory}
    */
-  factory = new Level1Factory()
+  factory = level1Factory
 
   /**
    * @param {Level1DateSpec} spec

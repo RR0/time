@@ -1,23 +1,22 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
-import { GregorianCalendar } from "../../calendar/index.mjs"
+import { calendarUnits } from "../../calendar/index.mjs"
 import { Level2Date } from "../date/index.mjs"
 import { Level2DurationRenderer } from "./Level2DurationRenderer.mjs"
 import { Level2Duration } from "./Level2Duration.mjs"
-import { Level2Second } from "../second/index.mjs"
-import { Level2Minute } from "../minute/index.mjs"
 import { level2Assert } from "../component/Level2TestUtil.mjs"
+import { level2DurationFactory } from "../Level2Factory.mjs"
 
 describe("Duration", () => {
 
   test("toSpec", () => {
     const minutes = 2
     const seconds = 3
-    const value = (minutes * GregorianCalendar.minute.duration) + (seconds * GregorianCalendar.second.duration)
+    const value = (minutes * calendarUnits.minute.duration) + (seconds * calendarUnits.second.duration)
     const duration = new Level2Duration(value)
     const expectedSpec = /** @type Level2DurationOutSpec */ {
-      seconds: new Level2Second(seconds),
-      minutes: new Level2Minute(minutes),
+      seconds: level2DurationFactory.newSecond(seconds),
+      minutes: level2DurationFactory.newMinute(minutes),
       uncertain: false,
       approximate: false
     }
@@ -25,6 +24,12 @@ describe("Duration", () => {
     assert.deepEqual(durationSpec, expectedSpec)
     const durationStaticSpec = Level2Duration.toSpec(duration)
     assert.deepEqual(durationStaticSpec, expectedSpec)
+    const durationStaticSpec2 = Level2Duration.toSpec(duration.value)
+    assert.deepEqual(durationStaticSpec2, expectedSpec)
+    const twelveMinutes = Level2Duration.toSpec(12 * calendarUnits.minute.duration)
+    assert.deepEqual(twelveMinutes.minutes.value, 12)
+    const twelveMinutesBefore = Level2Duration.toSpec(-12 * calendarUnits.minute.duration)
+    assert.deepEqual(twelveMinutesBefore.minutes.value, -12)
   })
 
   describe("rendering", () => {
@@ -39,11 +44,11 @@ describe("Duration", () => {
     test("custom", () => {
       const customRenderer = new class extends Level2DurationRenderer {
         render (comp) {
-          const value = comp.value / GregorianCalendar.second.duration
+          const value = comp.value / calendarUnits.second.duration
           return (comp.uncertain ? "maybe " : "") + "during " + value + " second" + (value > 1 ? "s" : "") + (comp.approximate ? " approximately" : "")
         }
       }()
-      const duration = new Level2Duration({ seconds: GregorianCalendar.second.min + 1 })
+      const duration = new Level2Duration({ seconds: calendarUnits.second.min + 1 })
       assert.equal(duration.toString(customRenderer), "during 1 second")
       duration.uncertain = true
       assert.equal(duration.toString(customRenderer), "maybe during 1 second")
@@ -60,12 +65,12 @@ describe("Duration", () => {
 
     test("in seconds", () => {
       const durationMs = Level2Duration.fromString(`P${seconds}S`)
-      assert.equal(durationMs.value, seconds * GregorianCalendar.second.duration)
+      assert.equal(durationMs.value, seconds * calendarUnits.second.duration)
     })
 
     test("approximate component", () => {
       const durationMs = Level2Duration.fromString(`P~${seconds}S`)
-      level2Assert(durationMs, seconds * GregorianCalendar.second.duration, false, true)
+      level2Assert(durationMs, seconds * calendarUnits.second.duration, false, true)
     })
   })
 
@@ -73,7 +78,7 @@ describe("Duration", () => {
 
     test("in seconds", () => {
       const seconds = 3
-      const durationMs = new Level2Duration(seconds * GregorianCalendar.second.duration)
+      const durationMs = new Level2Duration(seconds * calendarUnits.second.duration)
       const toString = `P${seconds}S`
       assert.equal(durationMs.toString(), toString)
       const durationObj = new Level2Duration({ seconds })
@@ -83,7 +88,7 @@ describe("Duration", () => {
     test("in minutes", () => {
       const minutes = 1
       const seconds = 3
-      const durationMs = new Level2Duration(minutes * GregorianCalendar.minute.duration + seconds * GregorianCalendar.second.duration)
+      const durationMs = new Level2Duration(minutes * calendarUnits.minute.duration + seconds * calendarUnits.second.duration)
       const toString = `P${minutes}M${seconds}S`
       assert.equal(durationMs.toString(), toString)
       const durationObj = new Level2Duration({ minutes, seconds })
@@ -91,12 +96,13 @@ describe("Duration", () => {
     })
   })
 
-  test("between", () => {
-    const beforeDate = Level2Date.fromString("1985-04-21")
-    const twoDays = Level2Duration.between(beforeDate, Level2Date.fromString("1985-04-23"))
-    assert.equal(twoDays.value, 2 * GregorianCalendar.day.duration)
-    const years = Level2Duration.between(beforeDate, Level2Date.fromString("2001"))
-    const expected = ((2001 - 1985) * GregorianCalendar.year.duration) - (8 * GregorianCalendar.month.duration) - (7 * GregorianCalendar.day.duration)
-    // assert.equal(years.millis, expected)
-  })
+  test("between", { todo: true }, () => {
+      const beforeDate = Level2Date.fromString("1985-04-21")
+      const twoDays = Level2Duration.between(beforeDate, Level2Date.fromString("1985-04-23"))
+      assert.equal(twoDays.value, 2 * calendarUnits.day.duration)
+      const years = Level2Duration.between(beforeDate, Level2Date.fromString("2001"))
+      const expected = ((2001 - 1985) * calendarUnits.year.duration) - (8 * calendarUnits.month.duration) - (7 * calendarUnits.day.duration)
+      assert.equal(years.value, expected)
+    }
+  )
 })

@@ -1,4 +1,4 @@
-import { CalendarUnit, GregorianCalendar } from "../../calendar/index.mjs"
+import { CalendarUnit, calendarUnits } from "../../calendar/index.mjs"
 import { Level0DurationParser } from "./Level0DurationParser.mjs"
 import { Level0Year } from "../year/index.mjs"
 import { Level0Month } from "../month/index.mjs"
@@ -8,7 +8,7 @@ import { Level0Minute } from "../minute/index.mjs"
 import { Level0Second } from "../second/index.mjs"
 import { Level0DurationRenderer } from "./Level0DurationRenderer.mjs"
 import { Level0Component } from "../component/index.mjs"
-import { Level0Factory } from "../Level0Factory.mjs"
+import { level0DurationFactory } from "../Level0Factory.mjs"
 /** @import { Level0Date } from "../date/Level0Date.mjs" */
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 /** @import { LevelFactory } from "../../LevelFactory.mjs" */
@@ -23,6 +23,7 @@ import { Level0Factory } from "../Level0Factory.mjs"
  * @property {Level0Second|number} seconds
  * @property {Level0Millisecond|number} [milliseconds]
  */
+
 /**
  * @typedef {Object} Level0DurationOutSpec
  * @property {Level0Year} years
@@ -58,12 +59,12 @@ export class Level0Duration extends Level0Component {
   }) {
     super({
       value: typeof spec === "number" ? spec :
-        +(spec.years ? spec.years * GregorianCalendar.year.duration : 0)
-        + (spec.months ? spec.months * GregorianCalendar.month.duration : 0)
-        + (spec.days ? spec.days * GregorianCalendar.day.duration : 0)
-        + (spec.hours ? spec.hours * GregorianCalendar.hour.duration : 0)
-        + (spec.minutes ? spec.minutes * GregorianCalendar.minute.duration : 0)
-        + (spec.seconds ? spec.seconds * GregorianCalendar.second.duration : 0)
+        +(spec.years ? spec.years * calendarUnits.year.duration : 0)
+        + (spec.months ? spec.months * calendarUnits.month.duration : 0)
+        + (spec.days ? spec.days * calendarUnits.day.duration : 0)
+        + (spec.hours ? spec.hours * calendarUnits.hour.duration : 0)
+        + (spec.minutes ? spec.minutes * calendarUnits.minute.duration : 0)
+        + (spec.seconds ? spec.seconds * calendarUnits.second.duration : 0)
     }, new CalendarUnit("millisecond", 0, Number.MAX_SAFE_INTEGER, undefined))
   }
 
@@ -80,41 +81,43 @@ export class Level0Duration extends Level0Component {
    * @param {F} [factory] The factory to create duration components (year, month, etc.)
    * @return {Level0DurationOutSpec}
    */
-  static toSpec (value, factory = Level0Factory.instance) {
+  static toSpec (value, factory = level0DurationFactory) {
     let millis = typeof value === "number" ? value : value.value
+    const sign = millis > 0 ? 1 : -1
+    millis = Math.abs(millis)
     const spec = /** @type Level0DurationOutSpec */ {}
-    const yearDuration = millis / GregorianCalendar.year.duration
+    const yearDuration = millis / calendarUnits.year.duration
     const years = Math.floor(yearDuration)
     if (years > 0) {
-      spec.years = factory.newYear(years)
-      millis -= years * GregorianCalendar.year.duration
+      spec.years = factory.newYear(sign * years)
+      millis -= years * calendarUnits.year.duration
     }
-    const monthDuration = millis / GregorianCalendar.month.duration
+    const monthDuration = millis / calendarUnits.month.duration
     const months = Math.floor(monthDuration)
     if (months > 0) {
-      spec.months = factory.newMonth(months)
-      millis -= months * GregorianCalendar.month.duration
+      spec.months = factory.newMonth(sign * months)
+      millis -= months * calendarUnits.month.duration
     }
-    const dayDuration = millis / GregorianCalendar.day.duration
+    const dayDuration = millis / calendarUnits.day.duration
     const days = Math.floor(dayDuration)
     if (days > 0) {
-      spec.days = factory.newDay(days)
-      millis -= days * GregorianCalendar.day.duration
+      spec.days = factory.newDay(sign * days)
+      millis -= days * calendarUnits.day.duration
     }
-    const hourDuration = millis / GregorianCalendar.hour.duration
+    const hourDuration = millis / calendarUnits.hour.duration
     const hours = Math.floor(hourDuration)
     if (hours > 0) {
-      spec.hours = factory.newHour(hours)
-      millis -= hours * GregorianCalendar.hour.duration
+      spec.hours = factory.newHour(sign * hours)
+      millis -= hours * calendarUnits.hour.duration
     }
-    const minuteDuration = millis / GregorianCalendar.minute.duration
+    const minuteDuration = millis / calendarUnits.minute.duration
     const minutes = Math.floor(minuteDuration)
     if (minutes > 0) {
-      spec.minutes = factory.newMinute(minutes)
-      millis -= minutes * GregorianCalendar.minute.duration
+      spec.minutes = factory.newMinute(sign * minutes)
+      millis -= minutes * calendarUnits.minute.duration
     }
-    const secondDuration = millis / GregorianCalendar.second.duration
-    const seconds = Math.floor(secondDuration)
+    const secondDuration = millis / calendarUnits.second.duration
+    const seconds = Math.floor(sign * secondDuration)
     if (seconds > 0) {
       spec.seconds = factory.newSecond(seconds)
     }

@@ -1,14 +1,15 @@
 import { Level2Component } from "../component/index.mjs"
 import { Level2SecondParser } from "./Level2SecondParser.mjs"
-import { GregorianCalendar } from "../../calendar/index.mjs"
+import { calendarUnits } from "../../calendar/index.mjs"
 /** @import { Level2ComponentSpec } from "../component/Level2Component.mjs" */
 
 export class Level2Second extends Level2Component {
   /**
-   * @param {Level2ComponentSpec} spec
+   * @param {Level2ComponentSpec} spec The second value spec
+   * @param {CalendarUnit} [unit] The second unit (calendarUnits.second by default)
    */
-  constructor (spec) {
-    super(spec, GregorianCalendar.second)
+  constructor (spec, unit = calendarUnits.second) {
+    super(spec, unit)
   }
 
   /**
@@ -22,7 +23,7 @@ export class Level2Second extends Level2Component {
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start
     if (startValue !== undefined) {
-      const unit = GregorianCalendar.second
+      const unit = calendarUnits.second
       const start = new Level2Second(Object.assign({ ...parseResult }, { value: Math.max(startValue, unit.min) }))
       const end = new Level2Second(Object.assign({ ...parseResult }, { value: Math.min(parseResult.value.end, unit.max) }))
       return { start, end }

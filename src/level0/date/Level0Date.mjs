@@ -8,7 +8,7 @@ import { Level0Minute } from "../minute/index.mjs"
 import { Level0Second } from "../second/index.mjs"
 import { Level0Timeshift } from "../timeshift/index.mjs"
 import { Level0DateRenderer } from "./Level0DateRenderer.mjs"
-import { Level0Factory } from "../Level0Factory.mjs"
+import { level0Factory, Level0Factory } from "../Level0Factory.mjs"
 import { Level0Duration } from "../duration/index.mjs"
 
 /**
@@ -203,7 +203,7 @@ export class Level0Date {
    * @readonly
    * @type {Level0Factory}
    */
-  factory = Level0Factory.instance
+  factory = level0Factory
 
   /**
    * @param {Level0DateSpec} spec

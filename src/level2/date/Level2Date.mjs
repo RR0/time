@@ -1,5 +1,6 @@
 import { Level2DateParser } from "./Level2DateParser.mjs"
 import { Level1Date } from "../../level1/date/Level1Date.mjs"
+import { level2Factory } from "../Level2Factory.mjs"
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 /** @import { Level1DateSpec } from "../../level1/date/Level1Date.mjs" */
 
@@ -17,6 +18,12 @@ import { Level1Date } from "../../level1/date/Level1Date.mjs"
  * @template Z extends Level2Component = Level2Timeshift
  */
 export class Level2Date extends Level1Date {
+  /**
+   * @readonly
+   * @type {Level2Factory}
+   */
+  factory = level2Factory
+
   /**
    * @param {Level2DateSpec} spec
    */

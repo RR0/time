@@ -1,5 +1,5 @@
 import { MonthValidator } from "../../level0/month/MonthValidator.mjs"
-import { GregorianCalendar } from "../GregorianCalendar.mjs"
+import { calendarUnits } from "../GregorianCalendar.mjs"
 import { EDTFError } from "../../EDTFError.mjs"
 import { CalendarUnit } from "./CalendarUnit.mjs"
 /** @import { EDTFValidator } from "./validator/EDTFValidator.mjs" */
@@ -10,7 +10,7 @@ export class GregorianMonth extends CalendarUnit {
    * @param {EDTFValidator} validator
    */
   constructor (days, validator = new MonthValidator()) {
-    super("month", 1, days, GregorianCalendar.day, validator)
+    super("month", 1, days, calendarUnits.day, validator)
   }
 
   /**

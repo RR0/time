@@ -1,13 +1,14 @@
 import { Level0YearParser } from "./Level0YearParser.mjs"
 import { Level0Component } from "../component/index.mjs"
-import { GregorianCalendar } from "../../calendar/GregorianCalendar.mjs"
+import { calendarUnits } from "../../calendar/GregorianCalendar.mjs"
 
 export class Level0Year extends Level0Component {
   /**
-   * @param {Level0ComponentSpec|number} spec
+   * @param {Level0ComponentSpec|number} [spec] The year value spec (current year by default).
+   * @param {CalendarUnit} [unit] The year unit (GregorianCalendar.year by default).
    */
-  constructor (spec = new Date().getFullYear()) {
-    super(spec, GregorianCalendar.year)
+  constructor (spec = new Date().getFullYear(), unit = calendarUnits.year) {
+    super(spec, unit)
   }
 
   /**

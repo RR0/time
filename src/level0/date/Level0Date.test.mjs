@@ -3,7 +3,7 @@ import assert from "node:assert"
 
 import { Level0Date } from "./Level0Date.mjs"
 import { Level0Year } from "../year/index.mjs"
-import { GregorianCalendar } from "../../calendar/index.mjs"
+import { calendarUnits } from "../../calendar/index.mjs"
 
 describe("Level0Date", () => {
 
@@ -48,7 +48,7 @@ describe("Level0Date", () => {
       assert.equal(afterDate.isEqual(beforeDate), false)
       assert.equal(beforeDate.isBefore(afterDate), true)
       assert.equal(afterDate.isAfter(beforeDate), true)
-      const deltaMs = 15 * GregorianCalendar.year.duration + 9 * GregorianCalendar.month.duration + 28 * GregorianCalendar.day.duration
+      const deltaMs = 15 * calendarUnits.year.duration + 9 * calendarUnits.month.duration + 28 * calendarUnits.day.duration
       assert.equal(afterDate.compare(beforeDate), deltaMs)
       const dur = afterDate.delta(beforeDate)
       assert.equal(dur.value, deltaMs)

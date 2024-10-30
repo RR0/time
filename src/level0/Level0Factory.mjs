@@ -5,6 +5,9 @@ import { Level0Day } from "./day/index.mjs"
 import { Level0Minute } from "./minute/index.mjs"
 import { Level0Second } from "./second/index.mjs"
 import { Level0Hour } from "./hour/index.mjs"
+import { TimeUnits } from "../calendar/unit/TimeUnits.mjs"
+import { calendarUnits } from "../calendar/index.mjs"
+import { durationUnits } from "./duration/index.mjs"
 
 /**
  * @template Y extends Level1Component = Level1Year
@@ -17,17 +20,19 @@ import { Level0Hour } from "./hour/index.mjs"
  */
 export class Level0Factory extends LevelFactory {
   /**
-   * @readonly
-   * @type {Level0Factory}
+   *
+   * @param {TimeUnits} units
    */
-  static instance = new Level0Factory()
+  constructor (units) {
+    super(units)
+  }
 
   /**
    * @param {number} value
    * @return Y
    */
   newYear (value) {
-    return new Level0Year(value)
+    return new Level0Year(value, this.units.year)
   }
 
   /**
@@ -35,7 +40,7 @@ export class Level0Factory extends LevelFactory {
    * @return MM
    */
   newMonth (value) {
-    return new Level0Month(value)
+    return new Level0Month(value, this.units.month)
   }
 
   /**
@@ -43,7 +48,7 @@ export class Level0Factory extends LevelFactory {
    * @return D
    */
   newDay (value) {
-    return new Level0Day(value)
+    return new Level0Day(value, this.units.day)
   }
 
   /**
@@ -51,7 +56,7 @@ export class Level0Factory extends LevelFactory {
    * @return H
    */
   newHour (value) {
-    return new Level0Hour(value)
+    return new Level0Hour(value, this.units.hour)
   }
 
   /**
@@ -59,7 +64,7 @@ export class Level0Factory extends LevelFactory {
    * @return M
    */
   newMinute (value) {
-    return new Level0Minute(value)
+    return new Level0Minute(value, this.units.minute)
   }
 
   /**
@@ -67,6 +72,10 @@ export class Level0Factory extends LevelFactory {
    * @return S
    */
   newSecond (value) {
-    return new Level0Second(value)
+    return new Level0Second(value, this.units.second)
   }
 }
+
+export const level0Factory = new Level0Factory(calendarUnits)
+
+export const level0DurationFactory = new Level0Factory(durationUnits)

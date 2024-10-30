@@ -1,14 +1,15 @@
 import { Level1Component } from "../component/index.mjs"
 import { Level1MinuteParser } from "./Level1MinuteParser.mjs"
-import { GregorianCalendar } from "../../calendar/index.mjs"
+import { calendarUnits } from "../../calendar/index.mjs"
 import { Level1ComponentRenderer } from "../component/Level1ComponentRenderer.mjs"
 
 export class Level1Minute extends Level1Component {
   /**
-   * @param {Level1ComponentSpec|number} spec
+   * @param {Level1ComponentSpec|number} spec The minute spec value.
+   * @param [unit] The minute unit.
    */
-  constructor (spec) {
-    super(spec, GregorianCalendar.minute)
+  constructor (spec , unit = calendarUnits.minute) {
+    super(spec, unit)
   }
 
   toString (renderer = Level1ComponentRenderer.instance) {
@@ -26,7 +27,7 @@ export class Level1Minute extends Level1Component {
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start
     if (startValue !== undefined) {
-      const unit = GregorianCalendar.minute
+      const unit = calendarUnits.minute
       const start = new Level1Minute(Object.assign({ ...parseResult }, { value: Math.max(startValue, unit.min) }))
       const end = new Level1Minute(Object.assign({ ...parseResult }, { value: Math.min(parseResult.value.end, unit.max) }))
       return { start, end }

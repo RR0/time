@@ -1,14 +1,15 @@
 import { Level1DayParser } from "./Level1DayParser.mjs"
 import { Level1Component } from "../component/index.mjs"
 /** @import { Level1ComponentSpec } from "../component/index.mjs" */
-import { GregorianCalendar } from "../../calendar/index.mjs"
+import { calendarUnits } from "../../calendar/index.mjs"
 
 export class Level1Day extends Level1Component {
   /**
-   * @param {Level1ComponentSpec|number} spec
+   * @param {Level1ComponentSpec|number} spec The day spec value.
+   * @param [unit] The day unit.
    */
-  constructor (spec) {
-    super(spec, GregorianCalendar.day)
+  constructor (spec, unit = calendarUnits.day) {
+    super(spec, unit)
   }
 
   toString () {
@@ -24,7 +25,7 @@ export class Level1Day extends Level1Component {
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start
     if (startValue !== undefined) {
-      let unit = GregorianCalendar.day
+      let unit = calendarUnits.day
       const start = new Level1Day(Object.assign({ ...parseResult }, { value: Math.max(startValue, unit.min) }))
       const end = new Level1Day(Object.assign({ ...parseResult }, { value: Math.min(parseResult.value.end, unit.max) }))
       return { start, end }

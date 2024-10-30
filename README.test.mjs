@@ -5,7 +5,7 @@ import { Level2Date as EdtfDate } from "./src/level2/date/index.mjs"
 import { Level2Interval as EdtfInterval } from "./src/level2/interval/index.mjs"
 
 import {Level2Duration as Duration} from "./src/level2/duration/index.mjs"
-import { GregorianCalendar } from "./src/calendar/index.mjs"
+import { calendarUnits } from "./src/calendar/index.mjs"
 
 describe("Demo samples", () => {
 
@@ -46,7 +46,7 @@ describe("Demo samples", () => {
 
     test("parsing", () => {
       const aroundTenMinutes = Duration.fromString("P10M~")
-      assert.equal(aroundTenMinutes.value, 10 * GregorianCalendar.minute.duration)
+      assert.equal(aroundTenMinutes.value, 10 * calendarUnits.minute.duration)
       const tenMnSpec = aroundTenMinutes.toSpec()
       assert.equal(tenMnSpec.minutes, 10)
     })

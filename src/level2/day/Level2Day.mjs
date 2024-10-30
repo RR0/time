@@ -1,14 +1,15 @@
 import { Level2Component } from "../component/Level2Component.mjs"
 /** @import { Level2ComponentSpec } from "../component/Level2Component.mjs" */
 import { Level2DayParser } from "./Level2DayParser.mjs"
-import { GregorianCalendar } from "../../calendar/GregorianCalendar.mjs"
+import { calendarUnits } from "../../calendar/GregorianCalendar.mjs"
 
 export class Level2Day extends Level2Component {
   /**
    * @param {Level2ComponentSpec} spec
+   * @param [unit] The day unit
    */
-  constructor (spec) {
-    super(spec, GregorianCalendar.day)
+  constructor (spec, unit = calendarUnits.day) {
+    super(spec, unit)
   }
 
   toString () {
@@ -26,7 +27,7 @@ export class Level2Day extends Level2Component {
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start
     if (startValue !== undefined) {
-      const unit = GregorianCalendar.day
+      const unit = calendarUnits.day
       const start = new Level2Day(Object.assign({ ...parseResult }, { value: Math.max(startValue, unit.min) }))
       const end = new Level2Day(Object.assign({ ...parseResult }, { value: Math.min(parseResult.value.end, unit.max) }))
       return { start, end }

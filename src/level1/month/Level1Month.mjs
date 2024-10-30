@@ -1,16 +1,15 @@
 import { Level1MonthParser } from "./Level1MonthParser.mjs"
 import { Level1Component } from "../component/index.mjs"
-import { GregorianCalendar } from "../../calendar/index.mjs"
+import { calendarUnits } from "../../calendar/index.mjs"
 import { Level1MonthValidator } from "./Level1MonthValidator.mjs"
 import { CalendarUnit } from "../../calendar/index.mjs"
-
-const unit = new CalendarUnit(GregorianCalendar.month.name, 1, 24, GregorianCalendar.day, new Level1MonthValidator())
 
 export class Level1Month extends Level1Component {
   /**
    * @param {Level1ComponentSpec|number} spec
+   * @param [unit] The month unit.
    */
-  constructor (spec) {
+  constructor (spec, unit = new CalendarUnit(calendarUnits.month.name, 1, 24, calendarUnits.day, new Level1MonthValidator())) {
     super(spec, unit)
   }
 
@@ -29,7 +28,7 @@ export class Level1Month extends Level1Component {
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start
     if (startValue !== undefined) {
-      let unit = GregorianCalendar.month
+      let unit = calendarUnits.month
       const start = new Level1Month(Object.assign({ ...parseResult }, { value: Math.max(startValue, unit.min) }))
       const end = new Level1Month(Object.assign({ ...parseResult }, { value: Math.min(parseResult.value.end, unit.max) }))
       return { start, end }

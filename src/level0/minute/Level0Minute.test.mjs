@@ -3,7 +3,7 @@ import assert from "node:assert"
 
 import { Level0Minute } from "./Level0Minute.mjs"
 import { Level0ComponentRenderer } from "../component/Level0ComponentRenderer.mjs"
-import { GregorianCalendar } from "../../calendar/index.mjs"
+import { calendarUnits } from "../../calendar/index.mjs"
 
 describe("Level0Minute", () => {
 
@@ -15,9 +15,9 @@ describe("Level0Minute", () => {
   describe("render", () => {
 
     test("toString", () => {
-      assert.equal(new Level0Minute(GregorianCalendar.minute.min).toString(), "00")
-      assert.equal(new Level0Minute(GregorianCalendar.minute.min + 1).toString(), "01")
-      assert.equal(new Level0Minute(GregorianCalendar.minute.max).toString(), "59")
+      assert.equal(new Level0Minute(calendarUnits.minute.min).toString(), "00")
+      assert.equal(new Level0Minute(calendarUnits.minute.min + 1).toString(), "01")
+      assert.equal(new Level0Minute(calendarUnits.minute.max).toString(), "59")
     })
 
     test("custom renderer", () => {
@@ -27,9 +27,9 @@ describe("Level0Minute", () => {
           return value + " minute" + (value > 1 ? "s" : "")
         }
       }()
-      assert.equal(new Level0Minute(GregorianCalendar.minute.min).toString(customRenderer), "0 minute")
-      assert.equal(new Level0Minute(GregorianCalendar.minute.min + 1).toString(customRenderer), "1 minute")
-      assert.equal(new Level0Minute(GregorianCalendar.minute.max).toString(customRenderer), "59 minutes")
+      assert.equal(new Level0Minute(calendarUnits.minute.min).toString(customRenderer), "0 minute")
+      assert.equal(new Level0Minute(calendarUnits.minute.min + 1).toString(customRenderer), "1 minute")
+      assert.equal(new Level0Minute(calendarUnits.minute.max).toString(customRenderer), "59 minutes")
     })
   })
 

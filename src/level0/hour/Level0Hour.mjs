@@ -1,14 +1,15 @@
 import { Level0Component } from "../component/index.mjs"
 import { Level0HourParser } from "./Level0HourParser.mjs"
-import { GregorianCalendar } from "../../calendar/index.mjs"
+import { calendarUnits } from "../../calendar/index.mjs"
 import { PaddedComponentRenderer } from "../PaddedComponentRenderer.mjs"
 
 export class Level0Hour extends Level0Component {
   /**
-   * @param {Level0ComponentSpec|number} spec
+   * @param {Level0ComponentSpec|number} [spec] The hour value spec (or current hour by default).
+   * @param {CalendarUnit} [unit] The hour unit (GregorianCalendar.hour by default).
    */
-  constructor (spec = new Date().getHours()) {
-    super(spec, GregorianCalendar.hour)
+  constructor (spec = new Date().getHours(), unit = calendarUnits.hour) {
+    super(spec, unit)
   }
 
   toString (renderer = PaddedComponentRenderer.default) {

@@ -6,8 +6,8 @@ import { PaddedComponentRenderer } from "../PaddedComponentRenderer.mjs"
 
 export class Level0Month extends Level0Component {
   /**
-   * @param {Level0ComponentSpec|number} spec
-   * @param {GregorianMonth} unit
+   * @param {Level0ComponentSpec|number} [spec] The month value spec (current month by default).
+   * @param {GregorianMonth} [unit] The month unit (GregorianMonth.create(currentMonth) by default).
    */
   constructor (
     spec = new Date().getMonth() + 1,

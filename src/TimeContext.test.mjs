@@ -10,8 +10,7 @@ describe("TimeContext", () => {
 
   test("duration seconds", () => {
     timeContext.updateFromStr("P10S")
-    const duration = timeContext.duration
-    const value = duration.value
+    const value = timeContext.duration.value
     assert.equal(value, 10 * SECOND)
   })
 

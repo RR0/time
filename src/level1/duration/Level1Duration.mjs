@@ -1,11 +1,11 @@
 import { Level1DurationParser } from "./Level1DurationParser.mjs"
 import { Level1Year } from "../year/index.mjs"
 import { Level1Component } from "../component/index.mjs"
-import { CalendarUnit, GregorianCalendar } from "../../calendar/index.mjs"
+import { CalendarUnit, calendarUnits } from "../../calendar/index.mjs"
 import { Level1DateParser } from "../date/Level1DateParser.mjs"
 import { Level1ComponentParser } from "../component/Level1ComponentParser.mjs"
-import { Level0Duration } from "../../level0/index.mjs"
-import { Level1Factory } from "../Level1Factory.mjs"
+import { durationUnits, Level0Duration } from "../../level0/index.mjs"
+import { level1DurationFactory } from "../Level1Factory.mjs"
 import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
 
 /**
@@ -20,6 +20,7 @@ import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
  * @property {boolean} [uncertain]
  * @property {boolean} [approximate]
  */
+
 /**
  * @typedef {Object} Level1DurationOutSpec
  * @property {Level1Year} years
@@ -47,19 +48,9 @@ export class Level1Duration extends Level1Component {
   /**
    * @param {Level1DurationInSpec|number} spec
    */
-  constructor (spec = {
-    value: {
-      milliseconds: new Date().getMilliseconds(),
-      seconds: new Date().getSeconds(),
-      minutes: new Date().getMinutes(),
-      hours: new Date().getHours(),
-      days: new Date().getDate(),
-      months: new Date().getMonth(),
-      years: new Date().getFullYear()
-    }
-  }) {
+  constructor (spec) {
     super(
-      typeof spec === "number" ? spec :
+      typeof spec === "number" || spec.hasOwnProperty("value") ? spec :
         {
           value: Level1Duration.getValue(spec, Level1DateParser.yearGroup)
             + Level1Duration.getValue(spec, Level1DateParser.monthGroup)
@@ -70,7 +61,7 @@ export class Level1Duration extends Level1Component {
           uncertain: Level1Duration.getBoolean(spec, Level1ComponentParser.uncertainGroup),
           approximate: Level1Duration.getBoolean(spec, "approximate")
         },
-      new CalendarUnit("millisecond", 0, Number.MAX_SAFE_INTEGER, undefined)
+      durationUnits.millisecond
     )
   }
 
@@ -102,9 +93,11 @@ export class Level1Duration extends Level1Component {
     let durationValue = spec[durCompGroupName + "s"]  // Duration components names are suffixed with plural.
     if (durationValue instanceof Level1Component) {
       durationValue = durationValue.value
+    } else if (typeof spec === "number") {
+      durationValue = spec
     }
     if (durationValue) {
-      const unit = /** @type CalendarUnit */ GregorianCalendar[durCompGroupName]
+      const unit = /** @type CalendarUnit */ calendarUnits[durCompGroupName]
       time = durationValue * unit.duration
     }
     return time
@@ -129,12 +122,12 @@ export class Level1Duration extends Level1Component {
    * @param {LevelFactory} [factory]
    * @return {O}
    */
-  static toSpec (comp, factory = Level1Factory.instance) {
+  static toSpec (comp, factory = level1DurationFactory) {
     const level0Spec = Level0Duration.toSpec(comp, factory)
     return {
       ...level0Spec,
-      uncertain: comp.uncertain,
-      approximate: comp.approximate
+      uncertain: comp.uncertain || false,
+      approximate: comp.approximate || false
     }
   }
 
