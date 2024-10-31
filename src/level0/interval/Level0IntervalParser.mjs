@@ -10,7 +10,7 @@ const endGroup = `end`
  * @template S extends Level0Date
  * @template E extends Level0Date
  */
-export default class Level0IntervalParser extends EDTFParser {
+export class Level0IntervalParser extends EDTFParser {
   /**
    * @type string
    * @readonly

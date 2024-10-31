@@ -1,5 +1,4 @@
 import { Level1DurationParser } from "./Level1DurationParser.mjs"
-import { Level1Year } from "../year/index.mjs"
 import { Level1Component } from "../component/index.mjs"
 import { CalendarUnit, calendarUnits } from "../../calendar/index.mjs"
 import { Level1DateParser } from "../date/Level1DateParser.mjs"
@@ -7,6 +6,16 @@ import { Level1ComponentParser } from "../component/Level1ComponentParser.mjs"
 import { durationUnits, Level0Duration } from "../../level0/index.mjs"
 import { level1DurationFactory } from "../Level1Factory.mjs"
 import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
+/** @import { Level0Date } from "../date/Level0Date.mjs" */
+/** @import { EDTFParser } from "../../EDTFParser.mjs" */
+/** @import { LevelFactory } from "../../LevelFactory.mjs" */
+/** @import { Level1Date } from "../date/index.mjs" */
+/** @import { Level1Year } from "../year/index.mjs" */
+/** @import { Level1Month } from "../month/index.mjs" */
+/** @import { Level1Day } from "../day/index.mjs" */
+/** @import { Level1Hour } from "../hour/index.mjs" */
+/** @import { Level1Minute } from "../minute/index.mjs" */
+/** @import { Level1Second } from "../second/index.mjs" */
 
 /**
  * @typedef {Object} Level1DurationInSpec
@@ -108,19 +117,16 @@ export class Level1Duration extends Level1Component {
   }
 
   /**
-   * @template S=Level1DurationOutSpec
-   * @return {S}
+   * @return {Level1DurationOutSpec}
    */
   toSpec () {
     return Level1Duration.toSpec(this)
   }
 
   /**
-   * @template D=Level1Duration
-   * @template O=Level1DurationOutSpec
-   * @param {D} comp
+   * @param {Level1Duration} comp
    * @param {LevelFactory} [factory]
-   * @return {O}
+   * @return {Level1DurationOutSpec}
    */
   static toSpec (comp, factory = level1DurationFactory) {
     const level0Spec = Level0Duration.toSpec(comp, factory)
@@ -142,8 +148,8 @@ export class Level1Duration extends Level1Component {
   }
 
   /**
-   * @param {DD} beforeDate
-   * @param {DD} afterDate
+   * @param {Level1Date} beforeDate
+   * @param {Level1Date} afterDate
    * @return {Level1Duration}
    */
   static between (beforeDate, afterDate) {

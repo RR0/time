@@ -1,4 +1,4 @@
-import Level0IntervalParser from "./Level0IntervalParser.mjs"
+import { Level0IntervalParser } from "./Level0IntervalParser.mjs"
 import { Level0IntervalRenderer } from "./Level0IntervalRenderer.mjs"
 import { Level0Date } from "../date/index.mjs"
 import { EDTFError } from "../../EDTFError.mjs"

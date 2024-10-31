@@ -1,18 +1,20 @@
 import { Level2DurationParser } from "./Level2DurationParser.mjs"
-import { Level2Year } from "../year/index.mjs"
-import { Level2Month } from "../month/index.mjs"
-import { Level2Day } from "../day/index.mjs"
-import { Level2Hour } from "../hour/index.mjs"
-import { Level2Minute } from "../minute/index.mjs"
-import { Level2Second } from "../second/index.mjs"
-import { Level1Duration } from "../../level1/index.mjs"
+import { Level1Duration } from "../../level1/duration/Level1Duration.mjs"
 import { EDTFParser } from "../../EDTFParser.mjs"
 import { level2DurationFactory } from "../Level2Factory.mjs"
 import { Level2DurationRenderer } from "./Level2DurationRenderer.mjs"
 import { durationUnits } from "../../level0/duration/DurationUnits.mjs"
 import { Level2ComponentParser } from "../component/Level2ComponentParser.mjs"
 import { Level2DateParser } from "../date/Level2DateParser.mjs"
-
+/** @import { EDTFParser } from "../../EDTFParser.mjs" */
+/** @import { LevelFactory } from "../../LevelFactory.mjs" */
+/** @import { Level2Date } from "../date/index.mjs" */
+/** @import { Level2Year } from "../year/index.mjs" */
+/** @import { Level2Month } from "../month/index.mjs" */
+/** @import { Level2Day } from "../day/index.mjs" */
+/** @import { Level2Hour } from "../hour/index.mjs" */
+/** @import { Level2Minute } from "../minute/index.mjs" */
+/** @import { Level2Second } from "../second/index.mjs" */
 /**
  * @typedef {Object} Level2DurationInSpec
  * @property {Level2Year|number} years
@@ -75,8 +77,7 @@ export class Level2Duration extends Level1Duration {
   }
 
   /**
-   * @template S=Level2DurationOutSpec
-   * @return {S}
+   * @return {Level2DurationOutSpec}
    */
   toSpec () {
     return Level2Duration.toSpec(this)
@@ -112,8 +113,8 @@ export class Level2Duration extends Level1Duration {
   }
 
   /**
-   * @param {DD} beforeDate
-   * @param {DD} afterDate
+   * @param {Level2Date} beforeDate
+   * @param {Level2Date} afterDate
    * @return {Level2Duration}
    */
   static between (beforeDate, afterDate) {
