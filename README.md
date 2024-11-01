@@ -27,10 +27,10 @@ as each of those standards are extending one on another.
 
 ## Data types
 This package supports fuzziness/no fuzziness for:
-- **Dates**
-- **Date components** (year, month, day, hour, minute, second, timeshift), each of these referencing a **Unit**
-- **Intervals** between two dates
-- **Durations**
+- **[Dates](https://github.com/RR0/time/wiki/Date)**
+- **[Date components](https://github.com/RR0/time/wiki/DateComponent)** (year, month, day, hour, minute, second, timeshift), each of these referencing a **Unit**
+- **[Intervals](https://github.com/RR0/time/wiki/Interval)** between two dates
+- **[Durations](https://github.com/RR0/time/wiki/Duration)**
 
 ### Date component
 A date component is a `value` with a `unit`, which allows only valid values. 
