@@ -5,6 +5,7 @@
   "author": "RR0 <rr0@rr0.org>",
   "description": "EDTF parsing",
   "homepage": "https://github.com/RR0/time#readme",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/RR0/time.git"
