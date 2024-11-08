@@ -1,14 +1,15 @@
 import { Level0Component } from "../component/index.mjs"
 import { Level0DayParser } from "./Level0DayParser.mjs"
-import { calendarUnits } from "../../calendar/index.mjs"
 import { PaddedComponentRenderer } from "../PaddedComponentRenderer.mjs"
+import { TimeUnit } from "../../unit/TimeUnit.mjs"
+import { level031DayUnit } from "./Level031DayUnit.mjs"
 
 export class Level0Day extends Level0Component {
   /**
    * @param {Level0ComponentSpec|number} [spec] The day of month value spec (or current day of month by default).
-   * @param {CalendarUnit} [unit] The day of month unit (GregorianCalendar.day by default)
+   * @param {TimeUnit} [unit] The day of month unit (Level0TimeUnits.day by default)
    */
-  constructor (spec = new Date().getDate(), unit = calendarUnits.day) {
+  constructor (spec = new Date().getDate(), unit = level031DayUnit) {
     super(spec, unit)
   }
 

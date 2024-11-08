@@ -5,8 +5,9 @@ import { Level1Day } from "./day/index.mjs"
 import { Level1Minute } from "./minute/index.mjs"
 import { Level1Second } from "./second/index.mjs"
 import { Level1Hour } from "./hour/index.mjs"
-import { calendarUnits } from "../calendar/index.mjs"
-import { durationUnits } from "../level0/index.mjs"
+import { level0DurationUnits, Level0Month } from "../level0/index.mjs"
+import { level1TimeUnits } from "./unit/index.mjs"
+import { MonthUnit } from "../unit/index.mjs"
 
 /**
  * @template Y extends Level1Component = Level1Year
@@ -35,10 +36,11 @@ export class Level1Factory extends LevelFactory {
 
   /**
    * @param {number} value
+   * @param {number} year
    * @return MM
    */
-  newMonth (value) {
-    return new Level1Month(value, this.units.month)
+  newMonth (value, year) {
+    return new Level0Month(value, MonthUnit.create(value, year))
   }
 
   /**
@@ -74,6 +76,6 @@ export class Level1Factory extends LevelFactory {
   }
 }
 
-export const level1Factory = new Level1Factory(calendarUnits)
+export const level1Factory = new Level1Factory(level1TimeUnits)
 
-export const level1DurationFactory = new Level1Factory(durationUnits)
+export const level1DurationFactory = new Level1Factory(level0DurationUnits)

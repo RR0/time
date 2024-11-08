@@ -1,5 +1,8 @@
 import { Level1MonthValidator } from "../../level1/month/Level1MonthValidator.mjs"
 
+/**
+ * Validates level-2 months values (1..12, 21..41)
+ */
 export class Level2MonthValidator extends Level1MonthValidator {
 
   validate (value) {

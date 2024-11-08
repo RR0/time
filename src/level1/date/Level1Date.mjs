@@ -1,4 +1,4 @@
-import { Level0Date } from "../../level0/index.mjs"
+import { Level0Date, Level0Month } from "../../level0/index.mjs"
 import { Level1DateParser } from "./Level1DateParser.mjs"
 import { Level1Year } from "../year/index.mjs"
 import { Level1Second } from "../second/index.mjs"
@@ -7,8 +7,15 @@ import { Level1Hour } from "../hour/index.mjs"
 import { Level1Day } from "../day/index.mjs"
 import { Level1Month } from "../month/index.mjs"
 import { level1Factory, Level1Factory } from "../Level1Factory.mjs"
+import { spec } from "node:test/reporters"
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 /** @import { Level0DateSpec } from "../../level0/date/Level0Date.mjs" */
+
+/**
+ * @interface
+ * @typedef ILevel1Month
+ * @extends ILevel0Month
+ */
 
 /**
  * @typedef {Level0DateSpec} Level1DateSpec
@@ -23,7 +30,7 @@ import { level1Factory, Level1Factory } from "../Level1Factory.mjs"
  * @template S extends Level1Component = Level1Second
  * @template Z extends Level1Component = Level1Timeshift
  */
-export class Level1Date extends /** @type {Level0Date<Level1Year, Level1Month, Level1Day, Level1Hour, Level1Minute, Level1Second, Level1Timeshift>} */ Level0Date {
+export class Level1Date extends Level0Date {
   /**
    * @readonly
    * @type {Level1Factory}

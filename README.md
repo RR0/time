@@ -14,8 +14,8 @@ By fuzziness, we mean:
 
 | EDTF           | ISO Standard             | Contents                                                                                                      |
 |----------------|--------------------------|---------------------------------------------------------------------------------------------------------------|
-| Level 0 (2012) | ISO-8601-1 (Basic rules) | Dates, intervals, but no fuzziness                                                                            |
-| Level 1 (2016) | ISO-8601-2 (Extensions)  | Date part fuzziness, open intervals, seasons, big years                                                       |
+| Level 0 (2012) | ISO-8601-1 (Basic rules) | Exact 0-9999 Dates, intervals                                                                                 |
+| Level 1 (2016) | ISO-8601-2 (Extensions)  | Allows date partial fuzziness, open intervals, seasons, big and/or negative years                             |
 | Level 2 (2019) | ISO-8601-2 (Extensions)  | Per-component date fuzziness, digits uncertainty, extended seasons w/ quarters, dates sets, exponential years |
 | Level 3        | ISO-8601-3               | Seasons intervals                                                                                             |
 
@@ -31,6 +31,7 @@ This package supports fuzziness/no fuzziness for:
 - **[Date components](https://github.com/RR0/time/wiki/DateComponent)** (year, month, day, hour, minute, second, timeshift), each of these referencing a **Unit**
 - **[Intervals](https://github.com/RR0/time/wiki/Interval)** between two dates
 - **[Durations](https://github.com/RR0/time/wiki/Duration)**
+- **[Set](https://github.com/RR0/time/wiki/Set)** of dates
 
 ## Features
 Each data type can be:

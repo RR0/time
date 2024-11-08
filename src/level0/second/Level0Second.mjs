@@ -1,14 +1,15 @@
-import { Level0Component } from "../component/index.mjs"
+import { Level0Component } from "../component/Level0Component.mjs"
 import { Level0SecondParser } from "./Level0SecondParser.mjs"
-import { CalendarUnit, calendarUnits }  from "../../calendar/index.mjs"
+import { TimeUnit } from "../../unit/TimeUnit.mjs"
 import { PaddedComponentRenderer } from "../PaddedComponentRenderer.mjs"
+import { level0SecondUnit } from "./Level0SecondUnit.mjs"
 
 export class Level0Second extends Level0Component {
   /**
    * @param {Level0ComponentSpec|number} [spec] The second value spec (or current second by default)
-   * @param {CalendarUnit} [unit] The seconds unit (GregorianCalendar.second by default).
+   * @param {TimeUnit} [unit] The seconds unit (Level0TimeUnits.second by default).
    */
-  constructor (spec= new Date().getSeconds(), unit = calendarUnits.second) {
+  constructor (spec = new Date().getSeconds(), unit = level0SecondUnit) {
     super(spec, unit)
   }
 
@@ -22,6 +23,6 @@ export class Level0Second extends Level0Component {
    */
   static fromString (str) {
     const parser = new Level0SecondParser()
-    return new Level0Second(parser.parse(str), calendarUnits.second)
+    return new Level0Second(parser.parse(str), level0SecondUnit)
   }
 }

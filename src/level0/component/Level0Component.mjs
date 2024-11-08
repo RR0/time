@@ -1,10 +1,17 @@
-import { EDTFValidator } from "../../calendar/index.mjs"
+import { EDTFValidator } from "../../unit/validator/EDTFValidator.mjs"
+import { TimeUnit } from "../../unit/TimeUnit.mjs"
 import { Level0ComponentRenderer } from "./Level0ComponentRenderer.mjs"
-import { CalendarUnit } from "../../calendar/unit/CalendarUnit.mjs"
 
 /**
  * @typedef {Object} Level0ComponentSpec
  * @property {number} value
+ */
+
+/**
+ * @typedef {Object} ILevel0Component
+ * @property {number} value
+ * @property {TimeUnit} unit
+ * @method compare(Level0Component): number
  */
 
 /**
@@ -15,7 +22,7 @@ import { CalendarUnit } from "../../calendar/unit/CalendarUnit.mjs"
 export class Level0Component {
   /**
    * @readonly
-   * @type CalendarUnit
+   * @type TimeUnit
    */
   unit
 
@@ -27,7 +34,7 @@ export class Level0Component {
 
   /**
    * @param {Level0ComponentSpec|number} spec
-   * @param {CalendarUnit} unit
+   * @param {TimeUnit} unit
    */
   constructor (spec, unit) {
     this.value = typeof spec === "number" ? spec : spec.value

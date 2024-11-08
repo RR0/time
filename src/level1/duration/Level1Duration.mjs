@@ -1,11 +1,12 @@
 import { Level1DurationParser } from "./Level1DurationParser.mjs"
 import { Level1Component } from "../component/index.mjs"
-import { CalendarUnit, calendarUnits } from "../../calendar/index.mjs"
 import { Level1DateParser } from "../date/Level1DateParser.mjs"
 import { Level1ComponentParser } from "../component/Level1ComponentParser.mjs"
-import { durationUnits, Level0Duration } from "../../level0/index.mjs"
+import { Level0Duration } from "../../level0/index.mjs"
 import { level1DurationFactory } from "../Level1Factory.mjs"
 import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
+import { level1DurationUnits } from "./Level1DurationUnits.mjs"
+import { level1TimeUnits } from "../unit/index.mjs"
 /** @import { Level0Date } from "../date/Level0Date.mjs" */
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 /** @import { LevelFactory } from "../../LevelFactory.mjs" */
@@ -43,16 +44,6 @@ import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
  * @property {boolean} [approximate]
  */
 
-/**
- * @template Y extends Level1Component = Level1Year
- * @template M extends Level1Component = Level1Month
- * @template D extends Level1Component = Level1Day
- * @template H extends Level1Component = Level1Hour
- * @template M extends Level1Component = Level1Minute
- * @template S extends Level1Component = Level1Second
- * @template C extends Level1Component = Level1Millisecond
- * @template DD extends Level1Date = Level1Date
- */
 export class Level1Duration extends Level1Component {
   /**
    * @param {Level1DurationInSpec|number} spec
@@ -70,7 +61,7 @@ export class Level1Duration extends Level1Component {
           uncertain: Level1Duration.getBoolean(spec, Level1ComponentParser.uncertainGroup),
           approximate: Level1Duration.getBoolean(spec, "approximate")
         },
-      durationUnits.millisecond
+      level1DurationUnits.millisecond
     )
   }
 
@@ -106,7 +97,7 @@ export class Level1Duration extends Level1Component {
       durationValue = spec
     }
     if (durationValue) {
-      const unit = /** @type CalendarUnit */ calendarUnits[durCompGroupName]
+      const unit = /** @type TimeUnit */ level1TimeUnits[durCompGroupName]
       time = durationValue * unit.duration
     }
     return time

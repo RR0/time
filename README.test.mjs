@@ -1,11 +1,11 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
-
-import { Level2Date as EdtfDate } from "./src/level2/date/index.mjs"
-import { Level2Interval as EdtfInterval } from "./src/level2/interval/index.mjs"
-
-import {Level2Duration as Duration} from "./src/level2/duration/index.mjs"
-import { calendarUnits } from "./src/calendar/index.mjs"
+import {
+  Level2Date as EdtfDate,
+  Level2Duration as Duration,
+  Level2Interval as EdtfInterval,
+  level2MinuteUnit as minuteUnit
+} from "./src/level2/index.mjs"
 
 describe("Demo samples", () => {
 
@@ -18,8 +18,8 @@ describe("Demo samples", () => {
       assert.ok(maybeAugust.isBefore(aroundMarch2025))
       assert.ok(aroundMarch2025.isAfter(maybeAugust))
       const delta = aroundMarch2025.delta(maybeAugust).toSpec()
-      assert.equal(delta.months, 6)
-      assert.equal(delta.days, 16)
+      assert.equal(delta.months.value, 6)
+      assert.equal(delta.days.value, 16)
     })
 
     test("uncertain", () => {
@@ -46,7 +46,7 @@ describe("Demo samples", () => {
 
     test("parsing", () => {
       const aroundTenMinutes = Duration.fromString("P10M~")
-      assert.equal(aroundTenMinutes.value, 10 * calendarUnits.minute.duration)
+      assert.equal(aroundTenMinutes.value, 10 * minuteUnit.duration)
       const tenMnSpec = aroundTenMinutes.toSpec()
       assert.equal(tenMnSpec.minutes, 10)
     })
@@ -54,7 +54,7 @@ describe("Demo samples", () => {
 
   describe("Intervals", () => {
 
-    test("from uncertain to approximate", {todo: true}, () => {
+    test("from uncertain to approximate", { todo: true }, () => {
       const maybeAugust = EdtfInterval.fromString("2023-12-?08/2024-12~")
       assert.equal(maybeAugust.start.day.value, 8)  // TODO: Fixme
       assert.equal(maybeAugust.start.day.uncertainComponent, true)

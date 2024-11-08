@@ -1,4 +1,4 @@
-import { EDTFValidator } from "../../calendar/unit/validator/EDTFValidator.mjs"
+import { EDTFValidator } from "../../unit/validator/EDTFValidator.mjs"
 
 export class Level1YearValidator extends EDTFValidator {
 

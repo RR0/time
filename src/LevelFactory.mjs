@@ -37,9 +37,10 @@ export class LevelFactory {
   /**
    * @abstract
    * @param {number} value
+   * @param {number} year
    * @return MM
    */
-  newMonth (value) {
+  newMonth (value, year) {
     throw new AbstractMethodError()
   }
 

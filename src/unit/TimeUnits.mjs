@@ -1,4 +1,4 @@
-import { CalendarUnit } from "./CalendarUnit.mjs"
+import { TimeUnit } from "./TimeUnit.mjs"
 
 /**
  * @interface
@@ -6,43 +6,43 @@ import { CalendarUnit } from "./CalendarUnit.mjs"
 export class TimeUnits {
   /**
    * @readonly
-   * @type CalendarUnit
+   * @type TimeUnit
    */
   millisecond
 
   /**
    * @readonly
-   * @type CalendarUnit
+   * @type TimeUnit
    */
   second
 
   /**
    * @readonly
-   * @type CalendarUnit
+   * @type TimeUnit
    */
   minute
 
   /**
    * @readonly
-   * @type CalendarUnit
+   * @type TimeUnit
    */
   hour
 
   /**
    * @readonly
-   * @type CalendarUnit
+   * @type TimeUnit
    */
   day
 
   /**
    * @readonly
-   * @type CalendarUnit
+   * @type TimeUnit
    */
   month
 
   /**
    * @readonly
-   * @type CalendarUnit
+   * @type TimeUnit
    */
   year
 }

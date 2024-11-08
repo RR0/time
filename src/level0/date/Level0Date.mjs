@@ -1,15 +1,15 @@
+import { EDTFValidator } from "../../unit/validator/EDTFValidator.mjs"
 import { Level0DateParser } from "./Level0DateParser.mjs"
-import { EDTFValidator } from "../../calendar/index.mjs"
-import { Level0Year } from "../year/index.mjs"
-import { Level0Month } from "../month/index.mjs"
+import { Level0Year } from "../year/Level0Year.mjs"
+import { Level0Month } from "../month/Level0Month.mjs"
 import { Level0Day } from "../day/Level0Day.mjs"
-import { Level0Hour } from "../hour/index.mjs"
-import { Level0Minute } from "../minute/index.mjs"
-import { Level0Second } from "../second/index.mjs"
-import { Level0Timeshift } from "../timeshift/index.mjs"
+import { Level0Hour } from "../hour/Level0Hour.mjs"
+import { Level0Minute } from "../minute/Level0Minute.mjs"
+import { Level0Second } from "../second/Level0Second.mjs"
+import { Level0Timeshift } from "../timeshift/Level0Timeshift.mjs"
 import { Level0DateRenderer } from "./Level0DateRenderer.mjs"
 import { level0Factory, Level0Factory } from "../Level0Factory.mjs"
-import { Level0Duration } from "../duration/index.mjs"
+import { Level0Duration } from "../duration/Level0Duration.mjs"
 
 /**
  * @typedef {Object} Level0DateSpec
@@ -22,30 +22,21 @@ import { Level0Duration } from "../duration/index.mjs"
  * @property {Level0Timeshift|number} timeshift
  */
 
-/**
- * @template Y extends Level0Component = Level0Year
- * @template MM extends Level0Component = Level0Month
- * @template D extends Level0Component = Level0Day
- * @template H extends Level0Component = Level0Hour
- * @template M extends Level0Component = Level0Minute
- * @template S extends Level0Component = Level0Second
- * @template Z extends Level0Component = Level0Timeshift
- */
 export class Level0Date {
   /**
-   * @type {Level0Year|undefined}
+   * @type Level0Year|undefined
    */
   #year
 
   /**
-   * @return {Y|undefined}
+   * @return {Level0Year|undefined}
    */
   get year () {
     return this.#year
   }
 
   /**
-   * @param {Y|number|undefined} value
+   * @param {Level0Year|number|undefined} value
    */
   set year (value) {
     if (this.#year && value) {
@@ -56,47 +47,42 @@ export class Level0Date {
   }
 
   /**
-   * @template MM=Level0Month
-   * @type {MM|undefined}
+   * @type {ILevel0Month|undefined}
    */
   #month
 
   /**
-   * @template MM=Level0Month
-   * @return {MM|undefined}
+   * @return {ILevel0Month|undefined}
    */
   get month () {
     return this.#month
   }
 
   /**
-   * @template MM=Level0Month
-   * @param {MM|number|undefined} value
+   * @param {Level0Month|number|undefined} value
    */
   set month (value) {
     if (this.#month && value) {
       this.#month.value = value
     } else {
-      this.#month = typeof value === "number" ? this.factory.newMonth(value) : value
+      this.#month = typeof value === "number" ? this.factory.newMonth(value, this.#year) : value
     }
   }
 
   /**
-   * @template D=Level0Day
-   * @type D
+   * @type Level0Day
    */
   #day
 
   /**
-   * @template D=Level0Day
-   * @return {D}
+   * @return {Level0Day}
    */
   get day () {
     return this.#day
   }
 
   /**
-   * @param {D|number|undefined} value
+   * @param {Level0Day|number|undefined} value
    */
   set day (value) {
     if (this.#day && value) {
@@ -107,19 +93,19 @@ export class Level0Date {
   }
 
   /**
-   * @type {H|undefined}
+   * @type {Level0Hour|undefined}
    */
   #hour
 
   /**
-   * @return {H|undefined}
+   * @return {Level0Hour|undefined}
    */
   get hour () {
     return this.#hour
   }
 
   /**
-   * @param {H|number|undefined} value
+   * @param {Level0Hour|number|undefined} value
    */
   set hour (value) {
     if (this.#hour && value) {
@@ -130,19 +116,19 @@ export class Level0Date {
   }
 
   /**
-   * @type {M|undefined}
+   * @type {Level0Month|undefined}
    */
   #minute
 
   /**
-   * @return {M||undefined}
+   * @return {Level0Minute||undefined}
    */
   get minute () {
     return this.#minute
   }
 
   /**
-   * @param {M|number|undefined} value
+   * @param {Level0Minute|number|undefined} value
    */
   set minute (value) {
     if (this.#minute && value) {
@@ -153,19 +139,19 @@ export class Level0Date {
   }
 
   /**
-   * @type {S|undefined}
+   * @type {Level0Second|undefined}
    */
   #second
 
   /**
-   * @return {S|undefined}
+   * @return {Level0Second|undefined}
    */
   get second () {
     return this.#second
   }
 
   /**
-   * @param {S|number|undefined} value
+   * @param {Level0Second|number|undefined} value
    */
   set second (value) {
     if (this.#second && value) {

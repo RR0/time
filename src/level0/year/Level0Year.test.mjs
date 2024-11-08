@@ -2,17 +2,17 @@ import { describe, test } from "node:test"
 import assert from "node:assert"
 
 import { Level0Year } from "./Level0Year.mjs"
-import { calendarUnits } from "../../calendar/index.mjs"
+import { level0YearUnit } from "./Level0YearUnit.mjs"
 
 describe("Level0Year", () => {
 
-  const yearValue = 1985
+  const year1985 = 1985
 
   test("4 digits", () => {
-    const certainYear = Level0Year.fromString(yearValue.toString())
-    assert.equal(certainYear.value, yearValue)
-    assert.equal(certainYear.unit.duration, calendarUnits.year.duration)
-    assert.equal(certainYear.duration, yearValue * calendarUnits.year.duration)
+    const certainYear = Level0Year.fromString(year1985.toString())
+    assert.equal(certainYear.value, year1985)
+    assert.equal(certainYear.unit.duration, level0YearUnit.duration)
+    assert.equal(certainYear.duration, year1985 * level0YearUnit.duration)
   })
 
   test("comparison", () => {
@@ -27,8 +27,8 @@ describe("Level0Year", () => {
   })
 
   test("toString", () => {
-    const certainYear = new Level0Year(yearValue)
-    assert.equal(certainYear.toString(), yearValue.toString())
+    const certainYear = new Level0Year(year1985)
+    assert.equal(certainYear.toString(), year1985.toString())
   })
 
   test("toString", () => {

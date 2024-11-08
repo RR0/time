@@ -1,8 +1,8 @@
 import Level1IntervalParser from "./Level1IntervalParser.mjs"
-import { Level0Interval } from "../../level0/index.mjs"
+import { Level0Interval } from "../../level0/interval/Level0Interval.mjs"
 import { EDTFError } from "../../EDTFError.mjs"
-import { Level1Date } from "../date/index.mjs"
-import { Level1Duration } from "../duration/index.mjs"
+import { Level1Date } from "../date/Level1Date.mjs"
+import { Level1Duration } from "../duration/Level1Duration.mjs"
 
 /**
  * @template S extends Level1Date = Level1Date

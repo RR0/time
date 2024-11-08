@@ -2,8 +2,10 @@ import { describe, test } from "node:test"
 import assert from "node:assert"
 
 import { Level0Date } from "./Level0Date.mjs"
-import { Level0Year } from "../year/index.mjs"
-import { calendarUnits } from "../../calendar/index.mjs"
+import { Level0Year, level0YearUnit } from "../year/index.mjs"
+import { level0MonthUnit } from "../month/index.mjs"
+import { level031DayUnit } from "../day/index.mjs"
+import { level028DayUnit } from "../day/Level031DayUnit.mjs"
 
 describe("Level0Date", () => {
 
@@ -48,7 +50,9 @@ describe("Level0Date", () => {
       assert.equal(afterDate.isEqual(beforeDate), false)
       assert.equal(beforeDate.isBefore(afterDate), true)
       assert.equal(afterDate.isAfter(beforeDate), true)
-      const deltaMs = 15 * calendarUnits.year.duration + 9 * calendarUnits.month.duration + 28 * calendarUnits.day.duration
+      const deltaMs = (15 * level0YearUnit.duration)
+        + (9 * level0MonthUnit.duration)
+        + (28 * level028DayUnit.duration)
       assert.equal(afterDate.compare(beforeDate), deltaMs)
       const dur = afterDate.delta(beforeDate)
       assert.equal(dur.value, deltaMs)
@@ -299,7 +303,7 @@ describe("Level0Date", () => {
       assert.equal(certain.toString(), str)
     })
 
-    test("year, month, day and LST time with seconds", {skip: true}, () => {
+    test("year, month, day and LST time with seconds", { skip: true }, () => {
       const str = "1967-05-13 15:40LST"
       const certain = Level0Date.fromString(str)
       assert.equal(certain.year.value, 1985)

@@ -3,7 +3,7 @@
 ## Data type
 
 Any level 0 date/time components (year, month, day, hour, minute, second) share the same properties:
-- a **[unit](../../calendar/unit/README.md)**
+- a **[unit](../../unit/README.md)**
 - a **value** in this unit
 - a **renderer** to format this value for display.
 
@@ -16,9 +16,9 @@ classDiagram
     class Level0ComponentRenderer {
         render(comp): string
     }
-    class CalendarUnit {
+    class TimeUnit {
     }
-    Level0Component --> CalendarUnit: unit
+    Level0Component --> TimeUnit: unit
     Level0Component ..> Level0ComponentRenderer: renderer
 ```
 

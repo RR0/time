@@ -1,7 +1,7 @@
 import { MinMaxValidator } from "./validator/MinMaxValidator.mjs"
 /** @import { EDTFValidator } from "./validator/EDTFValidator.mjs" */
 
-export class CalendarUnit {
+export class TimeUnit {
   /**
    * @readonly
    * @type string
@@ -28,7 +28,7 @@ export class CalendarUnit {
 
   /**
    * @readonly
-   * @type CalendarUnit
+   * @type TimeUnit
    */
   subUnit
 
@@ -42,7 +42,7 @@ export class CalendarUnit {
    * @param {string} name
    * @param {number} min
    * @param {number} max
-   * @param {CalendarUnit | undefined} subUnit
+   * @param {TimeUnit | undefined} subUnit
    * @param {EDTFValidator} validator
    */
   constructor (name, min, max, subUnit, validator = new MinMaxValidator(name, min, max)) {

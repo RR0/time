@@ -1,4 +1,3 @@
-import { CalendarUnit, calendarUnits } from "../../calendar/index.mjs"
 import { Level0DurationParser } from "./Level0DurationParser.mjs"
 import { Level0Year } from "../year/index.mjs"
 import { Level0Month } from "../month/index.mjs"
@@ -9,6 +8,8 @@ import { Level0Second } from "../second/index.mjs"
 import { Level0DurationRenderer } from "./Level0DurationRenderer.mjs"
 import { Level0Component } from "../component/index.mjs"
 import { level0DurationFactory } from "../Level0Factory.mjs"
+import { level0TimeUnits } from "../unit/Level0TimeUnits.mjs"
+import { level0DurationUnits } from "./Level0DurationUnits.mjs"
 /** @import { Level0Date } from "../date/Level0Date.mjs" */
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 /** @import { LevelFactory } from "../../LevelFactory.mjs" */
@@ -59,13 +60,13 @@ export class Level0Duration extends Level0Component {
   }) {
     super({
       value: typeof spec === "number" ? spec :
-        +(spec.years ? spec.years * calendarUnits.year.duration : 0)
-        + (spec.months ? spec.months * calendarUnits.month.duration : 0)
-        + (spec.days ? spec.days * calendarUnits.day.duration : 0)
-        + (spec.hours ? spec.hours * calendarUnits.hour.duration : 0)
-        + (spec.minutes ? spec.minutes * calendarUnits.minute.duration : 0)
-        + (spec.seconds ? spec.seconds * calendarUnits.second.duration : 0)
-    }, new CalendarUnit("millisecond", 0, Number.MAX_SAFE_INTEGER, undefined))
+        + (spec.years ? spec.years * level0TimeUnits.year.duration : 0)
+        + (spec.months ? spec.months * level0TimeUnits.month.duration : 0)
+        + (spec.days ? spec.days * level0TimeUnits.day.duration : 0)
+        + (spec.hours ? spec.hours * level0TimeUnits.hour.duration : 0)
+        + (spec.minutes ? spec.minutes * level0TimeUnits.minute.duration : 0)
+        + (spec.seconds ? spec.seconds * level0TimeUnits.second.duration : 0)
+    }, level0DurationUnits.millisecond)
   }
 
   /**
@@ -86,37 +87,37 @@ export class Level0Duration extends Level0Component {
     const sign = millis > 0 ? 1 : -1
     millis = Math.abs(millis)
     const spec = /** @type Level0DurationOutSpec */ {}
-    const yearDuration = millis / calendarUnits.year.duration
+    const yearDuration = millis / level0TimeUnits.year.duration
     const years = Math.floor(yearDuration)
     if (years > 0) {
       spec.years = factory.newYear(sign * years)
-      millis -= years * calendarUnits.year.duration
+      millis -= years * level0TimeUnits.year.duration
     }
-    const monthDuration = millis / calendarUnits.month.duration
+    const monthDuration = millis / level0TimeUnits.month.duration
     const months = Math.floor(monthDuration)
     if (months > 0) {
       spec.months = factory.newMonth(sign * months)
-      millis -= months * calendarUnits.month.duration
+      millis -= months * level0TimeUnits.month.duration
     }
-    const dayDuration = millis / calendarUnits.day.duration
+    const dayDuration = millis / level0TimeUnits.day.duration
     const days = Math.floor(dayDuration)
     if (days > 0) {
       spec.days = factory.newDay(sign * days)
-      millis -= days * calendarUnits.day.duration
+      millis -= days * level0TimeUnits.day.duration
     }
-    const hourDuration = millis / calendarUnits.hour.duration
+    const hourDuration = millis / level0TimeUnits.hour.duration
     const hours = Math.floor(hourDuration)
     if (hours > 0) {
       spec.hours = factory.newHour(sign * hours)
-      millis -= hours * calendarUnits.hour.duration
+      millis -= hours * level0TimeUnits.hour.duration
     }
-    const minuteDuration = millis / calendarUnits.minute.duration
+    const minuteDuration = millis / level0TimeUnits.minute.duration
     const minutes = Math.floor(minuteDuration)
     if (minutes > 0) {
       spec.minutes = factory.newMinute(sign * minutes)
-      millis -= minutes * calendarUnits.minute.duration
+      millis -= minutes * level0TimeUnits.minute.duration
     }
-    const secondDuration = millis / calendarUnits.second.duration
+    const secondDuration = millis / level0TimeUnits.second.duration
     const seconds = Math.floor(sign * secondDuration)
     if (seconds > 0) {
       spec.seconds = factory.newSecond(seconds)

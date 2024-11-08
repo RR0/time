@@ -1,6 +1,6 @@
 import { Level1Component } from "../../level1/component/Level1Component.mjs"
 /** @import { Level1ComponentSpec } from "../../level1/component/Level1Component.mjs" */
-/** @import { CalendarUnit } from "../../calendar/unit/CalendarUnit.mjs" */
+/** @import { TimeUnit } from "../../calendar/unit/TimeUnit.mjs" */
 
 /**
  * @typedef {Level1ComponentSpec} Level2ComponentSpec
@@ -23,7 +23,7 @@ export class Level2Component extends Level1Component {
 
   /**
    * @param {Level2ComponentSpec|number} spec
-   * @param {CalendarUnit} unit
+   * @param {TimeUnit} unit
    */
   constructor (spec, unit) {
     super(spec, unit)

@@ -14,8 +14,7 @@ import { Level0Hour } from "../hour/index.mjs"
 import { Level0Minute } from "../minute/index.mjs"
 import { Level0Second } from "../second/index.mjs"
 import { Level0Month } from "../month/index.mjs"
-
-import { GregorianMonth } from "../../calendar/index.mjs"
+import { MonthUnit } from "../../unit/index.mjs"
 
 const yearGroup = `year`
 const monthGroup = `month`
@@ -25,15 +24,6 @@ const minuteGroup = `minute`
 const secondGroup = `second`
 const timeshiftGroup = `timeshift`
 
-/**
- * @template Y extends Level0Year
- * @template M extends Level0Month
- * @template D extends Level0Day
- * @template H extends Level0Hour
- * @template M extends Level0Minute
- * @template S extends Level0Second
- * @template Z extends Level0Timeshift
- */
 export class Level0DateParser extends EDTFParser {
   /**
    * &param {string} prefix to distinguish dates fields in intervals, typically.
@@ -77,7 +67,7 @@ export class Level0DateParser extends EDTFParser {
     const monthParseResult = monthStr ? Level0MonthParser.read(monthStr) : undefined
     return {
       year,
-      month: monthParseResult ? new Level0Month(monthParseResult, GregorianMonth.create(monthParseResult.value, year?.value)) : undefined,
+      month: monthParseResult ? new Level0Month(monthParseResult, MonthUnit.create(monthParseResult.value, year?.value)) : undefined,
       day: dayStr ? new Level0Day(Level0DayParser.read(dayStr)) : undefined,
       hour: hourStr ? new Level0Hour(Level0HourParser.read(hourStr)) : undefined,
       minute: minuteStr ? new Level0Minute(Level0MinuteParser.read(minuteStr)) : undefined,

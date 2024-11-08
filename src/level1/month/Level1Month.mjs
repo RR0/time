@@ -1,20 +1,22 @@
 import { Level1MonthParser } from "./Level1MonthParser.mjs"
-import { Level1Component } from "../component/index.mjs"
-import { calendarUnits } from "../../calendar/index.mjs"
-import { Level1MonthValidator } from "./Level1MonthValidator.mjs"
-import { CalendarUnit } from "../../calendar/index.mjs"
+import { Level1Component } from "../component/Level1Component.mjs"
+import { PaddedComponentRenderer } from "../../level0/PaddedComponentRenderer.mjs"
+import { level1MonthUnit } from "./Level1MonthUnit.mjs"
 
+/**
+ * @implements ILevel1Month
+ */
 export class Level1Month extends Level1Component {
   /**
    * @param {Level1ComponentSpec|number} spec
    * @param [unit] The month unit.
    */
-  constructor (spec, unit = new CalendarUnit(calendarUnits.month.name, 1, 24, calendarUnits.day, new Level1MonthValidator())) {
+  constructor (spec, unit = level1MonthUnit) {
     super(spec, unit)
   }
 
-  toString () {
-    return super.toString().padStart(2, "0")
+  toString (renderer = PaddedComponentRenderer.default) {
+    return super.toString(renderer)
   }
 
   /**
@@ -28,7 +30,7 @@ export class Level1Month extends Level1Component {
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start
     if (startValue !== undefined) {
-      let unit = calendarUnits.month
+      const unit = level1MonthUnit
       const start = new Level1Month(Object.assign({ ...parseResult }, { value: Math.max(startValue, unit.min) }))
       const end = new Level1Month(Object.assign({ ...parseResult }, { value: Math.min(parseResult.value.end, unit.max) }))
       return { start, end }

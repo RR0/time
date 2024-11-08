@@ -1,4 +1,4 @@
-import { MinMaxValidator } from "../../calendar/unit/validator/MinMaxValidator.mjs"
+import { MinMaxValidator } from "../../unit/validator/MinMaxValidator.mjs"
 
 export class SecondValidator extends MinMaxValidator {
   /**

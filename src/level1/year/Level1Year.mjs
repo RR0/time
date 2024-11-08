@@ -1,9 +1,6 @@
 import { Level1YearParser } from "./Level1YearParser.mjs"
 import { Level1Component } from "../component/index.mjs"
-import { CalendarUnit, calendarUnits, GregorianCalendar } from "../../calendar/index.mjs"
-import { Level1YearValidator } from "./Level1YearValidator.mjs"
-
-const level1YearUnit = new CalendarUnit(calendarUnits.year.name, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, GregorianCalendar.month, new Level1YearValidator())
+import { level1YearUnit } from "./Level1YearUnit.mjs"
 
 export class Level1Year extends Level1Component {
   /**

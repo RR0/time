@@ -1,6 +1,9 @@
 import { Level0ComponentRenderer } from "./component/Level0ComponentRenderer.mjs"
 import { Level0Component } from "./component/index.mjs"
 
+/**
+ * Renders a component with padding at start.
+ */
 export class PaddedComponentRenderer extends Level0ComponentRenderer {
   /**
    * @readonly
@@ -9,9 +12,8 @@ export class PaddedComponentRenderer extends Level0ComponentRenderer {
   static default = new PaddedComponentRenderer("0", 2)
 
   /**
-   *
-   * @param {number} size
-   * @param {string} char
+   * @param {number} size The full max width.
+   * @param {string} char The padding character.
    */
   constructor (char, size) {
     super()

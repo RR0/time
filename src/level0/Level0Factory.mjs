@@ -5,9 +5,9 @@ import { Level0Day } from "./day/index.mjs"
 import { Level0Minute } from "./minute/index.mjs"
 import { Level0Second } from "./second/index.mjs"
 import { Level0Hour } from "./hour/index.mjs"
-import { TimeUnits } from "../calendar/unit/TimeUnits.mjs"
-import { calendarUnits } from "../calendar/index.mjs"
-import { durationUnits } from "./duration/index.mjs"
+import { level0DurationUnits } from "./duration/index.mjs"
+import { level0TimeUnits } from "./unit/Level0TimeUnits.mjs"
+import { MonthUnit } from "../unit/index.mjs"
 
 /**
  * @template Y extends Level1Component = Level1Year
@@ -21,7 +21,7 @@ import { durationUnits } from "./duration/index.mjs"
 export class Level0Factory extends LevelFactory {
   /**
    *
-   * @param {TimeUnits} units
+   * @param {gregorianCalendar} units
    */
   constructor (units) {
     super(units)
@@ -37,10 +37,11 @@ export class Level0Factory extends LevelFactory {
 
   /**
    * @param {number} value
+   * @param {number} year
    * @return MM
    */
-  newMonth (value) {
-    return new Level0Month(value, this.units.month)
+  newMonth (value, year) {
+    return new Level0Month(value, MonthUnit.create(value, year))
   }
 
   /**
@@ -76,6 +77,6 @@ export class Level0Factory extends LevelFactory {
   }
 }
 
-export const level0Factory = new Level0Factory(calendarUnits)
+export const level0Factory = new Level0Factory(level0TimeUnits)
 
-export const level0DurationFactory = new Level0Factory(durationUnits)
+export const level0DurationFactory = new Level0Factory(level0DurationUnits)
