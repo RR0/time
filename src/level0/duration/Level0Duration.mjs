@@ -5,7 +5,6 @@ import { Level0Day } from "../day/index.mjs"
 import { Level0Hour } from "../hour/index.mjs"
 import { Level0Minute } from "../minute/index.mjs"
 import { Level0Second } from "../second/index.mjs"
-import { Level0DurationRenderer } from "./Level0DurationRenderer.mjs"
 import { Level0Component } from "../component/index.mjs"
 import { level0DurationFactory } from "../Level0Factory.mjs"
 import { level0TimeUnits } from "../unit/Level0TimeUnits.mjs"
@@ -125,7 +124,7 @@ export class Level0Duration extends Level0Component {
     return spec
   }
 
-  toString (renderer = Level0DurationRenderer.instance) {
+  toString (renderer) {
     return renderer.render(this)
   }
 

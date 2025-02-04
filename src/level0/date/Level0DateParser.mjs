@@ -14,7 +14,7 @@ import { Level0Hour } from "../hour/index.mjs"
 import { Level0Minute } from "../minute/index.mjs"
 import { Level0Second } from "../second/index.mjs"
 import { Level0Month } from "../month/index.mjs"
-import { MonthUnit } from "../../unit/index.mjs"
+import { Level0MonthUnit } from "../../unit/index.mjs"
 
 const yearGroup = `year`
 const monthGroup = `month`
@@ -63,15 +63,15 @@ export class Level0DateParser extends EDTFParser {
     const minuteStr = groups[minuteGroup]
     const secondStr = groups[secondGroup]
     const timeshiftStr = groups[timeshiftGroup]
-    const year = yearStr ? new Level0Year(Level0YearParser.read(yearStr)) : undefined
+    const year = yearStr ? Level0Year.fromValue(Level0YearParser.read(yearStr)) : undefined
     const monthParseResult = monthStr ? Level0MonthParser.read(monthStr) : undefined
     return {
       year,
-      month: monthParseResult ? new Level0Month(monthParseResult, MonthUnit.create(monthParseResult.value, year?.value)) : undefined,
-      day: dayStr ? new Level0Day(Level0DayParser.read(dayStr)) : undefined,
-      hour: hourStr ? new Level0Hour(Level0HourParser.read(hourStr)) : undefined,
-      minute: minuteStr ? new Level0Minute(Level0MinuteParser.read(minuteStr)) : undefined,
-      second: secondStr ? new Level0Second(Level0SecondParser.read(secondStr)) : undefined,
+      month: monthParseResult ? Level0Month.fromValue(monthParseResult, Level0MonthUnit.create(monthParseResult.value, year?.value)) : undefined,
+      day: dayStr ? Level0Day.fromValue(Level0DayParser.read(dayStr)) : undefined,
+      hour: hourStr ? Level0Hour.fromValue(Level0HourParser.read(hourStr)) : undefined,
+      minute: minuteStr ? Level0Minute.fromValue(Level0MinuteParser.read(minuteStr)) : undefined,
+      second: secondStr ? Level0Second.fromValue(Level0SecondParser.read(secondStr)) : undefined,
       timeshift: timeshiftStr ? Level0Timeshift.fromString(timeshiftStr) : undefined
     }
   }

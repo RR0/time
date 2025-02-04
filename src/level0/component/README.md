@@ -3,7 +3,8 @@
 ## Data type
 
 Any level 0 date/time components (year, month, day, hour, minute, second) share the same properties:
-- a **[unit](../../unit/README.md)**
+
+- a **[unit](../../../doc/Unit)**
 - a **value** in this unit
 - a **renderer** to format this value for display.
 

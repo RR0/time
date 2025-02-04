@@ -1,7 +1,6 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
 import { Level1Date } from "../date/Level1Date.mjs"
-import { level0TimeUnits } from "../../level0/unit/Level0TimeUnits.mjs"
 import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
 import { level1Assert } from "../component/Level1TestUtil.mjs"
 import { Level1Duration } from "./Level1Duration.mjs"
@@ -11,7 +10,6 @@ import { level1DayUnit } from "../day/index.mjs"
 import { level1YearUnit } from "../year/index.mjs"
 import { level1MonthUnit } from "../month/index.mjs"
 import { level1MinuteUnit } from "../minute/index.mjs"
-import { Level0Date, level031DayUnit, Level0Duration, level0MonthUnit, level0YearUnit } from "../../level0/index.mjs"
 
 describe("Duration", () => {
 

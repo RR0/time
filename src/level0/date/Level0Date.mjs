@@ -195,12 +195,12 @@ export class Level0Date {
    * @param {Level0DateSpec} spec
    */
   constructor (spec = {
-    year: new Date().getFullYear(),
-    month: new Date().getMonth(),
-    day: new Date().getDate(),
-    hour: new Date().getHours(),
-    minute: new Date().getMinutes(),
     second: new Date().getSeconds(),
+    minute: new Date().getMinutes(),
+    hour: new Date().getHours(),
+    day: new Date().getDate(),
+    month: new Date().getMonth(),
+    year: new Date().getFullYear(),
     timeshift: new Date().getTimezoneOffset()
   }) {
     this.year = spec.year

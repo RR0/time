@@ -1,14 +1,9 @@
 import { describe, test } from "node:test"
 import assert from "node:assert"
-import {
-  level031DayUnit,
-  level0HourUnit,
-  level0MillisecondUnit,
-  level0MinuteUnit,
-  level0SecondUnit,
-  level0YearUnit
-} from "../index.mjs"
+import { level0HourUnit, level0MillisecondUnit, level0MinuteUnit, level0SecondUnit, level0YearUnit } from "../index.mjs"
 import { MonthUnit } from "../../unit/index.mjs"
+import { Level0YearUnit } from "../year/Level0YearUnit.mjs"
+import { level031DayUnit } from "../day/Level0DayUnit.mjs"
 
 describe("GregorianCalendar", () => {
 
@@ -33,19 +28,19 @@ describe("GregorianCalendar", () => {
   })
 
   test("28-days month duration", {todo: true}, (x) => {
-    assert.equal(MonthUnit.Month28.duration, 28 * level031DayUnit.duration)
+    assert.equal(Level0YearUnit.Month28.duration, 28 * level031DayUnit.duration)
   })
 
   test("29-days month duration", {todo: true}, () => {
-    assert.equal(MonthUnit.Month29.duration, 29 * level031DayUnit.duration)
+    assert.equal(Level0YearUnit.Month29.duration, 29 * level031DayUnit.duration)
   })
 
   test("30-days month duration", {todo: true}, () => {
-    assert.equal(MonthUnit.Month30.duration, 30 * level031DayUnit.duration)
+    assert.equal(Level0YearUnit.Month30.duration, 30 * level031DayUnit.duration)
   })
 
   test("31-days month duration", () => {
-    assert.equal(MonthUnit.Month31.duration, 31 * level031DayUnit.duration)
+    assert.equal(Level0YearUnit.Month31.duration, 31 * level031DayUnit.duration)
   })
 
   test("year duration", () => {

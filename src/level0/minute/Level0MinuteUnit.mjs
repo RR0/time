@@ -1,4 +1,22 @@
-import { TimeUnit } from "../../unit/TimeUnit.mjs"
+import { MinuteUnit } from "../../unit/MinuteUnit.mjs"
 import { level0SecondUnit } from "../second/Level0SecondUnit.mjs"
+import { Level0Minute } from "./Level0Minute.mjs"
 
-export const level0MinuteUnit = new TimeUnit("minute", 0, 59, level0SecondUnit)
+export class Level0MinuteUnit extends MinuteUnit {
+  /**
+   * @param {number} max
+   */
+  constructor (max) {
+    super(max, level0SecondUnit)
+  }
+
+  /**
+   * @param {number} value
+   * @return {Level0Day}
+   */
+  create (value) {
+    return new Level0Minute(value, this)
+  }
+}
+
+export const level0MinuteUnit = new Level0MinuteUnit(level0SecondUnit)

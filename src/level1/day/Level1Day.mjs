@@ -1,7 +1,7 @@
 import { Level1DayParser } from "./Level1DayParser.mjs"
 import { Level1Component } from "../component/index.mjs"
 /** @import { Level1ComponentSpec } from "../component/index.mjs" */
-import { level031DayUnit } from "../../level0/index.mjs"
+import { level031DayUnit } from "../../level0/day/Level0DayUnit.mjs"
 import { PaddedComponentRenderer } from "../../level0/PaddedComponentRenderer.mjs"
 
 export const level1DayUnit = level031DayUnit

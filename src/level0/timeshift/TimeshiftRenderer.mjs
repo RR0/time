@@ -1,4 +1,4 @@
-import { Level0Timeshift } from "./Level0Timeshift.mjs"
+/** import { Level0Timeshift } from "./Level0Timeshift.mjs" */
 
 /**
  * @abstract

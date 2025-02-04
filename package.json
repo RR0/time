@@ -17,6 +17,7 @@
     "pretest": "npm run build",
     "test": "node --test",
     "test-ci": "node --test --experimental-test-coverage --test-reporter spec",
+    "circular-deps": "dpdm src",
     "prepublishOnly": "npm run test"
   },
   "publishConfig": {

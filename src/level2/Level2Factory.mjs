@@ -1,13 +1,11 @@
 import { LevelFactory } from "../LevelFactory.mjs"
 import { Level2Year } from "./year/index.mjs"
-import { Level2Month } from "./month/index.mjs"
 import { Level2Day } from "./day/index.mjs"
 import { Level2Minute } from "./minute/index.mjs"
 import { Level2Second } from "./second/index.mjs"
 import { Level2Hour } from "./hour/index.mjs"
 import { level0DurationUnits, Level0Month } from "../level0/index.mjs"
 import { level2TimeUnits } from "./unit/index.mjs"
-import { MonthUnit } from "../unit/index.mjs"
 
 /**
  * @template Y extends Level2Component = Level2Year
@@ -42,7 +40,7 @@ export class Level2Factory extends LevelFactory {
    * @return MM
    */
   newMonth (value, year) {
-    return new Level0Month(value, year ? MonthUnit.create(value, year) : this.units.month)
+    return new Level0Month(value, year ? Level0MonthUnit.create(value, year) : this.units.month)
   }
 
   /**

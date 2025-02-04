@@ -6,10 +6,10 @@ import { Level0Date } from "../date/index.mjs"
 import { Level0ComponentRenderer } from "../component/Level0ComponentRenderer.mjs"
 import { level0DurationFactory } from "../Level0Factory.mjs"
 import { level0MinuteUnit } from "../minute/index.mjs"
-import { level0SecondUnit } from "../second/index.mjs"
-import { level031DayUnit } from "../day/index.mjs"
-import { level0YearUnit } from "../year/index.mjs"
-import { level0MonthUnit } from "../month/index.mjs"
+import { level0SecondUnit } from "../second/Level0Second.mjs"
+import { level031DayUnit } from "../day/Level0DayUnit.mjs"
+import { level0YearUnit } from "../year/Level0YearUnit.mjs"
+import { level0MonthUnit } from "../month/Level0MonthUnit.mjs"
 
 describe("Duration", () => {
 

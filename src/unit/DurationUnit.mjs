@@ -12,6 +12,17 @@ export class DurationUnit extends TimeUnit {
    */
   constructor (name, duration, subUnit, validator = new MinMaxValidator(name, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)) {
     super(name, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, subUnit, validator)
-    this.duration = duration && subUnit ? duration * subUnit.duration : 1
+    this._duration = duration && subUnit ? duration * subUnit.duration : 1
+  }
+
+  /**
+   * @readonly
+   * @type {number}
+   * @protected
+   */
+  _duration
+
+  get duration () {
+    return this._duration
   }
 }

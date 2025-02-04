@@ -1,6 +1,12 @@
 import { MinMaxValidator } from "./validator/MinMaxValidator.mjs"
+import { AbstractMethodError } from "../AbstractMethodError.mjs"
+
 /** @import { EDTFValidator } from "./validator/EDTFValidator.mjs" */
 
+/**
+ * @abstract
+ * @template T=Level0Component
+ */
 export class TimeUnit {
   /**
    * @readonly
@@ -19,12 +25,6 @@ export class TimeUnit {
    * @type number
    */
   max
-
-  /**
-   * @readonly
-   * @type number
-   */
-  duration
 
   /**
    * @readonly
@@ -50,11 +50,57 @@ export class TimeUnit {
     this.min = min
     this.max = max
     this.subUnit = subUnit
-    this.duration = subUnit ? (subUnit.max - subUnit.min + 1) * subUnit.duration : 1
     this.validator = validator
   }
 
   validate (value) {
     return this.validator.validate(value)
+  }
+
+  /**
+   * @return {number} The duration is milliseconds.
+   */
+  get duration () {
+    let dur
+    if (this.subUnit) {
+      dur = 0
+      for (let subUnitVal of this.subUnit) {
+        dur += subUnitVal.duration
+      }
+    } else {
+      dur = 1
+    }
+    return dur
+  }
+
+  /**
+   * @abstract
+   * @param {number} value
+   * @return {T}
+   */
+  create (value) {
+    throw new AbstractMethodError(this, "create")
+  }
+
+  /**
+   * @return {IteratorResult<Level0Component, Level0Component>}
+   */
+  [Symbol.iterator] () {
+    let value = this.min
+    return /** @type IteratorResult */ {
+      next: () => {
+        const done = value > this.max
+        let result
+        if (done) {
+          result = { done }
+        } else {
+          result = { value: this.create(value), done }
+        }
+        if (!done) {
+          value++
+        }
+        return result
+      }
+    }
   }
 }

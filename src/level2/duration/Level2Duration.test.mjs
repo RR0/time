@@ -10,7 +10,6 @@ import { level2SecondUnit } from "../second/Level2SecondUnit.mjs"
 import { level2DayUnit } from "../day/index.mjs"
 import { level2YearUnit } from "../year/index.mjs"
 import { level2MonthUnit } from "../month/index.mjs"
-import { Level0Date, level031DayUnit, Level0Duration, level0MonthUnit, level0YearUnit } from "../../level0/index.mjs"
 
 describe("Duration", () => {
 

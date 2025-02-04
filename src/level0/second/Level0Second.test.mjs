@@ -9,9 +9,14 @@ describe("Level0Second", () => {
     assert.equal(seconds.value, 44)
   })
 
+  test("duration", () => {
+    const seconds = Level0Second.fromString("44")
+    assert.equal(seconds.duration, 44 * 1000)
+  })
+
   test("toString", () => {
-    assert.equal(new Level0Second(9).toString(), "09")
-    assert.equal(new Level0Second(44).toString(), "44")
+    assert.equal(Level0Second.fromValue(9).toString(), "09")
+    assert.equal(Level0Second.fromValue(44).toString(), "44")
   })
 
   test("minimum", () => {

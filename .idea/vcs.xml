@@ -2,6 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/context" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/doc" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/postman2http" vcs="Git" />
   </component>
 </project>

@@ -4,7 +4,7 @@ export class AbstractMethodError extends EDTFError {
   /**
    * @param {string} message
    */
-  constructor (message = "method is abstract") {
-    super(message)
+  constructor (thi, method) {
+    super(`${thi.constructor.name} is abstract` + (method ? ` and does not implement ${method}` : ""))
   }
 }

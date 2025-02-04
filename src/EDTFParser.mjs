@@ -42,7 +42,7 @@ export class EDTFParser {
    * @return any The parse result object.
    */
   parseGroups (groups) {
-    throw new AbstractMethodError(`${this.constructor.name} is abstract`)
+    throw new AbstractMethodError(this)
   }
 
   /**

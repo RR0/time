@@ -12,6 +12,11 @@ describe("Level0Minute", () => {
     assert.equal(minutes.value, 56)
   })
 
+  test("duration", () => {
+    const minutes = Level0Minute.fromString("56")
+    assert.equal(minutes.duration, 56 * 60 * 1000)
+  })
+
   describe("render", () => {
 
     test("toString", () => {
