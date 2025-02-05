@@ -1,16 +1,24 @@
 import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
-import { Level2ComponentParser } from "../component/Level2ComponentParser.mjs"
+import { Level2ComponentParser, Level2ComponentParseResult } from "../component/Level2ComponentParser.mjs"
+import { Level1ComponentParseResult } from "../../level1/component/Level1ComponentParser.mjs"
+
+export class Level2YearParseResult extends Level2ComponentParseResult {
+}
 
 const name = "yearValue"
 const exponentialGroup = "exp"
 const significantGroup = "signif"
 
 export class Level2YearParser extends Level2ComponentParser {
+  constructor() {
+    super(name, Level2YearParser.format())
+  }
+
   /**
    * @param {string} prefix
    * @return {string}
    */
-  static format (prefix = "") {
+  static format(prefix = "") {
     return "Y?" + RegExpFormat.nonCapturingGroup(
       RegExpFormat.group(RegExpFormat.groupName(prefix, exponentialGroup), "[-]?\\d+E\\d+")
       + "|"
@@ -19,15 +27,11 @@ export class Level2YearParser extends Level2ComponentParser {
     )
   }
 
-  constructor () {
-    super(name, Level2YearParser.format())
-  }
-
   /**
    * @param {{ [p: string]: string }} groups
    * @return {Level2YearParseResult}
    */
-  parseGroups (groups) {
+  parseGroups(groups) {
     const exp = groups[exponentialGroup]
     if (exp) {
       const expPos = exp.indexOf("E")
@@ -52,5 +56,15 @@ export class Level2YearParser extends Level2ComponentParser {
       result.value.estimate = parseInt(valueStr, 10)
     }
     return result
+  }
+
+  /**
+   * @param {string} str
+   * @return {Level1ComponentParseResult}
+   */
+  parse(str) {
+    // Doesn't call super.parse(str) to avoid year negativity error.
+    const groups = this.regexGroups(str)
+    return this.parseGroups(groups)
   }
 }

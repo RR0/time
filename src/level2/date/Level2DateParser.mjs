@@ -5,7 +5,6 @@ import { Level2Hour } from "../../level2/hour/Level2Hour.mjs"
 import { Level2Day } from "../../level2/day/Level2Day.mjs"
 import { Level2Month } from "../../level2/month/Level2Month.mjs"
 import { Level2Year } from "../year/index.mjs"
-import { Level1DateParser } from "../../level1/date/Level1DateParser.mjs"
 import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
 import { Level2YearParser } from "../year/Level2YearParser.mjs"
 import { Level2MonthParser } from "../month/Level2MonthParser.mjs"
@@ -14,6 +13,8 @@ import { Level2HourParser } from "../hour/Level2HourParser.mjs"
 import { Level2SecondParser } from "../second/Level2SecondParser.mjs"
 import { Level2MinuteParser } from "../minute/Level2MinuteParser.mjs"
 import { Level2TimeshiftParser } from "../timeshift/Level2TimeshiftParser.mjs"
+import { EDTFParser } from "../../EDTFParser.mjs"
+import { Level1DateParser } from "../../level1/date/Level1DateParser.mjs"
 
 /**
  * Parses date strings in the EDTF/ISO-8601 level 2 format.
@@ -26,12 +27,58 @@ import { Level2TimeshiftParser } from "../timeshift/Level2TimeshiftParser.mjs"
  * @template S extends Level1Second
  * @template Z extends Level1Timeshift
  */
-export class Level2DateParser extends Level1DateParser {
+export class Level2DateParser extends EDTFParser {
   /**
-   * &param {string} prefix
+   * @readonly
+   * @type {string}
+   */
+  static yearGroup = Level1DateParser.yearGroup
+
+  /**
+   * @readonly
+   * @type {string}
+   */
+  static monthGroup = `month`
+
+  /**
+   * @readonly
+   * @type {string}
+   */
+  static dayGroup = `day`
+
+  /**
+   * @readonly
+   * @type {string}
+   */
+  static hourGroup = `hour`
+
+  /**
+   * @readonly
+   * @type {string}
+   */
+  static minuteGroup = `minute`
+
+  /**
+   * @readonly
+   * @type {string}
+   */
+  static secondGroup = `second`
+
+  /**
+   * @readonly
+   * @type {string}
+   */
+  static timeshiftGroup = `timeshift`
+
+  constructor() {
+    super("date", Level2DateParser.format())
+  }
+
+  /**
+   * @param {string} [prefix] A prefix for the group names, if any.
    * @return string
    */
-  static format (prefix = "") {
+  static format(prefix = "") {
     return RegExpFormat.group(RegExpFormat.groupName(prefix, Level2DateParser.yearGroup), Level2YearParser.format(prefix))
       + RegExpFormat.optionalNonCapturingGroup("-",
         RegExpFormat.group(RegExpFormat.groupName(prefix, Level2DateParser.monthGroup), Level2MonthParser.format(prefix)),
@@ -46,11 +93,7 @@ export class Level2DateParser extends Level1DateParser {
       )
   }
 
-  constructor () {
-    super(Level2DateParser.format(), "date")
-  }
-
-  parseGroups (groups) {
+  parseGroups(groups) {
     const timeshiftStr = groups[Level2DateParser.timeshiftGroup]
     const timeshift = timeshiftStr ? Level2Timeshift.fromString(timeshiftStr) : undefined
     const secondStr = groups[Level2DateParser.secondGroup]

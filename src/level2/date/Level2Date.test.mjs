@@ -150,7 +150,7 @@ describe("Level2", () => {
       assert.equal(uncertainDate.approximate, false)
     })
 
-    test("year and certain month", () => {
+    test("year component and certain month", () => {
       const uncertainYear = Level2Date.fromString("?1985-04")
       level2Assert(uncertainYear.year, 1985, true, false, true)
       level2Assert(uncertainYear.month, 4, false)
@@ -159,7 +159,7 @@ describe("Level2", () => {
       assert.equal(uncertainYear.approximate, false)
     })
 
-    test("year and month", () => {
+    test("certain year and uncertain month", () => {
       const uncertainYearAndMonth = Level2Date.fromString("1985-04?")
       level2Assert(uncertainYearAndMonth.year, 1985, true)
       level2Assert(uncertainYearAndMonth.month, 4, true)
@@ -168,7 +168,16 @@ describe("Level2", () => {
       assert.equal(uncertainYearAndMonth.approximate, false)
     })
 
-    test("year, month and day", () => {
+    test("certain year and uncertain month component", () => {
+      const uncertainYearAndMonth = Level2Date.fromString("1985-?04")
+      level2Assert(uncertainYearAndMonth.year, 1985, true)
+      level2Assert(uncertainYearAndMonth.month, 4, true, false, true)
+      assert.equal(uncertainYearAndMonth.day, undefined)
+      assert.equal(uncertainYearAndMonth.uncertain, true)
+      assert.equal(uncertainYearAndMonth.approximate, false)
+    })
+
+    test("year, month and uncertain day", () => {
       const uncertainDate = Level2Date.fromString("1985-04-12?")
       level2Assert(uncertainDate.year, 1985, true)
       level2Assert(uncertainDate.month, 4, true)
@@ -177,10 +186,28 @@ describe("Level2", () => {
       assert.equal(uncertainDate.approximate, false)
     })
 
-    test("year, month and certain day", () => {
+    test("year, month and uncertain day component", () => {
+      const uncertainDate = Level2Date.fromString("1985-04-?12")
+      level2Assert(uncertainDate.year, 1985, true)
+      level2Assert(uncertainDate.month, 4, true)
+      level2Assert(uncertainDate.day, 12, true, false, true)
+      assert.equal(uncertainDate.uncertain, true)
+      assert.equal(uncertainDate.approximate, false)
+    })
+
+    test("year, uncertain month and certain day", () => {
       const uncertainYearAndMonth = Level2Date.fromString("1985-04?-12")
       level2Assert(uncertainYearAndMonth.year, 1985, true)
       level2Assert(uncertainYearAndMonth.month, 4, true)
+      level2Assert(uncertainYearAndMonth.day, 12, false)
+      assert.equal(uncertainYearAndMonth.uncertain, true)
+      assert.equal(uncertainYearAndMonth.approximate, false)
+    })
+
+    test("year, uncertain month component and certain day", () => {
+      const uncertainYearAndMonth = Level2Date.fromString("1985-?04-12")
+      level2Assert(uncertainYearAndMonth.year, 1985, true)
+      level2Assert(uncertainYearAndMonth.month, 4, true, false, true)
       level2Assert(uncertainYearAndMonth.day, 12, false)
       assert.equal(uncertainYearAndMonth.uncertain, true)
       assert.equal(uncertainYearAndMonth.approximate, false)
@@ -313,7 +340,7 @@ describe("Level2", () => {
     })
   })
 
-  describe("uncertain and approximate", () => {
+  describe("uncertain *and* approximate", () => {
 
     test("year", () => {
       const uncertainYear = Level2Date.fromString("1985%")

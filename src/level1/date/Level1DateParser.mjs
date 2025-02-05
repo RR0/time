@@ -67,11 +67,15 @@ export class Level1DateParser extends EDTFParser {
    */
   static timeshiftGroup = `timeshift`
 
+  constructor(format = Level1DateParser.format()) {
+    super("date", format)
+  }
+
   /**
-   * &param {string} prefix
+   * @param {string} [prefix] A prefix for the group names, if any.
    * @return string
    */
-  static format (prefix = "") {
+  static format(prefix = "") {
     return RegExpFormat.group(RegExpFormat.groupName(prefix, Level1DateParser.yearGroup), Level1YearParser.format(prefix))
       + RegExpFormat.optionalNonCapturingGroup("-",
         RegExpFormat.group(RegExpFormat.groupName(prefix, Level1DateParser.monthGroup), Level1MonthParser.format(prefix)),
@@ -84,10 +88,6 @@ export class Level1DateParser extends EDTFParser {
           )
         )
       )
-  }
-
-  constructor (format = Level1DateParser.format()) {
-    super("date", format)
   }
 
   parseGroups(groups) {

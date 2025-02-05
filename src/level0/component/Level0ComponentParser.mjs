@@ -9,15 +9,18 @@ export class Level0ComponentParseResult {
 }
 
 /**
+ * Parses a date component according to level 0 EDTF standard.
+ *
  * @template P extends Level0YearParseResult = Level0YearParseResult
  */
 export class Level0ComponentParser extends /** @type {EDTFParser<Level0ComponentParseResult>} */ EDTFParser {
   /**
-   * @param {string} name
-   * @param {string} format
-   * @return {number}
+   * Creates a level-0 EDTF parser.
+   *
+   * @param {string} name The name of the component to parse.
+   * @param {string} format The Regexp pattern to match.
    */
-  constructor (name, format) {
+  constructor(name, format) {
     super(name, format)
   }
 
@@ -27,7 +30,7 @@ export class Level0ComponentParser extends /** @type {EDTFParser<Level0Component
    * @param {string} valueStr
    * @return {Level0ComponentParseResult}
    */
-  static read (valueStr) {
+  static read(valueStr) {
     return { value: valueStr ? parseInt(valueStr, 10) : undefined }
   }
 
@@ -35,7 +38,7 @@ export class Level0ComponentParser extends /** @type {EDTFParser<Level0Component
    * @param {{ [p: string]: string }} groups
    * @return {Level0ComponentParseResult}
    */
-  parseGroups (groups) {
+  parseGroups(groups) {
     return Level0ComponentParser.read(groups[this.name])
   }
 
@@ -43,7 +46,7 @@ export class Level0ComponentParser extends /** @type {EDTFParser<Level0Component
    * @param {string} str
    * @return {P}
    */
-  parse (str) {
+  parse(str) {
     if (str.startsWith("-")) {
       throw new EDTFError(`${this.name} cannot be negative`)
     }

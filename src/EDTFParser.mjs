@@ -13,12 +13,13 @@ export class EDTFParser {
   regExp
 
   /**
+   * Creates an EDTF parser.
+   *
    * @protected
-   * @param {string} name
-   * @param {string} format
-   * @return {number}
+   * @param {string} name The name of the component to parse.
+   * @param {string} format The Regexp pattern to match.
    */
-  constructor (name, format) {
+  constructor(name, format) {
     this.name = name
     this.regExp = new RegExp(format)
   }
@@ -28,7 +29,7 @@ export class EDTFParser {
    * @param {string} str
    * @return {{[p: string]: string}}
    */
-  regexGroups (str) {
+  regexGroups(str) {
     const parsed = this.regExp.exec(str)
     if (!parsed) {
       throw new EDTFError(`Invalid ${this.name} "${str}"`)
@@ -38,20 +39,21 @@ export class EDTFParser {
 
   /**
    * @abstract
+   * @protected
    * @param {{[p: string]: string}} groups The regex groups
-   * @return any The parse result object.
+   * @return {Record<string, any>} The parsing result.
    */
-  parseGroups (groups) {
+  parseGroups(groups) {
     throw new AbstractMethodError(`${this.constructor.name} is abstract`)
   }
 
   /**
    * Parses an EDTF string.
    *
-   * @param {string} str The string to parse.
+   * @param {string} str An EDTF string to parse.
    * @return {P} The parse result object.
    */
-  parse (str) {
+  parse(str) {
     const groups = this.regexGroups(str)
     return this.parseGroups(groups)
   }

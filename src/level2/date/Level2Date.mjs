@@ -9,6 +9,8 @@ import { level2Factory } from "../Level2Factory.mjs"
  */
 
 /**
+ * A level 2 EDTF Date.
+ *
  * @template Y Year type
  * @template MM extends Level2Component = Level2Month
  * @template D extends Level2Component = Level2Day
@@ -27,21 +29,21 @@ export class Level2Date extends Level1Date {
   /**
    * @param {Level2DateSpec} spec
    */
-  constructor (spec) {
+  constructor(spec) {
     super(spec)
   }
 
   /**
-   * @param {string} str An EDTF level 0-1 string
+   * @param {string} str An EDTF level 0-2 string
    * @param {EDTFParser} parser
    * @return {Level2Date}
    */
-  static fromString (str, parser = new Level2DateParser()) {
+  static fromString(str, parser = new Level2DateParser()) {
     const spec = parser.parse(str)
     return new Level2Date(spec)
   }
 
-  static newInstance () {
+  static newInstance() {
     const utcNow = new Date().toISOString()
     const millisPos = utcNow.indexOf(".")
     const edtfNow = utcNow.substring(0, millisPos) + utcNow.substring(millisPos + 4)

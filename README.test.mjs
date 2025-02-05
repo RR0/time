@@ -4,8 +4,9 @@ import assert from "node:assert"
 import { Level2Date as EdtfDate } from "./src/level2/date/index.mjs"
 import { Level2Interval as EdtfInterval } from "./src/level2/interval/index.mjs"
 
-import {Level2Duration as Duration} from "./src/level2/duration/index.mjs"
+import { Level2Duration as Duration } from "./src/level2/duration/index.mjs"
 import { calendarUnits } from "./src/calendar/index.mjs"
+import { assertLevel2 } from "./src/level2/component/Level2TestUtil.mjs"
 
 describe("Demo samples", () => {
 
@@ -54,21 +55,16 @@ describe("Demo samples", () => {
 
   describe("Intervals", () => {
 
-    test("from uncertain to approximate", {todo: true}, () => {
+    test("from uncertain to approximate", { todo: true }, () => {
       const maybeAugust = EdtfInterval.fromString("2023-12-?08/2024-12~")
-      assert.equal(maybeAugust.start.day.value, 8)  // TODO: Fixme
-      assert.equal(maybeAugust.start.day.uncertainComponent, true)
-      assert.equal(maybeAugust.end.month.value, 12)
-      assert.equal(maybeAugust.end.month.uncertain, true)
+      assertLevel2(maybeAugust.start.day).to.equal(8).and.beUncertain().atTheComponentLevel().but.bePrecise()
+      assertLevel2(maybeAugust.end.month).to.equal(12).and.beApproximate().atTheGroupLevel().but.beApproximate().atTheGroupLevel()
     })
 
     test("approximate", () => {
       const aroundMarch2025 = EdtfDate.fromString("2025-03~")
-      assert.equal(aroundMarch2025.month.approximate, true)
-      assert.equal(aroundMarch2025.month.value, 3)
-      assert.equal(aroundMarch2025.year.approximate, true)
-      assert.equal(aroundMarch2025.year.value, 2025)
-      assert.equal(aroundMarch2025.year.approximate, true)
+      assertLevel2(aroundMarch2025.month).to.equal(3).and.beApproximate().atTheGroupLevel().but.not.beUncertain()
+      assertLevel2(aroundMarch2025.year).to.equal(2025).and.beApproximate().atTheGroupLevel().but.not.beUncertain()
       assert.equal(aroundMarch2025.approximate, true)
     })
   })

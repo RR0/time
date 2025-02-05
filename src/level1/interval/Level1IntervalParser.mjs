@@ -35,17 +35,11 @@ export default class Level1IntervalParser extends EDTFParser {
       + RegExpFormat.group(durationMaxGroup, Level1DurationParser.format(durationMaxGroup))
     )
 
-  constructor () {
-    super("interval", Level1IntervalParser.format)
+  constructor(name = "interval", format = Level1IntervalParser.format) {
+    super(name, format)
   }
 
-  /**
-   * @protected
-   * @param {string} str An EDTF level 0 interval string.
-   * @return {{start: S, end: E}}
-   */
-  parse (str) {
-    const groups = this.regexGroups(str)
+  parseGroups(groups) {
     let start
     let end
     const durationIntervalStr = groups[durationsIntervalGroup]
