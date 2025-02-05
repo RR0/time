@@ -50,11 +50,11 @@ export class TimeContext {
    */
   constructor(
     _year = undefined,
-    _month= undefined,
-    _dayOfMonth= undefined,
-    _hour= undefined,
-    _minutes= undefined,
-    _timeZone= undefined,
+    _month = undefined,
+    _dayOfMonth = undefined,
+    _hour = undefined,
+    _minutes = undefined,
+    _timeZone = undefined,
     approximate = false,
     approximateTime = false,
     /** @deprecated */
@@ -69,7 +69,7 @@ export class TimeContext {
       this.duration = new EdtfDuration(duration)
     } else {
       this.date = new EdtfDate(
-        {year: _year, month: _month, day: _dayOfMonth, hour: _hour, minutes: _minutes, timeZone: _timeZone})
+        { year: _year, month: _month, day: _dayOfMonth, hour: _hour, minute: _minutes, timeZone: _timeZone })
       if (approximate) {
         this.date.year.approximate = true
       }
@@ -326,9 +326,16 @@ export class TimeContext {
    * @return {TimeContext}
    */
   clone() {
-    return new TimeContext(this.date?.year?.value, this.date?.month?.value, this.date?.day?.value,
-      this.date?.hour?.value, this.date?.minutes?.value, this.date?.timeshift?.value,
-      this.approximate, this.approximateTime, this.interval?.from, this.interval?.to, this.duration)
+    const date = this.date
+    const interval = this.interval
+    return new TimeContext(
+      date?.year?.value, date?.month?.value, date?.day?.value,
+      date?.hour?.value, date?.minute?.value,
+      date?.timeshift?.value,
+      this.approximate, this.approximateTime,
+      interval?.from, interval?.to,
+      this.duration
+    )
   }
 
   /**
