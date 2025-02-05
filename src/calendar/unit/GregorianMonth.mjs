@@ -1,16 +1,22 @@
 import { MonthValidator } from "../../level0/month/MonthValidator.mjs"
-import { calendarUnits } from "../GregorianCalendar.mjs"
+import { level0Calendar } from "../../level0/Level0Calendar.mjs"
 import { EDTFError } from "../../EDTFError.mjs"
 import { CalendarUnit } from "./CalendarUnit.mjs"
+
 /** @import { EDTFValidator } from "./validator/EDTFValidator.mjs" */
 
 export class GregorianMonth extends CalendarUnit {
+  static Month28 = new GregorianMonth(28)
+  static Month29 = new GregorianMonth(29)
+  static ThirtyDays = new GregorianMonth(30)
+  static ThirtyOneDays = new GregorianMonth(31)
+
   /**
    * @param {number} days
    * @param {EDTFValidator} validator
    */
-  constructor (days, validator = new MonthValidator()) {
-    super("month", 1, days, calendarUnits.day, validator)
+  constructor(days, validator = new MonthValidator()) {
+    super("month", 1, days, level0Calendar.day, validator)
   }
 
   /**
@@ -19,7 +25,7 @@ export class GregorianMonth extends CalendarUnit {
    * @param {number|undefined} yearValue
    * @return {GregorianMonth}
    */
-  static create (monthValue, yearValue) {
+  static create(monthValue, yearValue) {
     switch (monthValue) {
       case 1:
       case 3:
@@ -40,9 +46,4 @@ export class GregorianMonth extends CalendarUnit {
         throw new EDTFError("Unsupported month", monthValue, yearValue)
     }
   }
-
-  static Month28 = new GregorianMonth(28)
-  static Month29 = new GregorianMonth(29)
-  static ThirtyDays = new GregorianMonth(30)
-  static ThirtyOneDays = new GregorianMonth(31)
 }

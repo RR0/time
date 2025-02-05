@@ -5,8 +5,8 @@ import { Level1Day } from "./day/index.mjs"
 import { Level1Minute } from "./minute/index.mjs"
 import { Level1Second } from "./second/index.mjs"
 import { Level1Hour } from "./hour/index.mjs"
-import { calendarUnits } from "../calendar/index.mjs"
 import { durationUnits } from "../level0/index.mjs"
+import { level1Calendar } from "./Level1Calendar.mjs"
 
 /**
  * @template Y extends Level1Component = Level1Year
@@ -21,7 +21,7 @@ export class Level1Factory extends LevelFactory {
   /**
    * @param {TimeUnits} units
    */
-  constructor (units ) {
+  constructor(units) {
     super(units)
   }
 
@@ -29,7 +29,7 @@ export class Level1Factory extends LevelFactory {
    * @param {number} value
    * @return Y
    */
-  newYear (value) {
+  newYear(value) {
     return new Level1Year(value, this.units.year)
   }
 
@@ -37,7 +37,7 @@ export class Level1Factory extends LevelFactory {
    * @param {number} value
    * @return MM
    */
-  newMonth (value) {
+  newMonth(value) {
     return new Level1Month(value, this.units.month)
   }
 
@@ -45,7 +45,7 @@ export class Level1Factory extends LevelFactory {
    * @param {number} value
    * @return D
    */
-  newDay (value) {
+  newDay(value) {
     return new Level1Day(value, this.units.day)
   }
 
@@ -53,7 +53,7 @@ export class Level1Factory extends LevelFactory {
    * @param {number} value
    * @return H
    */
-  newHour (value) {
+  newHour(value) {
     return new Level1Hour(value, this.units.hour)
   }
 
@@ -61,7 +61,7 @@ export class Level1Factory extends LevelFactory {
    * @param {number} value
    * @return M
    */
-  newMinute (value) {
+  newMinute(value) {
     return new Level1Minute(value, this.units.minute)
   }
 
@@ -69,11 +69,11 @@ export class Level1Factory extends LevelFactory {
    * @param {number} value
    * @return S
    */
-  newSecond (value) {
+  newSecond(value) {
     return new Level1Second(value, this.units.second)
   }
 }
 
-export const level1Factory = new Level1Factory(calendarUnits)
+export const level1Factory = new Level1Factory(level1Calendar)
 
 export const level1DurationFactory = new Level1Factory(durationUnits)

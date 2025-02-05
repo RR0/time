@@ -1,4 +1,4 @@
-import { CalendarUnit, calendarUnits } from "../../calendar/index.mjs"
+import { CalendarUnit, level0Calendar } from "../../calendar/index.mjs"
 import { Level0DurationParser } from "./Level0DurationParser.mjs"
 import { Level0Year } from "../year/index.mjs"
 import { Level0Month } from "../month/index.mjs"
@@ -48,7 +48,7 @@ export class Level0Duration extends Level0Component {
   /**
    * @param {Level0DurationInSpec|number} spec
    */
-  constructor (spec = {
+  constructor(spec = {
     years: new Date().getFullYear(),
     months: new Date().getMonth(),
     days: new Date().getDate(),
@@ -59,20 +59,13 @@ export class Level0Duration extends Level0Component {
   }) {
     super({
       value: typeof spec === "number" ? spec :
-        +(spec.years ? spec.years * calendarUnits.year.duration : 0)
-        + (spec.months ? spec.months * calendarUnits.month.duration : 0)
-        + (spec.days ? spec.days * calendarUnits.day.duration : 0)
-        + (spec.hours ? spec.hours * calendarUnits.hour.duration : 0)
-        + (spec.minutes ? spec.minutes * calendarUnits.minute.duration : 0)
-        + (spec.seconds ? spec.seconds * calendarUnits.second.duration : 0)
+        +(spec.years ? spec.years * level0Calendar.year.duration : 0)
+        + (spec.months ? spec.months * level0Calendar.month.duration : 0)
+        + (spec.days ? spec.days * level0Calendar.day.duration : 0)
+        + (spec.hours ? spec.hours * level0Calendar.hour.duration : 0)
+        + (spec.minutes ? spec.minutes * level0Calendar.minute.duration : 0)
+        + (spec.seconds ? spec.seconds * level0Calendar.second.duration : 0)
     }, new CalendarUnit("millisecond", 0, Number.MAX_SAFE_INTEGER, undefined))
-  }
-
-  /**
-   * @return {Level0DurationOutSpec}
-   */
-  toSpec () {
-    return Level0Duration.toSpec(this)
   }
 
   /**
@@ -81,42 +74,42 @@ export class Level0Duration extends Level0Component {
    * @param {F} [factory] The factory to create duration components (year, month, etc.)
    * @return {Level0DurationOutSpec}
    */
-  static toSpec (value, factory = level0DurationFactory) {
+  static toSpec(value, factory = level0DurationFactory) {
     let millis = typeof value === "number" ? value : value.value
     const sign = millis > 0 ? 1 : -1
     millis = Math.abs(millis)
     const spec = /** @type Level0DurationOutSpec */ {}
-    const yearDuration = millis / calendarUnits.year.duration
+    const yearDuration = millis / level0Calendar.year.duration
     const years = Math.floor(yearDuration)
     if (years > 0) {
       spec.years = factory.newYear(sign * years)
-      millis -= years * calendarUnits.year.duration
+      millis -= years * level0Calendar.year.duration
     }
-    const monthDuration = millis / calendarUnits.month.duration
+    const monthDuration = millis / level0Calendar.month.duration
     const months = Math.floor(monthDuration)
     if (months > 0) {
       spec.months = factory.newMonth(sign * months)
-      millis -= months * calendarUnits.month.duration
+      millis -= months * level0Calendar.month.duration
     }
-    const dayDuration = millis / calendarUnits.day.duration
+    const dayDuration = millis / level0Calendar.day.duration
     const days = Math.floor(dayDuration)
     if (days > 0) {
       spec.days = factory.newDay(sign * days)
-      millis -= days * calendarUnits.day.duration
+      millis -= days * level0Calendar.day.duration
     }
-    const hourDuration = millis / calendarUnits.hour.duration
+    const hourDuration = millis / level0Calendar.hour.duration
     const hours = Math.floor(hourDuration)
     if (hours > 0) {
       spec.hours = factory.newHour(sign * hours)
-      millis -= hours * calendarUnits.hour.duration
+      millis -= hours * level0Calendar.hour.duration
     }
-    const minuteDuration = millis / calendarUnits.minute.duration
+    const minuteDuration = millis / level0Calendar.minute.duration
     const minutes = Math.floor(minuteDuration)
     if (minutes > 0) {
       spec.minutes = factory.newMinute(sign * minutes)
-      millis -= minutes * calendarUnits.minute.duration
+      millis -= minutes * level0Calendar.minute.duration
     }
-    const secondDuration = millis / calendarUnits.second.duration
+    const secondDuration = millis / level0Calendar.second.duration
     const seconds = Math.floor(sign * secondDuration)
     if (seconds > 0) {
       spec.seconds = factory.newSecond(seconds)
@@ -124,16 +117,12 @@ export class Level0Duration extends Level0Component {
     return spec
   }
 
-  toString (renderer = Level0DurationRenderer.instance) {
-    return renderer.render(this)
-  }
-
   /**
    * @param {string} str
    * @param {EDTFParser} [parser]
    * @return {Level0Duration}
    */
-  static fromString (str, parser = new Level0DurationParser()) {
+  static fromString(str, parser = new Level0DurationParser()) {
     return new Level0Duration(parser.parse(str))
   }
 
@@ -142,9 +131,20 @@ export class Level0Duration extends Level0Component {
    * @param {Level0Date} afterDate
    * @return {Level0Duration}
    */
-  static between (beforeDate, afterDate) {
+  static between(beforeDate, afterDate) {
     const afterTime = afterDate.getTime()
     const beforeTime = beforeDate.getTime()
     return new Level0Duration(afterTime - beforeTime)
+  }
+
+  /**
+   * @return {Level0DurationOutSpec}
+   */
+  toSpec() {
+    return Level0Duration.toSpec(this)
+  }
+
+  toString(renderer = Level0DurationRenderer.instance) {
+    return renderer.render(this)
   }
 }

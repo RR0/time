@@ -1,16 +1,16 @@
 import { Level1YearParser } from "./Level1YearParser.mjs"
 import { Level1Component } from "../component/index.mjs"
-import { CalendarUnit, calendarUnits, GregorianCalendar } from "../../calendar/index.mjs"
+import { CalendarUnit, level0Calendar, Level0Calendar } from "../../calendar/index.mjs"
 import { Level1YearValidator } from "./Level1YearValidator.mjs"
 
-const level1YearUnit = new CalendarUnit(calendarUnits.year.name, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, GregorianCalendar.month, new Level1YearValidator())
+const level1YearUnit = new CalendarUnit(level0Calendar.year.name, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, Level0Calendar.month, new Level1YearValidator())
 
 export class Level1Year extends Level1Component {
   /**
    * @param {Level1ComponentSpec|number} spec The year spec value.
    * @param [unit] The year unit.
    */
-  constructor (spec, unit = level1YearUnit) {
+  constructor(spec, unit = level1YearUnit) {
     super(spec, unit)
   }
 
@@ -19,7 +19,7 @@ export class Level1Year extends Level1Component {
    * @param [unit]
    * @return {Level1Year | {start: Level1Year, end: Level1Year}}
    */
-  static fromString (str, unit = level1YearUnit) {
+  static fromString(str, unit = level1YearUnit) {
     const parser = new Level1YearParser()
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start

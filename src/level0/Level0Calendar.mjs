@@ -1,7 +1,7 @@
-import { Calendar } from "./Calendar.mjs"
-import { CalendarUnit } from "./unit/CalendarUnit.mjs"
+import { Calendar } from "../calendar/Calendar.mjs"
+import { CalendarUnit } from "../calendar/unit/CalendarUnit.mjs"
 
-export class GregorianCalendar extends Calendar {
+export class Level0Calendar extends Calendar {
 
   millisecond = new CalendarUnit("millisecond", 0, 999, undefined)
 
@@ -18,4 +18,4 @@ export class GregorianCalendar extends Calendar {
   year = new CalendarUnit("year", 0, 9999, this.month)
 }
 
-export const calendarUnits = new GregorianCalendar()
+export const level0Calendar = new Level0Calendar()

@@ -1,6 +1,6 @@
 import { Level1DurationParser } from "./Level1DurationParser.mjs"
 import { Level1Component } from "../component/index.mjs"
-import { CalendarUnit, calendarUnits } from "../../calendar/index.mjs"
+import { CalendarUnit, level0Calendar } from "../../calendar/index.mjs"
 import { Level1DateParser } from "../date/Level1DateParser.mjs"
 import { Level1ComponentParser } from "../component/Level1ComponentParser.mjs"
 import { durationUnits, Level0Duration } from "../../level0/index.mjs"
@@ -57,7 +57,7 @@ export class Level1Duration extends Level1Component {
   /**
    * @param {Level1DurationInSpec|number} spec
    */
-  constructor (spec) {
+  constructor(spec) {
     super(
       typeof spec === "number" || spec.hasOwnProperty("value") ? spec :
         {
@@ -80,7 +80,7 @@ export class Level1Duration extends Level1Component {
    * @param {string} durCompName
    * @return {boolean}
    */
-  static getBoolean (spec, durCompName) {
+  static getBoolean(spec, durCompName) {
     return spec[durCompName]
       || (spec[Level1DateParser.yearGroup + "s"])?.[durCompName]
       || (spec[Level1DateParser.monthGroup + "s"])?.[durCompName]
@@ -97,7 +97,7 @@ export class Level1Duration extends Level1Component {
    * @param {string} durCompGroupName The regex duration component group name (for year, month, etc.) as singular.
    * @return {number}
    */
-  static getValue (spec, durCompGroupName) {
+  static getValue(spec, durCompGroupName) {
     let time = 0
     let durationValue = spec[durCompGroupName + "s"]  // Duration components names are suffixed with plural.
     if (durationValue instanceof Level1Component) {
@@ -106,21 +106,10 @@ export class Level1Duration extends Level1Component {
       durationValue = spec
     }
     if (durationValue) {
-      const unit = /** @type CalendarUnit */ calendarUnits[durCompGroupName]
+      const unit = /** @type CalendarUnit */ level0Calendar[durCompGroupName]
       time = durationValue * unit.duration
     }
     return time
-  }
-
-  toString (renderer = Level1DurationRenderer.instance) {
-    return super.toString(renderer)
-  }
-
-  /**
-   * @return {Level1DurationOutSpec}
-   */
-  toSpec () {
-    return Level1Duration.toSpec(this)
   }
 
   /**
@@ -128,7 +117,7 @@ export class Level1Duration extends Level1Component {
    * @param {LevelFactory} [factory]
    * @return {Level1DurationOutSpec}
    */
-  static toSpec (comp, factory = level1DurationFactory) {
+  static toSpec(comp, factory = level1DurationFactory) {
     const level0Spec = Level0Duration.toSpec(comp, factory)
     return {
       ...level0Spec,
@@ -142,7 +131,7 @@ export class Level1Duration extends Level1Component {
    * @param {EDTFParser} [parser]
    * @return {Level1Duration}
    */
-  static fromString (str, parser = new Level1DurationParser()) {
+  static fromString(str, parser = new Level1DurationParser()) {
     const parsed = parser.parse(str)
     return new Level1Duration(parsed)
   }
@@ -152,9 +141,20 @@ export class Level1Duration extends Level1Component {
    * @param {Level1Date} afterDate
    * @return {Level1Duration}
    */
-  static between (beforeDate, afterDate) {
+  static between(beforeDate, afterDate) {
     const afterTime = afterDate.getTime()
     const beforeTime = beforeDate.getTime()
     return new Level1Duration(afterTime - beforeTime)
+  }
+
+  toString(renderer = Level1DurationRenderer.instance) {
+    return super.toString(renderer)
+  }
+
+  /**
+   * @return {Level1DurationOutSpec}
+   */
+  toSpec() {
+    return Level1Duration.toSpec(this)
   }
 }

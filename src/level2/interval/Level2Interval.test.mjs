@@ -4,7 +4,7 @@ import assert from "node:assert"
 import { level2Assert } from "../component/Level2TestUtil.mjs"
 
 import { Level2Interval } from "./Level2Interval.mjs"
-import { calendarUnits } from "../../calendar/index.mjs"
+import { level0Calendar } from "../../calendar/index.mjs"
 
 describe("Level2Interval", () => {
 
@@ -630,9 +630,9 @@ describe("Level2Interval", () => {
         const minYears = 2
         const maxYears = 10
         const certain = Level2Interval.fromString(`P${minYears}Y/P${maxYears}Y`)
-        assert.equal(certain.start.value, minYears * calendarUnits.year.duration)
+        assert.equal(certain.start.value, minYears * level0Calendar.year.duration)
         assert.equal(certain.start.toString(), `P${minYears}Y`)
-        assert.equal(certain.end.value, maxYears * calendarUnits.year.duration)
+        assert.equal(certain.end.value, maxYears * level0Calendar.year.duration)
         assert.equal(certain.end.toString(), `P${maxYears}Y`)
       })
 
@@ -643,8 +643,8 @@ describe("Level2Interval", () => {
         const maxMonths = 4
         const certain = Level2Interval.fromString(`P${minYears}Y${minMonths}MM/P${maxYears}Y${maxMonths}MM`)
         assert.equal(certain.start.toString(), `P${minYears}Y${minMonths}MM`)
-        assert.equal(certain.start.value, (minYears * calendarUnits.year.duration) + (minMonths * calendarUnits.month.duration))
-        assert.equal(certain.end.value, (maxYears * calendarUnits.year.duration) + (maxMonths * calendarUnits.month.duration))
+        assert.equal(certain.start.value, (minYears * level0Calendar.year.duration) + (minMonths * level0Calendar.month.duration))
+        assert.equal(certain.end.value, (maxYears * level0Calendar.year.duration) + (maxMonths * level0Calendar.month.duration))
         assert.equal(certain.end.toString(), `P${maxYears}Y${maxMonths}MM`)
       })
     })
