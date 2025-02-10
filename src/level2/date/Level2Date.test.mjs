@@ -2,7 +2,8 @@ import { describe, test } from "node:test"
 import assert from "node:assert"
 
 import { Level2Date } from "./Level2Date.mjs"
-import { level2Assert } from "../component/Level2TestUtil.mjs"
+import { assertLevel2, level2Assert } from "../component/Level2TestUtil.mjs"
+import { level0Calendar } from "../../level0/index.mjs"
 
 describe("Level2", () => {
 
@@ -38,6 +39,21 @@ describe("Level2", () => {
       assert.equal(certainYear.day, undefined)
       assert.equal(certainYear.uncertain, false)
       assert.equal(certainYear.approximate, false)
+    })
+
+    test("negative year", () => {
+      const certainYear = Level2Date.fromString("-1000")
+      assertLevel2(certainYear.year).equal(-1000).and.bePrecise().atTheGroupLevel().and.beCertain().atTheGroupLevel()
+      assert.equal(certainYear.month, undefined)
+      assert.equal(certainYear.day, undefined)
+      assert.equal(certainYear.uncertain, false)
+      assert.equal(certainYear.approximate, false)
+      const certainYear2 = new Level2Date({ year: -1000 })
+      assertLevel2(certainYear2.year).equal(-1000).and.bePrecise().atTheGroupLevel().and.beCertain().atTheGroupLevel()
+      assert.equal(certainYear2.month, undefined)
+      assert.equal(certainYear2.day, undefined)
+      assert.equal(certainYear2.uncertain, false)
+      assert.equal(certainYear2.approximate, false)
     })
 
     test("year and month", () => {
@@ -471,5 +487,22 @@ describe("Level2", () => {
       level2Assert(uncertainDate.day.start, 1)
       level2Assert(uncertainDate.day.end, 31)
     })
+  })
+
+  test("comparison", () => {
+    const beforeDate = Level2Date.fromString("2006-07-14T17:56")
+    const afterDate = Level2Date.fromString("2007-06-15T18:47")
+    assert.equal(beforeDate.isEqual(afterDate), false)
+    assert.equal(afterDate.isEqual(beforeDate), false)
+    assert.equal(beforeDate.isBefore(afterDate), true)
+    assert.equal(afterDate.isAfter(beforeDate), true)
+    const deltaMs = 15 * level0Calendar.year.duration + 9 * level0Calendar.month.duration + 28 * level0Calendar.day.duration
+    assert.equal(afterDate.compare(beforeDate), deltaMs)
+    const dur = afterDate.delta(beforeDate)
+    assert.equal(dur.value, deltaMs)
+    const durSpec = dur.toSpec()
+    assert.equal(durSpec.years.value, 15)
+    assert.equal(durSpec.months.value, 9)
+    assert.equal(durSpec.days.value, 28)
   })
 })

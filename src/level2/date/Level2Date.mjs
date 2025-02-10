@@ -21,16 +21,18 @@ import { level2Factory } from "../Level2Factory.mjs"
  */
 export class Level2Date extends Level1Date {
   /**
-   * @readonly
-   * @type {Level2Factory}
-   */
-  factory = level2Factory
-
-  /**
    * @param {Level2DateSpec} spec
    */
   constructor(spec) {
     super(spec)
+  }
+
+  /**
+   * @readonly
+   * @type {Level2Factory}
+   */
+  get factory() {
+    return level2Factory
   }
 
   /**

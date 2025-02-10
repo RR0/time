@@ -70,6 +70,15 @@ describe("TimeContext", () => {
     assert.equal(timeContext.getMinutes(), 55)
   })
 
+  test("fromDate", () => {
+    const month = 12
+    const date = new Date(2001, month - 1, 13)
+    const timeContext = TimeContext.fromDate(date)
+    assert.equal(timeContext.getYear(), 2001)
+    assert.equal(timeContext.getMonth(), month)
+    assert.equal(timeContext.getDayOfMonth(), 13)
+  })
+
   test("clone", () => {
     timeContext.updateFromStr("2006-07-14T17:56")
     assert.equal(timeContext.getYear(), 2006)

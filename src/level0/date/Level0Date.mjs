@@ -36,145 +36,28 @@ export class Level0Date {
    * @type {Level0Year|undefined}
    */
   #year
-
-  /**
-   * @return {Y|undefined}
-   */
-  get year () {
-    return this.#year
-  }
-
-  /**
-   * @param {Y|number|undefined} value
-   */
-  set year (value) {
-    if (this.#year && value) {
-      this.#year.value = value
-    } else {
-      this.#year = typeof value === "number" ? this.factory.newYear(value) : value
-    }
-  }
-
   /**
    * @template MM=Level0Month
    * @type {MM|undefined}
    */
   #month
-
-  /**
-   * @template MM=Level0Month
-   * @return {MM|undefined}
-   */
-  get month () {
-    return this.#month
-  }
-
-  /**
-   * @template MM=Level0Month
-   * @param {MM|number|undefined} value
-   */
-  set month (value) {
-    if (this.#month && value) {
-      this.#month.value = value
-    } else {
-      this.#month = typeof value === "number" ? this.factory.newMonth(value) : value
-    }
-  }
-
   /**
    * @template D=Level0Day
    * @type D
    */
   #day
-
-  /**
-   * @template D=Level0Day
-   * @return {D}
-   */
-  get day () {
-    return this.#day
-  }
-
-  /**
-   * @param {D|number|undefined} value
-   */
-  set day (value) {
-    if (this.#day && value) {
-      this.#day.value = value
-    } else {
-      this.#day = typeof value === "number" ? this.factory.newDay(value) : value
-    }
-  }
-
   /**
    * @type {H|undefined}
    */
   #hour
-
-  /**
-   * @return {H|undefined}
-   */
-  get hour () {
-    return this.#hour
-  }
-
-  /**
-   * @param {H|number|undefined} value
-   */
-  set hour (value) {
-    if (this.#hour && value) {
-      this.#hour.value = value
-    } else {
-      this.#hour = typeof value === "number" ? this.factory.newHour(value) : value
-    }
-  }
-
   /**
    * @type {M|undefined}
    */
   #minute
-
-  /**
-   * @return {M||undefined}
-   */
-  get minute () {
-    return this.#minute
-  }
-
-  /**
-   * @param {M|number|undefined} value
-   */
-  set minute (value) {
-    if (this.#minute && value) {
-      this.#minute.value = value
-    } else {
-      this.#minute = typeof value === "number" ? this.factory.newMinute(value) : value
-    }
-  }
-
   /**
    * @type {S|undefined}
    */
   #second
-
-  /**
-   * @return {S|undefined}
-   */
-  get second () {
-    return this.#second
-  }
-
-  /**
-   * @param {S|number|undefined} value
-   */
-  set second (value) {
-    if (this.#second && value) {
-      this.#second.value = value
-    } else {
-      this.#second = typeof value === "number" ? this.factory.newSecond(value) : value
-    }
-  }
-
   /**
    * @readonly
    * @type {Level0Timeshift}
@@ -182,33 +65,9 @@ export class Level0Date {
   #timeshift
 
   /**
-   * @return {Level0Timeshift|undefined}
-   */
-  get timeshift () {
-    return this.#timeshift
-  }
-
-  /**
-   * @param {Level0Timeshift|number|undefined} value
-   */
-  set timeshift (value) {
-    if (this.#timeshift && value) {
-      this.#timeshift.value = value
-    } else {
-      this.#timeshift = typeof value === "number" ? new Level0Timeshift(value) : value
-    }
-  }
-
-  /**
-   * @readonly
-   * @type {Level0Factory}
-   */
-  factory = level0Factory
-
-  /**
    * @param {Level0DateSpec} spec
    */
-  constructor (spec = {
+  constructor(spec = {
     year: new Date().getFullYear(),
     month: new Date().getMonth(),
     day: new Date().getDate(),
@@ -227,10 +86,169 @@ export class Level0Date {
   }
 
   /**
+   * @return {Y|undefined}
+   */
+  get year() {
+    return this.#year
+  }
+
+  /**
+   * @param {Y|number|undefined} value
+   */
+  set year(value) {
+    if (this.#year && value) {
+      this.#year.value = value
+    } else {
+      this.#year = typeof value === "number" ? this.factory.newYear(value) : value
+    }
+  }
+
+  /**
+   * @template MM=Level0Month
+   * @return {MM|undefined}
+   */
+  get month() {
+    return this.#month
+  }
+
+  /**
+   * @template MM=Level0Month
+   * @param {MM|number|undefined} value
+   */
+  set month(value) {
+    if (this.#month && value) {
+      this.#month.value = value
+    } else {
+      this.#month = typeof value === "number" ? this.factory.newMonth(value) : value
+    }
+  }
+
+  /**
+   * @template D=Level0Day
+   * @return {D}
+   */
+  get day() {
+    return this.#day
+  }
+
+  /**
+   * @param {D|number|undefined} value
+   */
+  set day(value) {
+    if (this.#day && value) {
+      this.#day.value = value
+    } else {
+      this.#day = typeof value === "number" ? this.factory.newDay(value) : value
+    }
+  }
+
+  /**
+   * @return {H|undefined}
+   */
+  get hour() {
+    return this.#hour
+  }
+
+  /**
+   * @param {H|number|undefined} value
+   */
+  set hour(value) {
+    if (this.#hour && value) {
+      this.#hour.value = value
+    } else {
+      this.#hour = typeof value === "number" ? this.factory.newHour(value) : value
+    }
+  }
+
+  /**
+   * @return {M||undefined}
+   */
+  get minute() {
+    return this.#minute
+  }
+
+  /**
+   * @param {M|number|undefined} value
+   */
+  set minute(value) {
+    if (this.#minute && value) {
+      this.#minute.value = value
+    } else {
+      this.#minute = typeof value === "number" ? this.factory.newMinute(value) : value
+    }
+  }
+
+  /**
+   * @return {S|undefined}
+   */
+  get second() {
+    return this.#second
+  }
+
+  /**
+   * @param {S|number|undefined} value
+   */
+  set second(value) {
+    if (this.#second && value) {
+      this.#second.value = value
+    } else {
+      this.#second = typeof value === "number" ? this.factory.newSecond(value) : value
+    }
+  }
+
+  /**
+   * @return {Level0Timeshift|undefined}
+   */
+  get timeshift() {
+    return this.#timeshift
+  }
+
+  /**
+   * @param {Level0Timeshift|number|undefined} value
+   */
+  set timeshift(value) {
+    if (this.#timeshift && value) {
+      this.#timeshift.value = value
+    } else {
+      this.#timeshift = typeof value === "number" ? new Level0Timeshift(value) : value
+    }
+  }
+
+  /**
+   * @readonly
+   * @type {Level0Factory}
+   */
+  get factory() {
+    return level0Factory
+  }
+
+  /**
+   * @param {string} spec
+   * @param {EDTFParser} parser
+   * @return {Level0Date}
+   */
+  static fromString(spec, parser = new Level0DateParser()) {
+    const { year, month, day, hour, minute, second, timeshift } = parser.parse(spec)
+    return new Level0Date({ year, month, day, hour, minute, second, timeshift })
+  }
+
+  /**
+   * Creates a level 0 current date.
+   *
+   * @return {Level0Date}
+   */
+  static newInstance() {
+    const utcNow = new Date().toISOString()
+    const millisPos = utcNow.indexOf(".")
+    const edtfNow = utcNow.substring(0, millisPos) + utcNow.substring(millisPos + 4)
+    return Level0Date.fromString(edtfNow)
+  }
+
+  /**
    * @protected
    * @param other
    */
-  #checkOtherType (other) {
+  #checkOtherType(other) {
     if (this.constructor.name !== other.constructor.name) {
       throw new EDTFValidator(`Date "${this.toString()}" cannot be compared with "${other.toString()}"`)
     }
@@ -242,7 +260,7 @@ export class Level0Date {
    * @param {Level0Date} other A date before.
    * @return {number} The difference, in milliseconds.
    */
-  compare (other) {
+  compare(other) {
     this.#checkOtherType(other)
     return this.getTime() - other.getTime()
   }
@@ -254,7 +272,7 @@ export class Level0Date {
    * @param {Level0Date} other A date before.
    * @return {Level0Duration}
    */
-  delta (other) {
+  delta(other) {
     const delta = this.compare(other)
     return new Level0Duration(delta)
   }
@@ -264,7 +282,7 @@ export class Level0Date {
    *
    * @return {number}
    */
-  getTime () {
+  getTime() {
     return (this.year?.duration || 0)
       + (this.month?.duration || 0)
       + (this.day?.duration || 0)
@@ -277,7 +295,7 @@ export class Level0Date {
    * @param {Level0Date} other
    * @return {boolean}
    */
-  isEqual (other) {
+  isEqual(other) {
     return this.compare(other) === 0
   }
 
@@ -285,7 +303,7 @@ export class Level0Date {
    * @param {Level0Component} other
    * @return {boolean}
    */
-  isBefore (other) {
+  isBefore(other) {
     return this.compare(other) < 0
   }
 
@@ -293,33 +311,11 @@ export class Level0Date {
    * @param {Level0Component} other
    * @return {boolean}
    */
-  isAfter (other) {
+  isAfter(other) {
     return this.compare(other) > 0
   }
 
-  toString (renderer = Level0DateRenderer.instance) {
+  toString(renderer = Level0DateRenderer.instance) {
     return renderer.render(this)
-  }
-
-  /**
-   * @param {string} spec
-   * @param {EDTFParser} parser
-   * @return {Level0Date}
-   */
-  static fromString (spec, parser = new Level0DateParser()) {
-    const { year, month, day, hour, minute, second, timeshift } = parser.parse(spec)
-    return new Level0Date({ year, month, day, hour, minute, second, timeshift })
-  }
-
-  /**
-   * Creates a level 0 current date.
-   *
-   * @return {Level0Date}
-   */
-  static newInstance () {
-    const utcNow = new Date().toISOString()
-    const millisPos = utcNow.indexOf(".")
-    const edtfNow = utcNow.substring(0, millisPos) + utcNow.substring(millisPos + 4)
-    return Level0Date.fromString(edtfNow)
   }
 }

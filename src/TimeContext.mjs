@@ -13,22 +13,27 @@ export class TimeContext {
    * @readonly
    */
   static MINUTE = 60
+
   /**
    * @readonly
    */
   static HOUR = 60 * TimeContext.MINUTE
+
   /**
    * @readonly
    */
   static DAY = 24 * TimeContext.HOUR
+
   /**
    * @type EdtfDate | undefined
    */
   date
+
   /**
    * @type EdtfInterval | undefined
    */
   interval
+
   /**
    * @type EdtfDuration | undefined
    */
