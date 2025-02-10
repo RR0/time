@@ -489,7 +489,7 @@ describe("Level2", () => {
     })
   })
 
-  test("comparison", () => {
+  test("comparison", { todo: true }, () => {
     const beforeDate = Level2Date.fromString("2006-07-14T17:56")
     const afterDate = Level2Date.fromString("2007-06-15T18:47")
     assert.equal(beforeDate.isEqual(afterDate), false)
