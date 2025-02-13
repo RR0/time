@@ -10,19 +10,20 @@ import { level1Factory, Level1Factory } from "../Level1Factory.mjs"
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 /** @import { Level0DateSpec } from "../../level0/date/Level0Date.mjs" */
 /** @import { Level1Component } from "../component/index.mjs" */
+/** @import { Level1Timeshift } from "../timeshift/index.mjs" */
 
 /**
  * @typedef {Level0DateSpec} Level1DateSpec
  */
 
 /**
- * @template {Level1Year} Y = Level1Year
- * @template {Level1Month} MM = Level1Month
- * @template {Level1Day} D = Level1Day
- * @template {Level1Hour} H = Level1Hour
- * @template {Level1Minute} M = Level1Minute
- * @template {Level1Second} S = Level1Second
- * @template {Level1Timeshift} Z extends = Level1Timeshift
+ * @template {Level1Year} [Y = Level1Year]
+ * @template {Level1Month} [MM = Level1Month]
+ * @template {Level1Day} [D = Level1Day]
+ * @template {Level1Hour} [H = Level1Hour]
+ * @template {Level1Minute} [M = Level1Minute]
+ * @template {Level1Second} [S = Level1Second]
+ * @template {Level1Timeshift} [Z = Level1Timeshift]
  * @extends {Level0Date<Level1Year, Level1Month, Level1Day, Level1Hour, Level1Minute, Level1Second, Level1Timeshift>}
  */
 export class Level1Date extends Level0Date {
@@ -34,7 +35,6 @@ export class Level1Date extends Level0Date {
   }
 
   /**
-   * @readonly
    * @type {Level1Factory}
    */
   get factory() {

@@ -25,13 +25,13 @@ import { level2Factory } from "../Level2Factory.mjs"
 /**
  * A level 2 EDTF Date.
  *
- * @template {Level2Year} Y = Level2Year
- * @template {Level2Month} MM = Level2Month
- * @template {Level2Day} D = Level2Day
- * @template {Level2Hour} H = Level2Hour
- * @template {Level2Minute} M = Level2Minute
- * @template {Level2Second} S = Level2Second
- * @template {Level2Timeshift} Z = Level2Timeshift
+ * @template {Level2Year} [Y=Level2Year]
+ * @template {Level2Month} [MM=Level2Month]
+ * @template {Level2Day} [D=Level2Day]
+ * @template {Level2Hour} [H=Level2Hour]
+ * @template {Level2Minute} [M=Level2Minute]
+ * @template {Level2Second} [S=Level2Second]
+ * @template {Level2Timeshift} [Z=Level2Timeshift]
  * @extends {Level1Date<Level2Year, Level2Month, Level2Day, Level2Hour, Level2Minute, Level2Second, Level2Timeshift>}
  */
 export class Level2Date extends Level1Date {

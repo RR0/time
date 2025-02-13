@@ -11,6 +11,7 @@ import { Level0DateRenderer } from "./Level0DateRenderer.mjs"
 import { level0Factory, Level0Factory } from "../Level0Factory.mjs"
 import { Level0Duration } from "../duration/index.mjs"
 /** @import { Level0Component } from "../component/index.mjs" */
+/** @import { EDTFParser } from "../../EDTFParser.mjs" */
 
 /**
  * @typedef {Object} Level0DateSpec
@@ -24,13 +25,13 @@ import { Level0Duration } from "../duration/index.mjs"
  */
 
 /**
- * @template {Level0Year} Y = Level0Year
- * @template {Level0Month} MM = Level0Month
- * @template {Level0Day} D = Level0Day
- * @template {Level0Hour} H = Level0Hour
- * @template {Level0Minute} M = Level0Minute
- * @template {Level0Second} S = Level0Second
- * @template {Level0Timeshift} Z = Level0Timeshift
+ * @template {Level0Year} [Y = Level0Year]
+ * @template {Level0Month} [MM = Level0Month]
+ * @template {Level0Day} [D = Level0Day]
+ * @template {Level0Hour} [H = Level0Hour]
+ * @template {Level0Minute} [M = Level0Minute]
+ * @template {Level0Second} [S = Level0Second]
+ * @template {Level0Timeshift} [Z = Level0Timeshift]
  */
 export class Level0Date {
   /**
@@ -114,7 +115,6 @@ export class Level0Date {
   }
 
   /**
-   * @template MM=Level0Month
    * @param {MM|number|undefined} value
    */
   set month(value) {
@@ -216,7 +216,6 @@ export class Level0Date {
   }
 
   /**
-   * @readonly
    * @type {Level0Factory}
    */
   get factory() {
