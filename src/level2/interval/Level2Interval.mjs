@@ -4,6 +4,8 @@ import { Level2Duration } from "../duration/index.mjs"
 import { Level2IntervalParser } from "./Level2IntervalParser.mjs"
 import { Level1Interval } from "../../level1/interval/Level1Interval.mjs"
 
+/** @import { EDTFParser } from "../../EDTFParser.mjs" */
+
 export class Level2Interval extends Level1Interval {
   /**
    * @return {Level2Date|null|undefined}

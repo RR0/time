@@ -14,23 +14,23 @@ import { Level0Duration } from "../duration/index.mjs"
 
 /**
  * @typedef {Object} Level0DateSpec
- * @property {Level0Year|number} year
- * @property {Level0Month|number} month
- * @property {Level0Day|number} day
- * @property {Level0Hour|number} hour
- * @property {Level0Minute|number} minute
- * @property {Level0Second|number} second
- * @property {Level0Timeshift|number} timeshift
+ * @property {Level0Year|number} [year]
+ * @property {Level0Month|number} [month]
+ * @property {Level0Day|number} [day]
+ * @property {Level0Hour|number} [hour]
+ * @property {Level0Minute|number} [minute]
+ * @property {Level0Second|number} [second]
+ * @property {Level0Timeshift|number} [timeshift]
  */
 
 /**
- * @template {Level0Component} Y = Level0Year
- * @template {Level0Component} MM = Level0Month
- * @template {Level0Component} D = Level0Day
- * @template {Level0Component} H = Level0Hour
- * @template {Level0Component} M = Level0Minute
- * @template {Level0Component} S = Level0Second
- * @template {Level0Component} Z = Level0Timeshift
+ * @template {Level0Year} Y = Level0Year
+ * @template {Level0Month} MM = Level0Month
+ * @template {Level0Day} D = Level0Day
+ * @template {Level0Hour} H = Level0Hour
+ * @template {Level0Minute} M = Level0Minute
+ * @template {Level0Second} S = Level0Second
+ * @template {Level0Timeshift} Z = Level0Timeshift
  */
 export class Level0Date {
   /**
@@ -270,7 +270,7 @@ export class Level0Date {
    * Returns the duration between this date and a previous one.
    * Basically, it is a Duration built from #compare()
    *
-   * @param {Level0Date} other A date before.
+   * @param {typeof this} other A date before.
    * @return {Level0Duration}
    */
   delta(other) {

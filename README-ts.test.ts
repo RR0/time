@@ -2,7 +2,7 @@ import { describe, test } from "node:test"
 import assert from "node:assert"
 
 import { Level2Date, Level2Date as EdtfDate } from "./src/level2/date/index.mjs"
-import { Level2Interval as EdtfInterval } from "./src/level2/interval/index.mjs"
+import { Level2Interval, Level2Interval as EdtfInterval } from "./src/level2/interval/index.mjs"
 
 import { Level2Duration as Duration } from "./src/level2/duration/index.mjs"
 import { level0Calendar } from "./src/calendar/index.mjs"
@@ -64,6 +64,19 @@ describe("Demo samples", () => {
   })
 
   describe("Intervals", () => {
+
+    test("instanciation", () => {
+      const start = new Level2Date({year: 1972, month: 8, day: 12, hour: 16, minute: 45, second: 55})
+      const end = new Level2Date({year: 1972, month: 8, day: 12, hour: 16, minute: 45, second: 55})
+      const interval = new Level2Interval(start, end)
+      assert.equal(interval.start.year.value, 1972)
+      assert.equal(interval.start.month.value, 8)
+      assert.equal(interval.start.day.value, 12)
+      assert.equal(interval.start.hour.value, 16)
+      assert.equal(interval.start.minute.value, 45)
+      assert.equal(interval.start.second.value, 55)
+    })
+
 
     test("from uncertain to approximate", {todo: true}, () => {
       const maybeAugust = EdtfInterval.fromString("2023-12-?08/2024-12~")

@@ -16,15 +16,16 @@ import { level1Factory, Level1Factory } from "../Level1Factory.mjs"
  */
 
 /**
- * @template {Level1Component} Y = Level1Year
- * @template {Level1Component} MM = Level1Month
- * @template {Level1Component} D = Level1Day
- * @template {Level1Component} H = Level1Hour
- * @template {Level1Component} M = Level1Minute
- * @template {Level1Component} S = Level1Second
- * @template {Level1Component} Z extends = Level1Timeshift
+ * @template {Level1Year} Y = Level1Year
+ * @template {Level1Month} MM = Level1Month
+ * @template {Level1Day} D = Level1Day
+ * @template {Level1Hour} H = Level1Hour
+ * @template {Level1Minute} M = Level1Minute
+ * @template {Level1Second} S = Level1Second
+ * @template {Level1Timeshift} Z extends = Level1Timeshift
+ * @extends {Level0Date<Level1Year, Level1Month, Level1Day, Level1Hour, Level1Minute, Level1Second, Level1Timeshift>}
  */
-export class Level1Date extends /** @type {Level0Date<Level1Year, Level1Month, Level1Day, Level1Hour, Level1Minute, Level1Second, Level1Timeshift>} */ Level0Date {
+export class Level1Date extends Level0Date {
   /**
    * @param {Level1DateSpec} spec
    */
