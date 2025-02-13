@@ -1,11 +1,20 @@
 {
-  "include": ["src/*.mjs"],
-  "exclude": ["src/*.test.mjs"],
+  "include": [
+    "src/*.mjs"
+  ],
+  "exclude": [
+    "src/*.test.mjs"
+  ],
   "compilerOptions": {
+    "esModuleInterop": true,
+    "typeRoots": [
+      "types",
+      "node_modules/@types/node"
+    ],
     "allowJs": true,
     "declaration": true,
     "declarationMap": true,
     "emitDeclarationOnly": true,
     "outDir": "types"
-  },
+  }
 }

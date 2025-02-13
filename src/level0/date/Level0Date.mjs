@@ -10,6 +10,7 @@ import { Level0Timeshift } from "../timeshift/index.mjs"
 import { Level0DateRenderer } from "./Level0DateRenderer.mjs"
 import { level0Factory, Level0Factory } from "../Level0Factory.mjs"
 import { Level0Duration } from "../duration/index.mjs"
+/** @import { Level0Component } from "../component/index.mjs" */
 
 /**
  * @typedef {Object} Level0DateSpec
@@ -23,24 +24,26 @@ import { Level0Duration } from "../duration/index.mjs"
  */
 
 /**
- * @template Y extends Level0Component = Level0Year
- * @template MM extends Level0Component = Level0Month
- * @template D extends Level0Component = Level0Day
- * @template H extends Level0Component = Level0Hour
- * @template M extends Level0Component = Level0Minute
- * @template S extends Level0Component = Level0Second
- * @template Z extends Level0Component = Level0Timeshift
+ * @template {Level0Component} Y = Level0Year
+ * @template {Level0Component} MM = Level0Month
+ * @template {Level0Component} D = Level0Day
+ * @template {Level0Component} H = Level0Hour
+ * @template {Level0Component} M = Level0Minute
+ * @template {Level0Component} S = Level0Second
+ * @template {Level0Component} Z = Level0Timeshift
  */
 export class Level0Date {
   /**
    * @type {Level0Year|undefined}
    */
   #year
+
   /**
-   * @template MM=Level0Month
+   * @template {Level0Month} MM=Level0Month
    * @type {MM|undefined}
    */
   #month
+
   /**
    * @template D=Level0Day
    * @type D
@@ -104,7 +107,6 @@ export class Level0Date {
   }
 
   /**
-   * @template MM=Level0Month
    * @return {MM|undefined}
    */
   get month() {
@@ -124,8 +126,7 @@ export class Level0Date {
   }
 
   /**
-   * @template D=Level0Day
-   * @return {D}
+   * @return {D|undefined}
    */
   get day() {
     return this.#day
@@ -292,7 +293,7 @@ export class Level0Date {
   }
 
   /**
-   * @param {Level0Date} other
+   * @param {typeof this} other
    * @return {boolean}
    */
   isEqual(other) {
@@ -300,7 +301,7 @@ export class Level0Date {
   }
 
   /**
-   * @param {Level0Component} other
+   * @param {typeof this} other
    * @return {boolean}
    */
   isBefore(other) {
@@ -308,7 +309,7 @@ export class Level0Date {
   }
 
   /**
-   * @param {Level0Component} other
+   * @param {typeof this} other
    * @return {boolean}
    */
   isAfter(other) {
