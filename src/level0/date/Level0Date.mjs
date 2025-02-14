@@ -233,6 +233,22 @@ export class Level0Date {
   }
 
   /**
+   * @param {Date} date
+   * @return {Level0Date}
+   */
+  static fromDate(date) {
+    return new Level0Date({
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate(),
+      hour: date.getHours(),
+      minute: date.getSeconds(),
+      second: date.getSeconds(),
+      timeshift: date.getTimezoneOffset()
+    })
+  }
+
+  /**
    * Creates a level 0 current date.
    *
    * @return {Level0Date}

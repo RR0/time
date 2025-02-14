@@ -12,16 +12,32 @@ describe("Demo samples", () => {
 
   describe("Dates", () => {
 
-    test("instanciation", () => {
-      const now = new Level2Date()
-      assert.ok(now.year.value >= 2025)
-      const date = new Level2Date({year: 1972, month: 8, day: 12, hour: 16, minute: 45, second: 55})
-      assert.equal(date.year.value, 1972)
-      assert.equal(date.month.value, 8)
-      assert.equal(date.day.value, 12)
-      assert.equal(date.hour.value, 16)
-      assert.equal(date.minute.value, 45)
-      assert.equal(date.second.value, 55)
+    describe("instanciation", () => {
+
+      test("now", () => {
+        const now = new Level2Date()
+        assert.ok(now.year.value >= 2025)
+      })
+
+      test("from date", () => {
+        const now = Level2Date.fromDate(new Date(2025, 1, 28))
+        assert.equal(now.year.value, 2025)
+        assert.equal(now.month.value, 2)
+        assert.equal(now.day.value, 28)
+        assert.equal(now.hour?.value, 0)
+        assert.equal(now.minute?.value, 0)
+        assert.equal(now.second?.value, 0)
+      })
+
+      test("instanciation", () => {
+        const date = new Level2Date({year: 1972, month: 8, day: 12, hour: 16, minute: 45, second: 55})
+        assert.equal(date.year.value, 1972)
+        assert.equal(date.month.value, 8)
+        assert.equal(date.day.value, 12)
+        assert.equal(date.hour.value, 16)
+        assert.equal(date.minute.value, 45)
+        assert.equal(date.second.value, 55)
+      })
     })
 
     test("comparison", () => {
