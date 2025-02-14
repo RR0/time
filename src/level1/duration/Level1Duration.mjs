@@ -19,12 +19,12 @@ import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
 
 /**
  * @typedef {Object} Level1DurationInSpec
- * @property {Level1Year|number} years
- * @property {Level1Month|number} months
- * @property {Level1Day|number} days
- * @property {Level1Hour|number} hours
- * @property {Level1Minute|number} minutes
- * @property {Level1Second|number} seconds
+ * @property {Level1Year|number} [years]
+ * @property {Level1Month|number} [months]
+ * @property {Level1Day|number} [days]
+ * @property {Level1Hour|number} [hours]
+ * @property {Level1Minute|number} [minutes]
+ * @property {Level1Second|number} [seconds]
  * @property {Level1Millisecond|number} [milliseconds]
  * @property {boolean} [uncertain]
  * @property {boolean} [approximate]
@@ -32,26 +32,26 @@ import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
 
 /**
  * @typedef {Object} Level1DurationOutSpec
- * @property {Level1Year} years
- * @property {Level1Month} months
- * @property {Level1Day} days
- * @property {Level1Hour} hours
- * @property {Level1Minute} minutes
- * @property {Level1Second} seconds
+ * @property {Level1Year} [years]
+ * @property {Level1Month} [months]
+ * @property {Level1Day} [days]
+ * @property {Level1Hour} [hours]
+ * @property {Level1Minute} [minutes]
+ * @property {Level1Second} [seconds]
  * @property {Level1Millisecond} [milliseconds]
  * @property {boolean} [uncertain]
  * @property {boolean} [approximate]
  */
 
 /**
- * @template Y extends Level1Component = Level1Year
- * @template M extends Level1Component = Level1Month
- * @template D extends Level1Component = Level1Day
- * @template H extends Level1Component = Level1Hour
- * @template M extends Level1Component = Level1Minute
- * @template S extends Level1Component = Level1Second
- * @template C extends Level1Component = Level1Millisecond
- * @template DD extends Level1Date = Level1Date
+ * @template {Level1Year} [Y = Level1Year]
+ * @template {Level1Month} [M = Level1Month]
+ * @template {Level1Day} [D = Level1Day]
+ * @template {Level1Hour} [H = Level1Hour]
+ * @template {Level1Minute} [M = Level1Minute]
+ * @template {Level1Second} [S = Level1Second]
+ * @template {Level1Millisecond} [C = Level1Millisecond]
+ * @template {Level1Date} [DD extends Level1Date = Level1Date]
  */
 export class Level1Duration extends Level1Component {
   /**

@@ -15,34 +15,34 @@ import { level0DurationFactory } from "../Level0Factory.mjs"
 
 /**
  * @typedef {Object} Level0DurationInSpec
- * @property {Level0Year|number} years
- * @property {Level0Month|number} months
- * @property {Level0Day|number} days
- * @property {Level0Hour|number} hours
- * @property {Level0Minute|number} minutes
- * @property {Level0Second|number} seconds
+ * @property {Level0Year|number} [years]
+ * @property {Level0Month|number} [months]
+ * @property {Level0Day|number} [days]
+ * @property {Level0Hour|number} [hours]
+ * @property {Level0Minute|number} [minutes]
+ * @property {Level0Second|number} [seconds]
  * @property {Level0Millisecond|number} [milliseconds]
  */
 
 /**
  * @typedef {Object} Level0DurationOutSpec
- * @property {Level0Year} years
- * @property {Level0Month} months
- * @property {Level0Day} days
- * @property {Level0Hour} hours
- * @property {Level0Minute} minutes
- * @property {Level0Second} seconds
+ * @property {Level0Year} [years]
+ * @property {Level0Month} [months]
+ * @property {Level0Day} [days]
+ * @property {Level0Hour} [hours]
+ * @property {Level0Minute} [minutes]
+ * @property {Level0Second} [seconds]
  * @property {Level0Millisecond} [milliseconds]
  */
 
 /**
- * @template Y extends Level0Component = Level0Year
- * @template M extends Level0Component = Level0Month
- * @template D extends Level0Component = Level0Day
- * @template H extends Level0Component = Level0Hour
- * @template M extends Level0Component = Level0Minute
- * @template S extends Level0Component = Level0Second
- * @template C extends Level0Component = Level0Millisecond
+ * @template {Level0Year} Y = [Level0Year]
+ * @template {Level0Month} M = [Level0Month]
+ * @template {Level0Day} D = [Level0Day]
+ * @template {Level0Hour} H = [Level0Hour]
+ * @template {Level0Minute} M = [Level0Minute]
+ * @template {Level0Second} S = [Level0Second]
+ * @template {Level0Millisecond} C = [Level0Millisecond]
  */
 export class Level0Duration extends Level0Component {
   /**
