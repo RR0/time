@@ -1,6 +1,6 @@
 import { Level1DurationParser } from "./Level1DurationParser.mjs"
-import { Level1Component } from "../component/index.mjs"
-import { CalendarUnit, level0Calendar } from "../../calendar/index.mjs"
+import { Level1Component } from "../component/Level1Component.mjs"
+import { level0Calendar } from "../../calendar/index.mjs"
 import { Level1DateParser } from "../date/Level1DateParser.mjs"
 import { Level1ComponentParser } from "../component/Level1ComponentParser.mjs"
 import { durationUnits, Level0Duration } from "../../level0/index.mjs"
@@ -9,13 +9,13 @@ import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
 /** @import { Level0Date } from "../date/Level0Date.mjs" */
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 /** @import { LevelFactory } from "../../LevelFactory.mjs" */
-/** @import { Level1Date } from "../date/index.mjs" */
-/** @import { Level1Year } from "../year/index.mjs" */
-/** @import { Level1Month } from "../month/index.mjs" */
-/** @import { Level1Day } from "../day/index.mjs" */
-/** @import { Level1Hour } from "../hour/index.mjs" */
-/** @import { Level1Minute } from "../minute/index.mjs" */
-/** @import { Level1Second } from "../second/index.mjs" */
+/** @import { Level1Date } from "../date/Level1Date.mjs" */
+/** @import { Level1Year } from "../year/Level1Year.mjs" */
+/** @import { Level1Month } from "../month/Level1Month.mjs" */
+/** @import { Level1Day } from "../day/Level1Day.mjs" */
+/** @import { Level1Hour } from "../hour/Level1Hour.mjs" */
+/** @import { Level1Minute } from "../minute/Level1Minute.mjs" */
+/** @import { Level1Second } from "../second/Level1Second.mjs" */
 
 /**
  * @typedef {Object} Level1DurationInSpec
@@ -51,7 +51,6 @@ import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
  * @template {Level1Minute} [M = Level1Minute]
  * @template {Level1Second} [S = Level1Second]
  * @template {Level1Millisecond} [C = Level1Millisecond]
- * @template {Level1Date} [DD extends Level1Date = Level1Date]
  */
 export class Level1Duration extends Level1Component {
   /**

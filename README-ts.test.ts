@@ -63,6 +63,13 @@ describe("Demo samples", () => {
       const tenMnSpec = aroundTenMinutes.toSpec()
       assert.equal(tenMnSpec.minutes, 10)
     })
+
+    test("between", () => {
+      const start = EdtfDate.fromString("2024-01-01")
+      const now = new EdtfDate()
+      const duration = Duration.between(start, now)
+      assert.ok(duration.toSpec().years.value >= 1)
+    })
   })
 
   describe("Intervals", () => {

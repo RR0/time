@@ -8,13 +8,13 @@ import { Level2ComponentParser } from "../component/Level2ComponentParser.mjs"
 import { Level2DateParser } from "../date/Level2DateParser.mjs"
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 /** @import { LevelFactory } from "../../LevelFactory.mjs" */
-/** @import { Level2Date } from "../date/index.mjs" */
-/** @import { Level2Year } from "../year/index.mjs" */
-/** @import { Level2Month } from "../month/index.mjs" */
-/** @import { Level2Day } from "../day/index.mjs" */
-/** @import { Level2Hour } from "../hour/index.mjs" */
-/** @import { Level2Minute } from "../minute/index.mjs" */
-/** @import { Level2Second } from "../second/index.mjs" */
+/** @import { Level2Date } from "../date/Level2Date.mjs" */
+/** @import { Level2Year } from "../year/Level2Year.mjs" */
+/** @import { Level2Month } from "../month/Level2Month.mjs" */
+/** @import { Level2Day } from "../day/Level2Day.mjs" */
+/** @import { Level2Hour } from "../hour/Level2Hour.mjs" */
+/** @import { Level2Minute } from "../minute/Level2Minute.mjs" */
+/** @import { Level2Second } from "../second/Level2Second.mjs" */
 /**
  * @typedef {Object} Level2DurationInSpec
  * @property {Level2Year|number} [years]
@@ -45,7 +45,7 @@ import { Level2DateParser } from "../date/Level2DateParser.mjs"
  * @template {Level2Minute} [M=Level2Minute]
  * @template {Level2Second} [S=Level2Second]
  * @template {Level2Millisecond} [C=Level2Millisecond]
- * @template {Level2Date} [DD=Level2Date]
+ * @extends Level1Duration
  */
 export class Level2Duration extends Level1Duration {
   /**
@@ -64,7 +64,7 @@ export class Level2Duration extends Level1Duration {
   }
 
   /**
-   * @param spec
+   * @param {Level2DurationInSpec} spec
    * @return {number}
    */
   static valueFromSpec(spec) {
