@@ -69,7 +69,7 @@ export class Level0Date {
   #timeshift
 
   /**
-   * @param {Level0DateSpec} spec
+   * @param {Level0DateSpec} [spec]
    */
   constructor(spec = {
     year: new Date().getFullYear(),

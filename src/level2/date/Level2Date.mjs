@@ -36,7 +36,7 @@ import { level2Factory } from "../Level2Factory.mjs"
  */
 export class Level2Date extends Level1Date {
   /**
-   * @param {Level2DateSpec} spec
+   * @param {Level2DateSpec|undefined} [spec]
    */
   constructor(spec) {
     super(spec)

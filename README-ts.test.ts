@@ -13,6 +13,8 @@ describe("Demo samples", () => {
   describe("Dates", () => {
 
     test("instanciation", () => {
+      const now = new Level2Date()
+      assert.ok(now.year.value >= 2025)
       const date = new Level2Date({year: 1972, month: 8, day: 12, hour: 16, minute: 45, second: 55})
       assert.equal(date.year.value, 1972)
       assert.equal(date.month.value, 8)
