@@ -21,6 +21,7 @@ describe("Demo samples", () => {
 
       test("from date", () => {
         const now = Level2Date.fromDate(new Date(2025, 1, 28))
+        assert.ok(now instanceof Level2Date)
         assert.equal(now.year.value, 2025)
         assert.equal(now.month.value, 2)
         assert.equal(now.day.value, 28)

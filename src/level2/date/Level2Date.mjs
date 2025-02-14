@@ -78,6 +78,22 @@ export class Level2Date extends Level1Date {
   }
 
   /**
+   * @param {Date} date
+   * @return {Level2Date}
+   */
+  static fromDate(date) {
+    return new Level2Date({
+      year: date.getFullYear(),
+      month: date.getMonth() + 1,
+      day: date.getDate(),
+      hour: date.getHours(),
+      minute: date.getSeconds(),
+      second: date.getSeconds(),
+      timeshift: date.getTimezoneOffset()
+    })
+  }
+
+  /**
    * @param {string} str An EDTF level 0-2 string
    * @param {EDTFParser} parser
    * @return {Level2Date<Level2Year,Level2Month>}
