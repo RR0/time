@@ -17,19 +17,19 @@ export class Level2Second extends Level2Component {
    * If some digits are unspecified, an inferred seconds interval will be returned.
    *
    * @param {string} str
+   * @param unit
    * @return {Level2Second | {start: Level2Second, end: Level2Second}}
    */
-  static fromString(str) {
+  static fromString(str, unit = level0Calendar.second) {
     const parser = new Level2SecondParser()
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start
     if (startValue !== undefined) {
-      const unit = level0Calendar.second
       const start = new Level2Second(Object.assign({ ...parseResult }, { value: Math.max(startValue, unit.min) }))
       const end = new Level2Second(Object.assign({ ...parseResult }, { value: Math.min(parseResult.value.end, unit.max) }))
       return { start, end }
     } else {
-      return new Level2Second(parseResult)
+      return new Level2Second(parseResult, unit)
     }
   }
 }

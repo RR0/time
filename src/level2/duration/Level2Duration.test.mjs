@@ -61,7 +61,7 @@ describe("Duration", () => {
 
   describe("parsing", () => {
 
-    const seconds = 3
+    const seconds = 90
 
     test("in seconds", () => {
       const durationMs = Level2Duration.fromString(`P${seconds}S`)
