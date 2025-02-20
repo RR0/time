@@ -1,5 +1,6 @@
 import { Level1Component } from "../../level1/component/Level1Component.mjs"
 /** @import { Level1ComponentSpec } from "../../level1/component/Level1Component.mjs" */
+
 /** @import { CalendarUnit } from "../../calendar/unit/CalendarUnit.mjs" */
 
 /**
@@ -25,7 +26,7 @@ export class Level2Component extends Level1Component {
    * @param {Level2ComponentSpec|number} spec
    * @param {CalendarUnit} unit
    */
-  constructor (spec, unit) {
+  constructor(spec, unit) {
     super(spec, unit)
     this.uncertainComponent = spec.uncertainComponent || false
     this.approximateComponent = spec.approximateComponent || false
@@ -34,28 +35,40 @@ export class Level2Component extends Level1Component {
   /**
    * @return {boolean}
    */
-  get uncertain () {
+  get uncertain() {
     return super.uncertain || this.uncertainComponent
   }
 
   /**
    * @param {boolean} val
    */
-  set uncertain (val) {
+  set uncertain(val) {
     return super.uncertain = val
-  }
-
-  /**
-   * @param {boolean} val
-   */
-  set approximate (val) {
-    return super.approximate = val
   }
 
   /**
    * @return {boolean}
    */
-  get approximate () {
+  get approximate() {
     return super.approximate || this.approximateComponent
+  }
+
+  /**
+   * @param {boolean} val
+   */
+  set approximate(val) {
+    return super.approximate = val
+  }
+
+  toSpec() {
+    return {
+      ...super.toSpec(),
+      uncertainComponent: this.uncertainComponent,
+      approximateComponent: this.approximateComponent
+    }
+  }
+
+  toJSON() {
+    return this.toSpec()
   }
 }

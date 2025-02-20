@@ -3,6 +3,7 @@ import { describe, test } from "node:test"
 import { level2Assert } from "../component/Level2TestUtil.mjs"
 
 import { Level2Minute } from "./Level2Minute.mjs"
+import assert from "node:assert"
 
 describe("Level2Minute", () => {
 
@@ -44,6 +45,24 @@ describe("Level2Minute", () => {
       const unspecifiedMonthUnit = Level2Minute.fromString("XX")
       level2Assert(unspecifiedMonthUnit.start, 0)
       level2Assert(unspecifiedMonthUnit.end, 59)
+    })
+  })
+
+  describe("serialization", () => {
+
+    test("toString()", () => {
+      const str = "59"
+      const minute = Level2Minute.fromString(str)
+      assert.equal(minute.toString(), str)
+    })
+
+    test("stringify()", () => {
+      const str = "59"
+      const minute = Level2Minute.fromString(str)
+      const json = JSON.stringify(minute)
+      const spec = JSON.parse(json)
+      const parsedMinute = new Level2Minute(spec)
+      assert.ok(parsedMinute.isEqual(minute))
     })
   })
 })

@@ -1,6 +1,7 @@
 import { describe, test } from "node:test"
 import { Level2Second } from "./Level2Second.mjs"
 import { level2Assert } from "../component/Level2TestUtil.mjs"
+import assert from "node:assert"
 
 describe("Level2Second", () => {
 
@@ -42,6 +43,24 @@ describe("Level2Second", () => {
       const unspecifiedMonthUnit = Level2Second.fromString("XX")
       level2Assert(unspecifiedMonthUnit.start, 0)
       level2Assert(unspecifiedMonthUnit.end, 59)
+    })
+  })
+
+  describe("serialization", () => {
+
+    test("toString()", () => {
+      const str = "11"
+      const second = Level2Second.fromString(str)
+      assert.equal(second.toString(), str)
+    })
+
+    test("stringify()", () => {
+      const str = "11"
+      const second = Level2Second.fromString(str)
+      const json = JSON.stringify(second)
+      const spec = JSON.parse(json)
+      const parsedSecond = new Level2Second(spec)
+      assert.ok(parsedSecond.isEqual(second))
     })
   })
 })

@@ -23,16 +23,8 @@ export class Level0Timeshift {
   /**
    * @param {number} value
    */
-  constructor (value = 0) {
+  constructor(value = 0) {
     this.value = value
-  }
-
-  /**
-   * @param {TimeshiftRenderer} renderer
-   * @return {string}
-   */
-  toString (renderer = new DefaultTimeshiftRenderer()) {
-    return renderer.render(this)
   }
 
   /**
@@ -40,8 +32,26 @@ export class Level0Timeshift {
    * @param {EDTFParser} parser
    * @return {Level0Timeshift}
    */
-  static fromString (str, parser = new Level0TimeshiftParser()) {
+  static fromString(str, parser = new Level0TimeshiftParser()) {
     const groups = parser.parse(str)
     return new Level0Timeshift(groups)
+  }
+
+  /**
+   * @param {TimeshiftRenderer} renderer
+   * @return {string}
+   */
+  toString(renderer = new DefaultTimeshiftRenderer()) {
+    return renderer.render(this)
+  }
+
+  toSpec() {
+    return {
+      value: this.value
+    }
+  }
+
+  toJSON() {
+    return this.toSpec()
   }
 }

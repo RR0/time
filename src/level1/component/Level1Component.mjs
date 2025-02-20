@@ -22,7 +22,7 @@ export class Level1Component extends Level0Component {
    * @param {Level1ComponentSpec|number} spec
    * @param {CalendarUnit} unit
    */
-  constructor (spec, unit) {
+  constructor(spec, unit) {
     super(spec, unit)
     this.#uncertain = spec.uncertain || false
     this.#approximate = spec.approximate || false
@@ -31,36 +31,36 @@ export class Level1Component extends Level0Component {
   /**
    * @type boolean
    */
-  get uncertain () {
+  get uncertain() {
     return this.#uncertain
   }
 
   /**
    * @param {boolean} val
    */
-  set uncertain (val) {
+  set uncertain(val) {
     return this.#uncertain = val
-  }
-
-  /**
-   * @param {boolean} val
-   */
-  set approximate (val) {
-    return this.#approximate = val
   }
 
   /**
    * @type boolean
    */
-  get approximate () {
+  get approximate() {
     return this.#approximate
+  }
+
+  /**
+   * @param {boolean} val
+   */
+  set approximate(val) {
+    return this.#approximate = val
   }
 
   /**
    * @protected
    * @return {boolean}
    */
-  isCertainAndPrecise () {
+  isCertainAndPrecise() {
     return !this.approximate && !this.uncertain
   }
 
@@ -68,7 +68,7 @@ export class Level1Component extends Level0Component {
    * @param {this} other
    * @return {boolean}
    */
-  isEqual (other) {
+  isEqual(other) {
     return this.isCertainAndPrecise() && super.isEqual(other)
   }
 
@@ -76,7 +76,7 @@ export class Level1Component extends Level0Component {
    * @param {this} other
    * @return {boolean}
    */
-  isBefore (other) {
+  isBefore(other) {
     return this.isCertainAndPrecise() && super.isBefore(other)
   }
 
@@ -84,11 +84,26 @@ export class Level1Component extends Level0Component {
    * @param {this} other
    * @return {boolean}
    */
-  isAfter (other) {
+  isAfter(other) {
     return this.isCertainAndPrecise() && super.isAfter(other)
   }
 
-  toString (renderer = Level1ComponentRenderer.instance) {
+  toString(renderer = Level1ComponentRenderer.instance) {
     return super.toString(renderer)
+  }
+
+  /**
+   * @return {Level0Component}
+   */
+  toSpec() {
+    return {
+      ...super.toSpec(),
+      uncertain: this.uncertain,
+      approximate: this.uncertain
+    }
+  }
+
+  toJSON() {
+    return this.toSpec()
   }
 }

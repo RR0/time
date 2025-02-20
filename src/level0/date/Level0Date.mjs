@@ -10,6 +10,7 @@ import { Level0Timeshift } from "../timeshift/index.mjs"
 import { Level0DateRenderer } from "./Level0DateRenderer.mjs"
 import { level0Factory, Level0Factory } from "../Level0Factory.mjs"
 import { Level0Duration } from "../duration/index.mjs"
+import { Level0Component } from "../component/index.mjs"
 /** @import { Level0Component } from "../component/index.mjs" */
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 
@@ -100,10 +101,11 @@ export class Level0Date {
    * @param {Y|number|undefined} value
    */
   set year(value) {
-    if (this.#year && value) {
+    const isNumber = typeof value === "number"
+    if (this.#year && isNumber) {
       this.#year.value = value
     } else {
-      this.#year = typeof value === "number" ? this.factory.newYear(value) : value
+      this.#year = isNumber ? this.factory.newYear(value) : !value || value.start || value instanceof Level0Component ? value : new Level0Year(value)
     }
   }
 
@@ -118,10 +120,11 @@ export class Level0Date {
    * @param {MM|number|undefined} value
    */
   set month(value) {
-    if (this.#month && value) {
+    const isNumber = typeof value === "number"
+    if (this.#month && isNumber) {
       this.#month.value = value
     } else {
-      this.#month = typeof value === "number" ? this.factory.newMonth(value) : value
+      this.#month = isNumber ? this.factory.newMonth(value) : !value || value.start || value instanceof Level0Component ? value : new Level0Month(value)
     }
   }
 
@@ -136,10 +139,11 @@ export class Level0Date {
    * @param {D|number|undefined} value
    */
   set day(value) {
-    if (this.#day && value) {
+    const isNumber = typeof value === "number"
+    if (this.#day && isNumber) {
       this.#day.value = value
     } else {
-      this.#day = typeof value === "number" ? this.factory.newDay(value) : value
+      this.#day = isNumber ? this.factory.newDay(value) : !value || value.start || value instanceof Level0Component ? value : new Level0Day(value)
     }
   }
 
@@ -154,10 +158,11 @@ export class Level0Date {
    * @param {H|number|undefined} value
    */
   set hour(value) {
-    if (this.#hour && value) {
+    const isNumber = typeof value === "number"
+    if (this.#hour && isNumber) {
       this.#hour.value = value
     } else {
-      this.#hour = typeof value === "number" ? this.factory.newHour(value) : value
+      this.#hour = isNumber ? this.factory.newHour(value) : !value || value.start || value instanceof Level0Component ? value : new Level0Hour(value)
     }
   }
 
@@ -172,10 +177,11 @@ export class Level0Date {
    * @param {M|number|undefined} value
    */
   set minute(value) {
-    if (this.#minute && value) {
+    const isNumber = typeof value === "number"
+    if (this.#minute && isNumber) {
       this.#minute.value = value
     } else {
-      this.#minute = typeof value === "number" ? this.factory.newMinute(value) : value
+      this.#minute = isNumber ? this.factory.newMinute(value) : !value || value.start || value instanceof Level0Component ? value : new Level0Minute(value)
     }
   }
 
@@ -190,10 +196,11 @@ export class Level0Date {
    * @param {S|number|undefined} value
    */
   set second(value) {
-    if (this.#second && value) {
+    const isNumber = typeof value === "number"
+    if (this.#second && isNumber) {
       this.#second.value = value
     } else {
-      this.#second = typeof value === "number" ? this.factory.newSecond(value) : value
+      this.#second = isNumber ? this.factory.newSecond(value) : !value || value.start || value instanceof Level0Component ? value : new Level0Second(value)
     }
   }
 
@@ -208,10 +215,11 @@ export class Level0Date {
    * @param {Level0Timeshift|number|undefined} value
    */
   set timeshift(value) {
-    if (this.#timeshift && value) {
+    const isNumber = typeof value === "number"
+    if (this.#timeshift && isNumber) {
       this.#timeshift.value = value
     } else {
-      this.#timeshift = typeof value === "number" ? new Level0Timeshift(value) : value
+      this.#timeshift = isNumber ? new Level0Timeshift(value) : value
     }
   }
 
@@ -333,5 +341,45 @@ export class Level0Date {
 
   toString(renderer = Level0DateRenderer.instance) {
     return renderer.render(this)
+  }
+
+  /**
+   * @return {Level0DateSpec}
+   */
+  toSpec() {
+    const spec = {}
+    const year = this.year?.toSpec()
+    if (year) {
+      spec.year = year
+    }
+    const month = this.month?.toSpec()
+    if (month) {
+      spec.month = month
+    }
+    const day = this.day?.toSpec()
+    if (day) {
+      spec.day = day
+    }
+    const hour = this.hour?.toSpec()
+    if (hour) {
+      spec.hour = hour
+    }
+    const minute = this.minute?.toSpec()
+    if (minute) {
+      spec.minute = minute
+    }
+    const second = this.second?.toSpec()
+    if (second) {
+      spec.second = second
+    }
+    const timeshift = this.timeshift?.toSpec()
+    if (timeshift) {
+      spec.timeshift = timeshift
+    }
+    return spec
+  }
+
+  toJSON() {
+    return this.toSpec()
   }
 }

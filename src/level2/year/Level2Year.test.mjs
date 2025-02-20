@@ -161,4 +161,21 @@ describe("Level2Year", () => {
       level2Assert(unspecifiedYearUnit.end, 9999)
     })
   })
+
+  describe("serialization", () => {
+
+    test("toString()", () => {
+      const str = "1985"
+      const year = Level2Year.fromString(str)
+      assert.equal(year.toString(), str)
+    })
+
+    test("stringify()", () => {
+      const year = Level2Year.fromString("1985")
+      const json = JSON.stringify(year)
+      const spec = JSON.parse(json)
+      const parsedYear = new Level2Year(spec)
+      assert.ok(parsedYear.isEqual(year))
+    })
+  })
 })

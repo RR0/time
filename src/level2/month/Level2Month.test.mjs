@@ -64,4 +64,22 @@ describe("Level2Month", () => {
       level2Assert(unspecifiedMonthUnit.end, 12)
     })
   })
+
+  describe("serialization", () => {
+
+    test("toString()", () => {
+      const str = "11"
+      const month = Level2Month.fromString(str)
+      assert.equal(month.toString(), str)
+    })
+
+    test("stringify()", () => {
+      const str = "11"
+      const month = Level2Month.fromString(str)
+      const json = JSON.stringify(month)
+      const spec = JSON.parse(json)
+      const parsedMonth = new Level2Month(spec)
+      assert.ok(parsedMonth.isEqual(month))
+    })
+  })
 })

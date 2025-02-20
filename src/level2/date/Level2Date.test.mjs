@@ -505,4 +505,22 @@ describe("Level2", () => {
     assert.equal(durSpec.months.value, 9)
     assert.equal(durSpec.days.value, 28)
   })
+
+  describe("serialization", () => {
+
+    test("toString()", () => {
+      const str = "1972-08-12"
+      const minute = Level2Date.fromString(str)
+      assert.equal(minute.toString(), str)
+    })
+
+    test("stringify()", () => {
+      const str = "1972-08-12"
+      const date = Level2Date.fromString(str)
+      const json = JSON.stringify(date)
+      const spec = JSON.parse(json)
+      const parsedDate = new Level2Date(spec)
+      assert.ok(parsedDate.isEqual(date))
+    })
+  })
 })
