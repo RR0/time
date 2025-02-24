@@ -109,4 +109,8 @@ export class Level2Date extends Level1Date {
     const edtfNow = utcNow.substring(0, millisPos) + utcNow.substring(millisPos + 4)
     return Level2Date.fromString(edtfNow)
   }
+
+  clone() {
+    return new Level2Date(this.toSpec())
+  }
 }

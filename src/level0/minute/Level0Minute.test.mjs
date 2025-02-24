@@ -1,5 +1,5 @@
 import { describe, test } from "node:test"
-import assert from "node:assert"
+import assert, { fail } from "node:assert"
 
 import { Level0Minute } from "./Level0Minute.mjs"
 import { Level0ComponentRenderer } from "../component/Level0ComponentRenderer.mjs"
@@ -49,5 +49,45 @@ describe("Level0Minute", () => {
 
   test("too high", () => {
     assert.throws(() => Level0Minute.fromString("60"), { message: `minute value must be >= 0 and <= 59, but was 60` })
+  })
+
+  const minuteValue = 20
+
+  describe("prev", () => {
+
+    test("valid", () => {
+      const minute = new Level0Minute(minuteValue)
+      const next = minute.previous()
+      assert.equal(next.value, minuteValue - 1)
+    })
+
+    test("overflow", () => {
+      const minute = new Level0Minute(level0Calendar.minute.min)
+      try {
+        minute.previous()
+        fail("Should not allow next month before min")
+      } catch (e) {
+        assert.equal(e.message, "minute value must be >= 0 and <= 59, but was -1")
+      }
+    })
+  })
+
+  describe("next", () => {
+
+    test("valid", () => {
+      const minute = new Level0Minute(minuteValue)
+      const next = minute.next()
+      assert.equal(next.value, minuteValue + 1)
+    })
+
+    test("overflow", () => {
+      const minute = new Level0Minute(level0Calendar.minute.max)
+      try {
+        minute.next()
+        fail("Should not allow next month after max")
+      } catch (e) {
+        assert.equal(e.message, "minute value must be >= 0 and <= 59, but was 60")
+      }
+    })
   })
 })

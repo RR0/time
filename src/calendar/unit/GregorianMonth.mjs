@@ -15,7 +15,7 @@ export class GregorianMonth extends CalendarUnit {
    * @param {number} days
    * @param {EDTFValidator} validator
    */
-  constructor(days, validator = new MonthValidator()) {
+  constructor(days, validator = new MonthValidator(1, days)) {
     super("month", 1, days, level0Calendar.day, validator)
   }
 

@@ -1,16 +1,13 @@
 import { Level1YearParser } from "./Level1YearParser.mjs"
 import { Level1Component } from "../component/index.mjs"
-import { CalendarUnit, level0Calendar, Level0Calendar } from "../../calendar/index.mjs"
-import { Level1YearValidator } from "./Level1YearValidator.mjs"
-
-const level1YearUnit = new CalendarUnit(level0Calendar.year.name, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER, Level0Calendar.month, new Level1YearValidator())
+import { level1Calendar } from "../Level1Calendar.mjs"
 
 export class Level1Year extends Level1Component {
   /**
    * @param {Level1ComponentSpec|number} spec The year spec value.
    * @param [unit] The year unit.
    */
-  constructor(spec, unit = level1YearUnit) {
+  constructor(spec, unit = level1Calendar.year) {
     super(spec, unit)
   }
 
@@ -19,16 +16,19 @@ export class Level1Year extends Level1Component {
    * @param [unit]
    * @return {Level1Year | {start: Level1Year, end: Level1Year}}
    */
-  static fromString(str, unit = level1YearUnit) {
+  static fromString(str, unit = level1Calendar.year) {
     const parser = new Level1YearParser()
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start
+    if (str.startsWith("Y")) {
+      unit = level1Calendar.yearExtended
+    }
     if (startValue !== undefined) {
       const start = new Level1Year(Object.assign({ ...parseResult }, { value: Math.max(startValue, unit.min) }))
       const end = new Level1Year(Object.assign({ ...parseResult }, { value: Math.min(parseResult.value.end, unit.max) }))
       return { start, end }
     } else {
-      return new Level1Year(parseResult)
+      return new Level1Year(parseResult, unit)
     }
   }
 }

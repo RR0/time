@@ -1,10 +1,13 @@
 import { describe, test } from "node:test"
-import assert from "node:assert"
+import assert, { fail } from "node:assert"
 
 import { Level1Year } from "./Level1Year.mjs"
 import { level1Assert } from "../component/Level1TestUtil.mjs"
+import { level1Calendar } from "../Level1Calendar.mjs"
 
 describe("Level1Year", () => {
+
+  const yearValue = 1985
 
   describe("parsing", () => {
 
@@ -161,8 +164,6 @@ describe("Level1Year", () => {
 
   describe("programmatic", () => {
 
-    const yearValue = 1985
-
     describe("certain", () => {
 
       test("positive", () => {
@@ -186,9 +187,9 @@ describe("Level1Year", () => {
       })
 
       test("big", () => {
-        const positive = new Level1Year(170000002)
+        const positive = new Level1Year(170000002, level1Calendar.yearExtended)
         level1Assert(positive, 170000002)
-        const positiveSpec = new Level1Year({ value: 170000002 })
+        const positiveSpec = new Level1Year({ value: 170000002 }, level1Calendar.yearExtended)
         level1Assert(positiveSpec, 170000002)
       })
 
@@ -199,7 +200,7 @@ describe("Level1Year", () => {
       })
 
       test("big negative", () => {
-        const negative = new Level1Year(-170000002)
+        const negative = new Level1Year(-170000002, level1Calendar.yearExtended)
         level1Assert(negative, -170000002)
       })
     })
@@ -288,4 +289,53 @@ describe("Level1Year", () => {
       })
     })
   })
+
+  describe("prev", () => {
+
+    test("valid", () => {
+      const certainYear = new Level1Year(yearValue)
+      const prev = certainYear.previous()
+      assert.equal(prev.value, yearValue - 1)
+
+      const bigYearValue = -170000002
+      const certainYearExtended = new Level1Year(bigYearValue, level1Calendar.yearExtended)
+      const prevExtended = certainYearExtended.previous()
+      assert.equal(prevExtended.value, bigYearValue - 1)
+    })
+
+    test("overflow", () => {
+      const certainYear = new Level1Year(level1Calendar.year.min)
+      try {
+        certainYear.previous()
+        fail("Should not allow next year before min")
+      } catch (e) {
+        assert.equal(e.message, "year value must be >= -9999 and <= 9999, but was -10000")
+      }
+    })
+  })
+
+  describe("next", () => {
+
+    test("valid", () => {
+      const certainYear = new Level1Year(yearValue)
+      const next = certainYear.next()
+      assert.equal(next.value, yearValue + 1)
+
+      const bigYearValue = 170000002
+      const certainYearExtended = new Level1Year(bigYearValue, level1Calendar.yearExtended)
+      const nextExtended = certainYearExtended.next()
+      assert.equal(nextExtended.value, bigYearValue + 1)
+    })
+
+    test("overflow", () => {
+      const certainYear = new Level1Year(level1Calendar.year.max)
+      try {
+        certainYear.next()
+        fail("Should not allow next year after max")
+      } catch (e) {
+        assert.equal(e.message, "year value must be >= -9999 and <= 9999, but was 10000")
+      }
+    })
+  })
+
 })

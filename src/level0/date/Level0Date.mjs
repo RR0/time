@@ -105,7 +105,7 @@ export class Level0Date {
     if (this.#year && isNumber) {
       this.#year.value = value
     } else {
-      this.#year = isNumber ? this.factory.newYear(value) : !value || value.start || value instanceof Level0Component ? value : new Level0Year(value)
+      this.#year = isNumber ? this.factory.newYear(value) : !value || value.start || value instanceof Level0Component ? value : this.factory.newYear(value)
     }
   }
 
@@ -124,7 +124,7 @@ export class Level0Date {
     if (this.#month && isNumber) {
       this.#month.value = value
     } else {
-      this.#month = isNumber ? this.factory.newMonth(value) : !value || value.start || value instanceof Level0Component ? value : new Level0Month(value)
+      this.#month = isNumber ? this.factory.newMonth(value) : !value || value.start || value instanceof Level0Component ? value : this.factory.newMonth(value)
     }
   }
 
@@ -143,7 +143,7 @@ export class Level0Date {
     if (this.#day && isNumber) {
       this.#day.value = value
     } else {
-      this.#day = isNumber ? this.factory.newDay(value) : !value || value.start || value instanceof Level0Component ? value : new Level0Day(value)
+      this.#day = isNumber ? this.factory.newDay(value) : !value || value.start || value instanceof Level0Component ? value : this.factory.newDay(value)
     }
   }
 
@@ -162,7 +162,7 @@ export class Level0Date {
     if (this.#hour && isNumber) {
       this.#hour.value = value
     } else {
-      this.#hour = isNumber ? this.factory.newHour(value) : !value || value.start || value instanceof Level0Component ? value : new Level0Hour(value)
+      this.#hour = isNumber ? this.factory.newHour(value) : !value || value.start || value instanceof Level0Component ? value : this.factory.newHour(value)
     }
   }
 
@@ -181,7 +181,7 @@ export class Level0Date {
     if (this.#minute && isNumber) {
       this.#minute.value = value
     } else {
-      this.#minute = isNumber ? this.factory.newMinute(value) : !value || value.start || value instanceof Level0Component ? value : new Level0Minute(value)
+      this.#minute = isNumber ? this.factory.newMinute(value) : !value || value.start || value instanceof Level0Component ? value : this.factory.newMinute(value)
     }
   }
 
@@ -200,7 +200,7 @@ export class Level0Date {
     if (this.#second && isNumber) {
       this.#second.value = value
     } else {
-      this.#second = isNumber ? this.factory.newSecond(value) : !value || value.start || value instanceof Level0Component ? value : new Level0Second(value)
+      this.#second = isNumber ? this.factory.newSecond(value) : !value || value.start || value instanceof Level0Component ? value : this.factory.newSecond(value)
     }
   }
 
@@ -337,6 +337,62 @@ export class Level0Date {
    */
   isAfter(other) {
     return this.compare(other) > 0
+  }
+
+  clone() {
+    return new Level0Date(this.toSpec())
+  }
+
+  previous() {
+    let prevDate = this.clone()
+    try {
+      prevDate.second = this.second.previous()
+    } catch (e) {
+      try {
+        prevDate.minute = this.minute.previous()
+      } catch (e) {
+        try {
+          prevDate.hour = this.hour.previous()
+        } catch (e) {
+          try {
+            prevDate.day = this.day.previous()
+          } catch (e) {
+            try {
+              prevDate.month = this.month.previous()
+            } catch (e) {
+              prevDate.year = this.year.previous()
+            }
+          }
+        }
+      }
+    }
+    return prevDate
+  }
+
+  next() {
+    let nextDate = this.clone()
+    try {
+      nextDate.second = this.second.next()
+    } catch (e) {
+      try {
+        nextDate.minute = this.minute.next()
+      } catch (e) {
+        try {
+          nextDate.hour = this.hour.next()
+        } catch (e) {
+          try {
+            nextDate.day = this.day.next()
+          } catch (e) {
+            try {
+              nextDate.month = this.month.next()
+            } catch (e) {
+              nextDate.year = this.year.next()
+            }
+          }
+        }
+      }
+    }
+    return nextDate
   }
 
   toString(renderer = Level0DateRenderer.instance) {

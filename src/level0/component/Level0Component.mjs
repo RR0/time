@@ -23,16 +23,30 @@ export class Level0Component {
    * @readonly
    * @type number
    */
-  value
+  #value
 
   /**
    * @param {Level0ComponentSpec|number} spec
    * @param {CalendarUnit} unit
    */
   constructor(spec, unit) {
-    this.value = typeof spec === "number" ? spec : spec.value
-    unit.validate(this.value)
     this.unit = unit
+    this.value = typeof spec === "number" ? spec : spec.value
+  }
+
+  /**
+   * @return {number}
+   */
+  get value() {
+    return this.#value
+  }
+
+  /**
+   * @param {number} value
+   */
+  set value(value) {
+    this.unit.validate(value)
+    this.#value = value
   }
 
   /**
@@ -83,6 +97,24 @@ export class Level0Component {
    */
   isAfter(other) {
     return this.compare(other) > 0
+  }
+
+  /**
+   * @param {CalendarUnit} [unit]
+   * @return {Level0Component}
+   */
+  previous(unit = this.unit) {
+    const nextValue = this.value - 1
+    return new this.constructor(nextValue, unit)
+  }
+
+  /**
+   * @param {CalendarUnit} [unit]
+   * @return {Level0Component}
+   */
+  next(unit = this.unit) {
+    const nextValue = this.value + 1
+    return new this.constructor(nextValue, unit)
   }
 
   /**

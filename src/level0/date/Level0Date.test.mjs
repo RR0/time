@@ -1,5 +1,5 @@
 import { describe, test } from "node:test"
-import assert from "node:assert"
+import assert, { fail } from "node:assert"
 
 import { Level0Date } from "./Level0Date.mjs"
 import { Level0Year } from "../year/index.mjs"
@@ -312,4 +312,84 @@ describe("Level0Date", () => {
       assert.equal(certain.toString(), str)
     })
   })
+
+  describe("prev", () => {
+
+    test("valid", () => {
+      const dateWithYear = Level0Date.fromString("1985")
+      const nextDateWithYear = dateWithYear.previous()
+      assert.equal(nextDateWithYear.toString(), "1984")
+
+      const dateWithMonth = Level0Date.fromString("1985-07")
+      const nextDateWithMonth = dateWithMonth.previous()
+      assert.equal(nextDateWithMonth.toString(), "1985-06")
+
+      const dateWithDay = Level0Date.fromString("1985-07-25")
+      const nextDateWithDay = dateWithDay.previous()
+      assert.equal(nextDateWithDay.toString(), "1985-07-24")
+
+      const dateWithHour = Level0Date.fromString("1985-07-25 16:00")
+      const nextDateWithHour = dateWithHour.previous()
+      assert.equal(nextDateWithHour.toString(), "1985-07-25T15:00")
+
+      const dateWithMinute = Level0Date.fromString("1985-07-25 16:30")
+      const nextDateWithMinute = dateWithMinute.previous()
+      assert.equal(nextDateWithMinute.toString(), "1985-07-25T16:29")
+
+      const dateWithSecond = Level0Date.fromString("1985-07-25 16:30:40")
+      const nextDateWithSecond = dateWithSecond.previous()
+      assert.equal(nextDateWithSecond.toString(), "1985-07-25T16:30:39")
+    })
+
+    test("overflow", () => {
+      const date = Level0Date.fromString(level0Calendar.year.min.toString().padStart(4, "0"))
+      try {
+        date.previous()
+        fail("Should not allow next year before min")
+      } catch (e) {
+        assert.equal(e.message, "year value must be >= 0 and <= 9999, but was -1")
+      }
+    })
+  })
+
+  describe("next", () => {
+
+    test("valid", () => {
+      const date = Level0Date.fromString("1985")
+      const next = date.next()
+      assert.equal(next.toString(), "1986")
+
+      const dateWithMonth = Level0Date.fromString("1985-07")
+      const nextDateWithMonth = dateWithMonth.next()
+      assert.equal(nextDateWithMonth.toString(), "1985-08")
+
+      const dateWithDay = Level0Date.fromString("1985-07-25")
+      const nextDateWithDay = dateWithDay.next()
+      assert.equal(nextDateWithDay.toString(), "1985-07-26")
+
+      const dateWithHour = Level0Date.fromString("1985-07-25T16:00")
+      dateWithHour.minute = undefined
+      const nextDateWithHour = dateWithHour.next()
+      assert.equal(nextDateWithHour.toString(), "1985-07-25T17")
+
+      const dateWithMinute = Level0Date.fromString("1985-07-25 16:30")
+      const nextDateWithMinute = dateWithMinute.next()
+      assert.equal(nextDateWithMinute.toString(), "1985-07-25T16:31")
+
+      const dateWithSecond = Level0Date.fromString("1985-07-25 16:30:40")
+      const nextDateWithSecond = dateWithSecond.next()
+      assert.equal(nextDateWithSecond.toString(), "1985-07-25T16:30:41")
+    })
+
+    test("overflow", () => {
+      const certainYear = Level0Date.fromString(String(level0Calendar.year.max))
+      try {
+        certainYear.next()
+        fail("Should not allow next year after max")
+      } catch (e) {
+        assert.equal(e.message, "year value must be >= 0 and <= 9999, but was 10000")
+      }
+    })
+  })
+
 })

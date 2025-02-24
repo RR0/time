@@ -1,5 +1,5 @@
 import { describe, test } from "node:test"
-import assert from "node:assert"
+import assert, { fail } from "node:assert"
 
 import { Level0Year } from "./Level0Year.mjs"
 import { level0Calendar } from "../../calendar/index.mjs"
@@ -7,6 +7,44 @@ import { level0Calendar } from "../../calendar/index.mjs"
 describe("Level0Year", () => {
 
   const yearValue = 1985
+
+  describe("prev", () => {
+
+    test("valid", () => {
+      const certainYear = new Level0Year(yearValue)
+      const next = certainYear.previous()
+      assert.equal(next.value, yearValue - 1)
+    })
+
+    test("overflow", () => {
+      const certainYear = new Level0Year(level0Calendar.year.min)
+      try {
+        certainYear.previous()
+        fail("Should not allow next year before min")
+      } catch (e) {
+        assert.equal(e.message, "year value must be >= 0 and <= 9999, but was -1")
+      }
+    })
+  })
+
+  describe("next", () => {
+
+    test("valid", () => {
+      const certainYear = new Level0Year(yearValue)
+      const next = certainYear.next()
+      assert.equal(next.value, yearValue + 1)
+    })
+
+    test("overflow", () => {
+      const certainYear = new Level0Year(level0Calendar.year.max)
+      try {
+        certainYear.next()
+        fail("Should not allow next year after max")
+      } catch (e) {
+        assert.equal(e.message, "year value must be >= 0 and <= 9999, but was 10000")
+      }
+    })
+  })
 
   test("4 digits", () => {
     const certainYear = Level0Year.fromString(yearValue.toString())

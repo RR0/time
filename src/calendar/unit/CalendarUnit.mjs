@@ -1,4 +1,5 @@
 import { MinMaxValidator } from "./validator/MinMaxValidator.mjs"
+
 /** @import { EDTFValidator } from "./validator/EDTFValidator.mjs" */
 
 export class CalendarUnit {
@@ -45,7 +46,7 @@ export class CalendarUnit {
    * @param {CalendarUnit | undefined} subUnit
    * @param {EDTFValidator} validator
    */
-  constructor (name, min, max, subUnit, validator = new MinMaxValidator(name, min, max)) {
+  constructor(name, min, max, subUnit, validator = new MinMaxValidator(name, min, max)) {
     this.name = name
     this.min = min
     this.max = max
@@ -54,7 +55,21 @@ export class CalendarUnit {
     this.validator = validator
   }
 
-  validate (value) {
+  validate(value) {
     return this.validator.validate(value)
+  }
+
+  [Symbol.iterator]() {
+    let value = this.min
+    return {
+      next: () => {
+        const result = {
+          done: value > this.max,
+          value
+        }
+        value++
+        return result
+      }
+    }
   }
 }

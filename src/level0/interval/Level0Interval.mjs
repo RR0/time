@@ -10,11 +10,27 @@ import { Level0Duration } from "../duration/index.mjs"
  */
 export class Level0Interval {
   /**
+   * @param {Level0Date|null|undefined} start
+   * @param {Level0Date|null|undefined} end
+   */
+  constructor(start, end) {
+    this.start = start
+    this.end = end
+  }
+
+  /**
    * @readonly
    * @protected
    * @type {Level0Date|null|undefined}
    */
   _start
+
+  /**
+   * @return {Level0Date|null|undefined}
+   */
+  get start() {
+    return this._start
+  }
 
   /**
    * @param {Level0Date|null|undefined} start
@@ -30,18 +46,18 @@ export class Level0Interval {
   }
 
   /**
-   * @return {Level0Date|null|undefined}
-   */
-  get start() {
-    return this._start
-  }
-
-  /**
    * @protected
    * @readonly
    * @type {Level0Date|null|undefined}
    */
   _end
+
+  /**
+   * @return {Level0Date|null|undefined}
+   */
+  get end() {
+    return this._end
+  }
 
   /**
    * @param {Level0Date|null|undefined} end
@@ -57,32 +73,30 @@ export class Level0Interval {
   }
 
   /**
-   * @return {Level0Date|null|undefined}
-   */
-  get end() {
-    return this._end
-  }
-
-  /**
-   * @param {Level0Date|null|undefined} start
-   * @param {Level0Date|null|undefined} end
-   */
-  constructor (start, end) {
-    this.start = start
-    this.end = end
-  }
-
-  toString (renderer = Level0IntervalRenderer.instance) {
-    return renderer.render(this)
-  }
-
-  /**
    * @param {string} spec
    * @param {EDTFParser} parser
    * @return {Level0Interval}
    */
-  static fromString (spec, parser = new Level0IntervalParser()) {
+  static fromString(spec, parser = new Level0IntervalParser()) {
     const { start, end } = parser.parse(spec)
     return new Level0Interval(start, end)
+  }
+
+  toString(renderer = Level0IntervalRenderer.instance) {
+    return renderer.render(this)
+  }
+
+  [Symbol.iterator]() {
+    let value = this.start
+    return {
+      next: () => {
+        const result = {
+          done: value > this.end,
+          value
+        }
+        value++
+        return result
+      }
+    }
   }
 }
