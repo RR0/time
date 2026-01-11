@@ -74,7 +74,7 @@ export class Level0Date {
    */
   constructor(spec = {
     year: new Date().getFullYear(),
-    month: new Date().getMonth(),
+    month: new Date().getMonth() + 1,
     day: new Date().getDate(),
     hour: new Date().getHours(),
     minute: new Date().getMinutes(),
