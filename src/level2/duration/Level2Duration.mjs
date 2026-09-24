@@ -4,7 +4,6 @@ import { EDTFParser } from "../../EDTFParser.mjs"
 import { level2DurationFactory } from "../Level2Factory.mjs"
 import { Level2DurationRenderer } from "./Level2DurationRenderer.mjs"
 import { durationUnits } from "../../level0/duration/DurationUnits.mjs"
-import { Level2ComponentParser } from "../component/Level2ComponentParser.mjs"
 import { Level2DateParser } from "../date/Level2DateParser.mjs"
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 /** @import { LevelFactory } from "../../LevelFactory.mjs" */
@@ -56,7 +55,7 @@ export class Level2Duration extends Level1Duration {
       typeof spec === "number" ? spec :
         {
           value: Level2Duration.valueFromSpec(spec),
-          uncertain: Level2Duration.getBoolean(spec, Level2ComponentParser.uncertainGroup),
+          uncertain: Level2Duration.getBoolean(spec, "uncertain"),
           approximate: Level2Duration.getBoolean(spec, "approximate")
         },
       durationUnits.millisecond

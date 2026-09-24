@@ -72,6 +72,46 @@ describe("Duration", () => {
       const durationMs = Level2Duration.fromString(`P~${seconds}S`)
       level2Assert(durationMs, seconds * level0Calendar.second.duration, false, true)
     })
+
+    describe("multi-digit units", () => {
+      const { second, minute, hour } = level0Calendar
+
+      test("seconds", () => {
+        const duration = Level2Duration.fromString("P150S")
+        level2Assert(duration, 150 * second.duration)
+        assert.equal(duration.toString(), "P2M30S")
+        assert.equal(Level2Duration.fromString("P102S").value, 102 * second.duration)
+      })
+
+      test("hours", () => {
+        level2Assert(Level2Duration.fromString("P100H"), 100 * hour.duration)
+        level2Assert(Level2Duration.fromString("P12000H"), 12000 * hour.duration)
+        level2Assert(Level2Duration.fromString("P26300H"), 26300 * hour.duration)
+      })
+
+      test("hours beyond a day", () => {
+        level2Assert(Level2Duration.fromString("P25H"), 25 * hour.duration)
+      })
+
+      test("several units", () => {
+        const duration = Level2Duration.fromString("P225H15M3S")
+        level2Assert(duration, 225 * hour.duration + 15 * minute.duration + 3 * second.duration)
+      })
+
+      test("approximate duration", () => {
+        const duration = Level2Duration.fromString("~P150S")
+        level2Assert(duration, 150 * second.duration, false, true)
+      })
+
+      test("uncertain duration", () => {
+        level2Assert(Level2Duration.fromString("?P150S"), 150 * second.duration, true, false)
+        level2Assert(Level2Duration.fromString("%P150S"), 150 * second.duration, true, true)
+      })
+
+      test("approximate component", () => {
+        level2Assert(Level2Duration.fromString("P~150S"), 150 * second.duration, false, true)
+      })
+    })
   })
 
   describe("programmatic", () => {
