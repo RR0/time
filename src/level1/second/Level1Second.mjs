@@ -1,5 +1,5 @@
 import { Level1Component } from "../component/index.mjs"
-import { Level1SecondParser } from "./Level1SecondParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { level0Calendar } from "../../calendar/index.mjs"
 
 export class Level1Second extends Level1Component {
@@ -15,8 +15,7 @@ export class Level1Second extends Level1Component {
    * @param {string} str
    * @return {Level1Second | {start: Level1Second, end: Level1Second}}
    */
-  static fromString(str) {
-    const parser = new Level1SecondParser()
+  static fromString(str, parser = DefaultParsers.get(Level1Second)) {
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start
     if (startValue !== undefined) {

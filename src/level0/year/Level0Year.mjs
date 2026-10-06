@@ -1,4 +1,4 @@
-import { Level0YearParser } from "./Level0YearParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { Level0Component } from "../component/index.mjs"
 import { level0Calendar } from "../Level0Calendar.mjs"
 
@@ -15,8 +15,7 @@ export class Level0Year extends Level0Component {
    * @param {string} str
    * @return {Level0Year}
    */
-  static fromString(str) {
-    const parser = new Level0YearParser()
+  static fromString(str, parser = DefaultParsers.get(Level0Year)) {
     return new Level0Year(parser.parse(str))
   }
 }

@@ -1,8 +1,7 @@
-import { Level1DurationParser } from "./Level1DurationParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { Level1Component } from "../component/Level1Component.mjs"
 import { level0Calendar } from "../../calendar/index.mjs"
-import { Level1DateParser } from "../date/Level1DateParser.mjs"
-import { Level1ComponentParser } from "../component/Level1ComponentParser.mjs"
+import { componentGroups } from "../../ComponentGroups.mjs"
 import { durationUnits, Level0Duration } from "../../level0/index.mjs"
 import { level1DurationFactory } from "../Level1Factory.mjs"
 import { Level1DurationRenderer } from "./Level1DurationRenderer.mjs"
@@ -60,13 +59,13 @@ export class Level1Duration extends Level1Component {
     super(
       typeof spec === "number" || spec.hasOwnProperty("value") ? spec :
         {
-          value: Level1Duration.getValue(spec, Level1DateParser.yearGroup)
-            + Level1Duration.getValue(spec, Level1DateParser.monthGroup)
-            + Level1Duration.getValue(spec, Level1DateParser.dayGroup)
-            + Level1Duration.getValue(spec, Level1DateParser.hourGroup)
-            + Level1Duration.getValue(spec, Level1DateParser.minuteGroup)
-            + Level1Duration.getValue(spec, Level1DateParser.secondGroup),
-          uncertain: Level1Duration.getBoolean(spec, Level1ComponentParser.uncertainGroup),
+          value: Level1Duration.getValue(spec, componentGroups.year)
+            + Level1Duration.getValue(spec, componentGroups.month)
+            + Level1Duration.getValue(spec, componentGroups.day)
+            + Level1Duration.getValue(spec, componentGroups.hour)
+            + Level1Duration.getValue(spec, componentGroups.minute)
+            + Level1Duration.getValue(spec, componentGroups.second),
+          uncertain: Level1Duration.getBoolean(spec, componentGroups.uncertain),
           approximate: Level1Duration.getBoolean(spec, "approximate")
         },
       durationUnits.millisecond
@@ -81,12 +80,12 @@ export class Level1Duration extends Level1Component {
    */
   static getBoolean(spec, durCompName) {
     return spec[durCompName]
-      || (spec[Level1DateParser.yearGroup + "s"])?.[durCompName]
-      || (spec[Level1DateParser.monthGroup + "s"])?.[durCompName]
-      || (spec[Level1DateParser.dayGroup + "s"])?.[durCompName]
-      || (spec[Level1DateParser.hourGroup + "s"])?.[durCompName]
-      || (spec[Level1DateParser.minuteGroup + "s"])?.[durCompName]
-      || (spec[Level1DateParser.secondGroup + "s"])?.[durCompName]
+      || (spec[componentGroups.year + "s"])?.[durCompName]
+      || (spec[componentGroups.month + "s"])?.[durCompName]
+      || (spec[componentGroups.day + "s"])?.[durCompName]
+      || (spec[componentGroups.hour + "s"])?.[durCompName]
+      || (spec[componentGroups.minute + "s"])?.[durCompName]
+      || (spec[componentGroups.second + "s"])?.[durCompName]
       || false
   }
 
@@ -130,7 +129,7 @@ export class Level1Duration extends Level1Component {
    * @param {EDTFParser} [parser]
    * @return {Level1Duration}
    */
-  static fromString(str, parser = new Level1DurationParser()) {
+  static fromString(str, parser = DefaultParsers.get(Level1Duration)) {
     const parsed = parser.parse(str)
     return new Level1Duration(parsed)
   }

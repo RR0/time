@@ -92,41 +92,41 @@ export class Level1DateParser extends EDTFParser {
 
   parseGroups(groups) {
     const timeshiftStr = groups[Level1DateParser.timeshiftGroup]
-    const timeshift = timeshiftStr ? Level1Timeshift.fromString(timeshiftStr) : undefined
+    const timeshift = timeshiftStr ? Level1Timeshift.fromString(timeshiftStr, new Level1TimeshiftParser()) : undefined
     const secondStr = groups[Level1DateParser.secondGroup]
-    const second = secondStr ? Level1Second.fromString(secondStr) : undefined
+    const second = secondStr ? Level1Second.fromString(secondStr, new Level1SecondParser()) : undefined
     const minuteStr = groups[Level1DateParser.minuteGroup]
     let minute
     if (minuteStr) {
-      minute = Level1Minute.fromString(minuteStr)
+      minute = Level1Minute.fromString(minuteStr, new Level1MinuteParser())
       minute.uncertain = minute.uncertain || second?.uncertain || false
       minute.approximate = minute.approximate || second?.approximate || false
     }
     const hourStr = groups[Level1DateParser.hourGroup]
     let hour
     if (hourStr) {
-      hour = Level1Hour.fromString(hourStr)
+      hour = Level1Hour.fromString(hourStr, new Level1HourParser())
       hour.uncertain = hour.uncertain || minute?.uncertain || false
       hour.approximate = hour.approximate || minute?.approximate || false
     }
     const dayStr = groups[Level1DateParser.dayGroup]
     let day
     if (dayStr) {
-      day = Level1Day.fromString(dayStr)
+      day = Level1Day.fromString(dayStr, new Level1DayParser())
       day.uncertain = day.uncertain || hour?.uncertain || false
       day.approximate = day.approximate || hour?.approximate || false
     }
     const monthStr = groups[Level1DateParser.monthGroup]
     let month
     if (monthStr) {
-      month = Level1Month.fromString(monthStr)
+      month = Level1Month.fromString(monthStr, new Level1MonthParser())
       month.uncertain = month.uncertain || day?.uncertain || false
       month.approximate = month.approximate || day?.approximate || false
     }
     const yearStr = groups[Level1DateParser.yearGroup]
     let year
     if (yearStr) {
-      year = Level1Year.fromString(yearStr)
+      year = Level1Year.fromString(yearStr, undefined, new Level1YearParser())
       year.uncertain = year.uncertain || month?.uncertain || false
       year.approximate = year.approximate || month?.approximate || false
     }

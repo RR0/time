@@ -1,4 +1,4 @@
-import { Level1MonthParser } from "./Level1MonthParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { Level1Component } from "../component/index.mjs"
 import { CalendarUnit, level0Calendar } from "../../calendar/index.mjs"
 import { Level1MonthValidator } from "./Level1MonthValidator.mjs"
@@ -18,8 +18,7 @@ export class Level1Month extends Level1Component {
    * @param {string} str A month EDTF string.
    * @return {Level1Month | {start: Level1Month, end: Level1Month}}
    */
-  static fromString(str) {
-    const parser = new Level1MonthParser()
+  static fromString(str, parser = DefaultParsers.get(Level1Month)) {
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start
     if (startValue !== undefined) {

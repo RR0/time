@@ -1,4 +1,4 @@
-import { Level0MonthParser } from "./Level0MonthParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { Level0Component } from "../component/index.mjs"
 
 import { GregorianMonth, level0Calendar } from "../../calendar/index.mjs"
@@ -20,8 +20,7 @@ export class Level0Month extends Level0Component {
    * @param {string} str
    * @return {Level0Month}
    */
-  static fromString(str) {
-    const parser = new Level0MonthParser()
+  static fromString(str, parser = DefaultParsers.get(Level0Month)) {
     return new Level0Month(parser.parse(str))
   }
 

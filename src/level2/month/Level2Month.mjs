@@ -1,4 +1,4 @@
-import { Level2MonthParser } from "./Level2MonthParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { Level2Component } from "../component/Level2Component.mjs"
 /** @import { Level2ComponentSpec } from "../component/Level2Component.mjs" */
 import { Level2MonthValidator } from "./Level2MonthValidator.mjs"
@@ -20,8 +20,7 @@ export class Level2Month extends Level2Component {
    * @param {string} str
    * @return {Level2Month | {start: Level2Month, end: Level2Month}}
    */
-  static fromString(str) {
-    const parser = new Level2MonthParser()
+  static fromString(str, parser = DefaultParsers.get(Level2Month)) {
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start
     if (startValue !== undefined) {

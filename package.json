@@ -10,14 +10,65 @@
     "type": "git",
     "url": "git+https://github.com/RR0/time.git"
   },
+  "sideEffects": [
+    "./src/index.mjs",
+    "./src/defaults.mjs",
+    "./src/level0/defaults.mjs",
+    "./src/level1/defaults.mjs",
+    "./src/level2/defaults.mjs"
+  ],
   "main": "src/index.mjs",
+  "exports": {
+    ".": {
+      "types": "./types/index.d.mts",
+      "default": "./src/index.mjs"
+    },
+    "./core": {
+      "types": "./types/core.d.mts",
+      "default": "./src/core.mjs"
+    },
+    "./defaults": {
+      "types": "./types/defaults.d.mts",
+      "default": "./src/defaults.mjs"
+    },
+    "./parsers": {
+      "types": "./types/parsers.d.mts",
+      "default": "./src/parsers.mjs"
+    },
+    "./level0": {
+      "types": "./types/level0/index.d.mts",
+      "default": "./src/level0/index.mjs"
+    },
+    "./level0/defaults": {
+      "types": "./types/level0/defaults.d.mts",
+      "default": "./src/level0/defaults.mjs"
+    },
+    "./level1": {
+      "types": "./types/level1/index.d.mts",
+      "default": "./src/level1/index.mjs"
+    },
+    "./level1/defaults": {
+      "types": "./types/level1/defaults.d.mts",
+      "default": "./src/level1/defaults.mjs"
+    },
+    "./level2": {
+      "types": "./types/level2/index.d.mts",
+      "default": "./src/level2/index.mjs"
+    },
+    "./level2/defaults": {
+      "types": "./types/level2/defaults.d.mts",
+      "default": "./src/level2/defaults.mjs"
+    },
+    "./src/*": "./src/*",
+    "./package.json": "./package.json"
+  },
   "types": "types/index.d.mts",
   "scripts": {
     "build": "rimraf ./types && ./node_modules/typescript/bin/tsc",
     "pretest": "npm run build",
-    "test": "node --test",
+    "test": "node --import ./src/defaults.mjs --test",
     "test-ts": "tsx README-ts.test.ts",
-    "test-ci": "node --test --experimental-test-coverage --test-reporter spec",
+    "test-ci": "node --import ./src/defaults.mjs --test --experimental-test-coverage --test-reporter spec",
     "circular-deps": "dpdm src",
     "prepublishOnly": "npm run test && npm run test-ts"
   },

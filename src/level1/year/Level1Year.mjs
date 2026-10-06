@@ -1,4 +1,4 @@
-import { Level1YearParser } from "./Level1YearParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { Level1Component } from "../component/index.mjs"
 import { level1Calendar } from "../Level1Calendar.mjs"
 
@@ -16,8 +16,7 @@ export class Level1Year extends Level1Component {
    * @param [unit]
    * @return {Level1Year | {start: Level1Year, end: Level1Year}}
    */
-  static fromString(str, unit = level1Calendar.year) {
-    const parser = new Level1YearParser()
+  static fromString(str, unit = level1Calendar.year, parser = DefaultParsers.get(Level1Year)) {
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start
     if (str.startsWith("Y")) {

@@ -1,5 +1,5 @@
 import { Level0Component } from "../component/index.mjs"
-import { Level0HourParser } from "./Level0HourParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { level0Calendar } from "../../calendar/index.mjs"
 import { PaddedComponentRenderer } from "../PaddedComponentRenderer.mjs"
 
@@ -17,7 +17,7 @@ export class Level0Hour extends Level0Component {
    * @param {Level0HourParser} parser
    * @return {Level0Hour}
    */
-  static fromString(str, parser = new Level0HourParser()) {
+  static fromString(str, parser = DefaultParsers.get(Level0Hour)) {
     return new Level0Hour(parser.parse(str))
   }
 

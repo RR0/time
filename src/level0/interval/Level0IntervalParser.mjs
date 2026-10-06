@@ -32,8 +32,8 @@ export class Level0IntervalParser extends EDTFParser {
     const startStr = groups[startGroup]
     const endStr = groups[endGroup]
     return {
-      start: startStr ? Level0Date.fromString(startStr) : undefined,
-      end: endStr ? Level0Date.fromString(endStr) : undefined
+      start: startStr ? Level0Date.fromString(startStr, new Level0DateParser()) : undefined,
+      end: endStr ? Level0Date.fromString(endStr, new Level0DateParser()) : undefined
     }
   }
 }

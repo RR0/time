@@ -1,6 +1,6 @@
 import { Level2Component } from "../component/Level2Component.mjs"
 /** @import { Level2ComponentSpec } from "../component/Level2Component.mjs" */
-import { Level2MinuteParser } from "../minute/Level2MinuteParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { level0Calendar } from "../../level0/Level0Calendar.mjs"
 
 export class Level2Minute extends Level2Component {
@@ -18,8 +18,7 @@ export class Level2Minute extends Level2Component {
    * @param {string} str
    * @return {Level2Minute | {start: Level2Minute, end: Level2Minute}}
    */
-  static fromString(str) {
-    const parser = new Level2MinuteParser()
+  static fromString(str, parser = DefaultParsers.get(Level2Minute)) {
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start
     if (startValue !== undefined) {

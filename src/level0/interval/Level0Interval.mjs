@@ -1,4 +1,4 @@
-import { Level0IntervalParser } from "./Level0IntervalParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { Level0IntervalRenderer } from "./Level0IntervalRenderer.mjs"
 import { Level0Date } from "../date/index.mjs"
 import { EDTFError } from "../../EDTFError.mjs"
@@ -77,7 +77,7 @@ export class Level0Interval {
    * @param {EDTFParser} parser
    * @return {Level0Interval}
    */
-  static fromString(spec, parser = new Level0IntervalParser()) {
+  static fromString(spec, parser = DefaultParsers.get(Level0Interval)) {
     const { start, end } = parser.parse(spec)
     return new Level0Interval(start, end)
   }

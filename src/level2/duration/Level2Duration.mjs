@@ -1,10 +1,10 @@
-import { Level2DurationParser } from "./Level2DurationParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { Level1Duration } from "../../level1/duration/Level1Duration.mjs"
 import { EDTFParser } from "../../EDTFParser.mjs"
 import { level2DurationFactory } from "../Level2Factory.mjs"
 import { Level2DurationRenderer } from "./Level2DurationRenderer.mjs"
 import { durationUnits } from "../../level0/duration/DurationUnits.mjs"
-import { Level2DateParser } from "../date/Level2DateParser.mjs"
+import { componentGroups } from "../../ComponentGroups.mjs"
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 /** @import { LevelFactory } from "../../LevelFactory.mjs" */
 /** @import { Level2Date } from "../date/Level2Date.mjs" */
@@ -67,12 +67,12 @@ export class Level2Duration extends Level1Duration {
    * @return {number}
    */
   static valueFromSpec(spec) {
-    return Level2Duration.getValue(spec, Level2DateParser.yearGroup)
-      + Level2Duration.getValue(spec, Level2DateParser.monthGroup)
-      + Level2Duration.getValue(spec, Level2DateParser.dayGroup)
-      + Level2Duration.getValue(spec, Level2DateParser.hourGroup)
-      + Level2Duration.getValue(spec, Level2DateParser.minuteGroup)
-      + Level2Duration.getValue(spec, Level2DateParser.secondGroup)
+    return Level2Duration.getValue(spec, componentGroups.year)
+      + Level2Duration.getValue(spec, componentGroups.month)
+      + Level2Duration.getValue(spec, componentGroups.day)
+      + Level2Duration.getValue(spec, componentGroups.hour)
+      + Level2Duration.getValue(spec, componentGroups.minute)
+      + Level2Duration.getValue(spec, componentGroups.second)
   }
 
   /**
@@ -91,7 +91,7 @@ export class Level2Duration extends Level1Duration {
    * @param {EDTFParser} [parser] The parser to use.
    * @return {Level2Duration}
    */
-  static fromString(str, parser = new Level2DurationParser()) {
+  static fromString(str, parser = DefaultParsers.get(Level2Duration)) {
     const parsed = parser.parse(str)
     return new Level2Duration(parsed)
   }

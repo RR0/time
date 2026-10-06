@@ -1,5 +1,5 @@
 import { Level2Component } from "../component/index.mjs"
-import { Level2SecondParser } from "./Level2SecondParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { level0Calendar } from "../../calendar/index.mjs"
 
 /** @import { Level2ComponentSpec } from "../component/Level2Component.mjs" */
@@ -20,8 +20,7 @@ export class Level2Second extends Level2Component {
    * @param unit
    * @return {Level2Second | {start: Level2Second, end: Level2Second}}
    */
-  static fromString(str, unit = level0Calendar.second) {
-    const parser = new Level2SecondParser()
+  static fromString(str, unit = level0Calendar.second, parser = DefaultParsers.get(Level2Second)) {
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start
     if (startValue !== undefined) {

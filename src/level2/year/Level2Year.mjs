@@ -1,4 +1,4 @@
-import { Level2YearParser } from "./Level2YearParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { Level2Component } from "../component/Level2Component.mjs"
 /** @import { Level2ComponentSpec } from "../component/Level2Component.mjs" */
 import { level2Calendar } from "../Level2Calendar.mjs"
@@ -17,8 +17,7 @@ export class Level2Year extends Level2Component {
    * @param [unit]
    * @return {Level2Year | {start: Level2Year, end: Level2Year}}
    */
-  static fromString(str, unit = level2Calendar.year) {
-    const parser = new Level2YearParser()
+  static fromString(str, unit = level2Calendar.year, parser = DefaultParsers.get(Level2Year)) {
     const parseResult = parser.parse(str)
     const startValue = parseResult.value.start
     if (startValue !== undefined) {

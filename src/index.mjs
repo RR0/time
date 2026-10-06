@@ -1,7 +1,4 @@
-export * from "./level0/index.mjs"
-export * from "./level1/index.mjs"
-export * from "./level2/index.mjs"
-export * from "./EDTFParser.mjs"
-export * from "./EDTFError.mjs"
-export * from "./AbstractMethodError.mjs"
-export * from "./edtf.mjs"
+export * from "./core.mjs"
+// Installs the default parsers, so that `fromString()` works out of the box.
+// Import "@rr0/time/core" instead to avoid bundling the parsers.
+import "./defaults.mjs"

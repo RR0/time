@@ -41,9 +41,9 @@ export class Level2IntervalParser extends EDTFParser {
     const durationIntervalStr = groups[durationsIntervalGroup]
     if (durationIntervalStr) {
       const durationMinStr = groups[durationMinGroup]
-      start = Level2Duration.fromString(durationMinStr)
+      start = Level2Duration.fromString(durationMinStr, new Level2DurationParser())
       const durationMaxStr = groups[durationMaxGroup]
-      end = Level2Duration.fromString(durationMaxStr)
+      end = Level2Duration.fromString(durationMaxStr, new Level2DurationParser())
     } else {
       const startStr = groups[startGroup]
       switch (startStr) {
@@ -54,7 +54,7 @@ export class Level2IntervalParser extends EDTFParser {
           start = undefined
           break
         default:
-          start = Level2Date.fromString(startStr)
+          start = Level2Date.fromString(startStr, new Level2DateParser())
       }
       const endStr = groups[endGroup]
       switch (endStr) {
@@ -65,7 +65,7 @@ export class Level2IntervalParser extends EDTFParser {
           end = undefined
           break
         default:
-          end = Level2Date.fromString(endStr)
+          end = Level2Date.fromString(endStr, new Level2DateParser())
       }
     }
     return { start, end }

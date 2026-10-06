@@ -1,3 +1,4 @@
+import { Level1TimeshiftParser } from "../../level1/timeshift/Level1TimeshiftParser.mjs"
 import { Level2Timeshift } from "../../level2/timeshift/Level2Timeshift.mjs"
 import { Level2Second } from "../../level2/second/Level2Second.mjs"
 import { Level2Minute } from "../../level2/minute/Level2Minute.mjs"
@@ -95,46 +96,46 @@ export class Level2DateParser extends EDTFParser {
 
   parseGroups(groups) {
     const timeshiftStr = groups[Level2DateParser.timeshiftGroup]
-    const timeshift = timeshiftStr ? Level2Timeshift.fromString(timeshiftStr) : undefined
+    const timeshift = timeshiftStr ? Level2Timeshift.fromString(timeshiftStr, new Level1TimeshiftParser()) : undefined
     const secondStr = groups[Level2DateParser.secondGroup]
     let second
     if (secondStr) {
-      second = Level2Second.fromString(secondStr)
+      second = Level2Second.fromString(secondStr, undefined, new Level2SecondParser())
       second.uncertain = second?.uncertain || false
       second.approximate = second?.approximate || false
     }
     const minuteStr = groups[Level2DateParser.minuteGroup]
     let minute
     if (minuteStr) {
-      minute = Level2Minute.fromString(minuteStr)
+      minute = Level2Minute.fromString(minuteStr, new Level2MinuteParser())
       minute.uncertain = minute.uncertain || second?.uncertain || false
       minute.approximate = minute.approximate || second?.approximate || false
     }
     const hourStr = groups[Level2DateParser.hourGroup]
     let hour
     if (hourStr) {
-      hour = Level2Hour.fromString(hourStr)
+      hour = Level2Hour.fromString(hourStr, new Level2HourParser())
       hour.uncertain = hour.uncertain || minute?.uncertain || false
       hour.approximate = hour.approximate || minute?.approximate || false
     }
     const dayStr = groups[Level2DateParser.dayGroup]
     let day
     if (dayStr) {
-      day = Level2Day.fromString(dayStr)
+      day = Level2Day.fromString(dayStr, new Level2DayParser())
       day.uncertain = day.uncertain || hour?.uncertain || false
       day.approximate = day.approximate || hour?.approximate || false
     }
     const monthStr = groups[Level2DateParser.monthGroup]
     let month
     if (monthStr) {
-      month = Level2Month.fromString(monthStr)
+      month = Level2Month.fromString(monthStr, new Level2MonthParser())
       month.uncertain = month.uncertain || day?.uncertain || false
       month.approximate = month.approximate || day?.approximate || false
     }
     const yearStr = groups[Level2DateParser.yearGroup]
     let year
     if (yearStr) {
-      year = Level2Year.fromString(yearStr)
+      year = Level2Year.fromString(yearStr, undefined, new Level2YearParser())
       year.uncertain = year.uncertain || month?.uncertain || false
       year.approximate = year.approximate || month?.approximate || false
     }

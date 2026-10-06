@@ -1,5 +1,5 @@
 import { Level0Date } from "../../level0/index.mjs"
-import { Level1DateParser } from "./Level1DateParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { Level1Year } from "../year/index.mjs"
 import { Level1Second } from "../second/index.mjs"
 import { Level1Minute } from "../minute/index.mjs"
@@ -76,7 +76,7 @@ export class Level1Date extends Level0Date {
    * @param {EDTFParser} parser
    * @return {Level1Date}
    */
-  static fromString(str, parser = new Level1DateParser()) {
+  static fromString(str, parser = DefaultParsers.get(Level1Date)) {
     const spec = parser.parse(str)
     return new Level1Date(spec)
   }

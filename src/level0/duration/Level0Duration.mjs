@@ -1,5 +1,5 @@
 import { CalendarUnit, level0Calendar } from "../../calendar/index.mjs"
-import { Level0DurationParser } from "./Level0DurationParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { Level0Year } from "../year/index.mjs"
 import { Level0Month } from "../month/index.mjs"
 import { Level0Day } from "../day/index.mjs"
@@ -122,7 +122,7 @@ export class Level0Duration extends Level0Component {
    * @param {EDTFParser} [parser]
    * @return {Level0Duration}
    */
-  static fromString(str, parser = new Level0DurationParser()) {
+  static fromString(str, parser = DefaultParsers.get(Level0Duration)) {
     return new Level0Duration(parser.parse(str))
   }
 

@@ -38,6 +38,50 @@ Each data type can be:
 - **parsed** from EDTF strings by default (like `EdtfDate.fromString("2024-08-25~")`), but you can use your own parser;
 - **rendered** in EDTF format by default (like `edtfDate.toString()`), but you can use your own renderer, to render in some language words for instance.
 
+## Bundle size
+
+Data classes (`Level2Date`, `Level2Duration`, etc.) do not depend on parsers, and the package declares its side effects, so bundlers only include what you import.
+
+| Import                                                          | Minified | Gzipped |
+|-----------------------------------------------------------------|---------:|--------:|
+| `Level0Duration` from `@rr0/time/core`                          |   6.5 kB |  1.9 kB |
+| `Level0Date` from `@rr0/time/core`                              |  11.0 kB |  2.9 kB |
+| `Level2Duration` from `@rr0/time/core`                          |  15.6 kB |  3.2 kB |
+| `Level2Date` from `@rr0/time/core`                              |  19.7 kB |  4.0 kB |
+| `Level2Date` + `Level2Duration` from `@rr0/time/core`           |  21.6 kB |  4.4 kB |
+| `Level2Duration` + `Level2DurationParser`                       |  30.3 kB |  6.3 kB |
+| `Level2Date` + `Level2DateParser`                               |  30.7 kB |  6.5 kB |
+| `Level2Date` + `Level2Duration` + their parsers                 |  35.8 kB |  7.3 kB |
+| `Level2Date` from `@rr0/time/level2` + `@rr0/time/level2/defaults` |  39.2 kB |  8.1 kB |
+| `Level2Date` from `@rr0/time`                                   |  44.7 kB |  9.2 kB |
+| Everything from `@rr0/time`                                     |  45.6 kB |  9.5 kB |
+
+Sizes are measured with esbuild (`--bundle --minify`) and gzip, importing the named classes only.
+
+### Entry points
+
+| Entry point                                   | Contents                                                               |
+|-----------------------------------------------|------------------------------------------------------------------------|
+| `@rr0/time`                                   | Everything, with default parsers installed: `fromString()` just works. |
+| `@rr0/time/core`                              | All levels' data classes, without any parser.                          |
+| `@rr0/time/level0`, `level1`, `level2`        | The data classes of one level (and the levels it extends).             |
+| `@rr0/time/parsers`                           | All parser classes.                                                    |
+| `@rr0/time/defaults`                          | Installs the default parser of every data class.                       |
+| `@rr0/time/level0/defaults`, `level1/defaults`, `level2/defaults` | Installs the default parsers of one level.        |
+
+### Parsing without the default parsers
+
+`fromString()` uses the parser registered for its class. With `@rr0/time/core`, none is registered: pass the parser you need.
+
+```js
+import { Level2Date } from "@rr0/time/core"
+import { Level2DateParser } from "@rr0/time/parsers"
+
+Level2Date.fromString("2024-08-25~", new Level2DateParser())
+```
+
+Without a parser, `fromString()` throws an `EDTFError`. Default parsers can be installed with `import "@rr0/time/level2/defaults"`, or replaced with `DefaultParsers.register(Level2Date, () => new MyParser())`.
+
 ## Examples
 The examples below apply for both JavaScript and TypeScript.
 

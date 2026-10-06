@@ -1,3 +1,4 @@
+import "./src/defaults.mjs" // fromString() needs the default parsers when importing data classes from their own modules
 import { describe, test } from "node:test"
 import assert, { fail } from "node:assert"
 

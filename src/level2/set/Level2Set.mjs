@@ -1,4 +1,4 @@
-import { Level2SetParser } from "./Level2SetParser.mjs"
+import { DefaultParsers } from "../../DefaultParsers.mjs"
 /** @import { Level2Date } from "../date/Level2Date.mjs" */
 /** @import { Level2Interval } from "../interval/Level2Interval.mjs" */
 
@@ -27,8 +27,7 @@ export class Level2Set extends /** @type Set<Level2Date> */ Set {
     return false
   }
 
-  static fromString (str) {
-    const parser = new Level2SetParser()
+  static fromString(str, parser = DefaultParsers.get(Level2Set)) {
     const {exclusive, values} = parser.parse(str)
     return new Level2Set(values, exclusive)
   }

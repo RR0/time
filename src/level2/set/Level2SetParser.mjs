@@ -1,3 +1,5 @@
+import { Level2DateParser } from "../date/Level2DateParser.mjs"
+import { Level2IntervalParser } from "../interval/Level2IntervalParser.mjs"
 import { Level2Date } from "../date/index.mjs"
 import { Level2Interval } from "../interval/index.mjs"
 
@@ -15,9 +17,9 @@ export class Level2SetParser {
     for (const valueStr of valuesStr) {
       let value
       if (valueStr.includes("..")) {
-        value = Level2Interval.fromString(valueStr.replace("..", "/"))
+        value = Level2Interval.fromString(valueStr.replace("..", "/"), new Level2IntervalParser())
       } else {
-        value = Level2Date.fromString(valueStr)
+        value = Level2Date.fromString(valueStr, new Level2DateParser())
       }
       values.push(value)
     }
