@@ -68,9 +68,10 @@
     "pretest": "npm run build",
     "test": "node --import ./src/defaults.mjs --test",
     "test-ts": "tsx README-ts.test.ts",
+    "test-types": "tsc --noEmit --module nodenext --moduleResolution nodenext --target es2022 --skipLibCheck check-types.mts",
     "test-ci": "node --import ./src/defaults.mjs --test --experimental-test-coverage --test-reporter spec",
     "circular-deps": "dpdm src",
-    "prepublishOnly": "npm run test && npm run test-ts"
+    "prepublishOnly": "npm run test && npm run test-ts && npm run test-types"
   },
   "publishConfig": {
     "access": "public"

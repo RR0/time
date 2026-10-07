@@ -3,3 +3,4 @@
 *.md
 .circleci/
 .idea/
+check-types.mts

@@ -202,3 +202,12 @@ describe("Demo samples", () => {
     })
   })
 })
+
+describe("Types", () => {
+
+  test("components can be rendered without a renderer", () => {
+    const date = EdtfDate.fromString("2004-06-11")
+    const rendered: string[] = [date.year.toString(), date.month.toString(), date.day.toString()]
+    assert.deepEqual(rendered, ["2004", "06", "11"])
+  })
+})

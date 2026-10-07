@@ -2,6 +2,7 @@ import { Level2Component } from "../component/Level2Component.mjs"
 /** @import { Level2ComponentSpec } from "../component/Level2Component.mjs" */
 import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { level0Calendar } from "../../level0/Level0Calendar.mjs"
+/** @import { Level0ComponentRenderer } from "../../level0/component/Level0ComponentRenderer.mjs" */
 
 export class Level2Day extends Level2Component {
   /**
@@ -31,6 +32,10 @@ export class Level2Day extends Level2Component {
     }
   }
 
+  /**
+   * @param {Level0ComponentRenderer} [renderer] How to render the value (padded, and qualified, by default).
+   * @return {string}
+   */
   toString(renderer) {
     return super.toString(renderer).padStart(2, "0")
   }

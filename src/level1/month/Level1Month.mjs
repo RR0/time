@@ -2,6 +2,7 @@ import { DefaultParsers } from "../../DefaultParsers.mjs"
 import { Level1Component } from "../component/index.mjs"
 import { CalendarUnit, level0Calendar } from "../../calendar/index.mjs"
 import { Level1MonthValidator } from "./Level1MonthValidator.mjs"
+/** @import { Level0ComponentRenderer } from "../../level0/component/Level0ComponentRenderer.mjs" */
 
 export class Level1Month extends Level1Component {
   /**
@@ -31,6 +32,10 @@ export class Level1Month extends Level1Component {
     }
   }
 
+  /**
+   * @param {Level0ComponentRenderer} [renderer] How to render the value (padded, and qualified, by default).
+   * @return {string}
+   */
   toString(renderer) {
     return super.toString(renderer).padStart(2, "0")
   }
