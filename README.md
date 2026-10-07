@@ -113,6 +113,9 @@ In level 2 dates, the scope of a qualification (`?` uncertain, `~` approximate, 
 Parsers require the whole string to match, so `1948abc` is rejected (an `EDTFError` is thrown), rather than parsed as `1948` with `abc` silently dropped.
 This applies to dates, intervals, timeshifts and durations alike, so strings that are not entirely EDTF have to be cleaned before they are read.
 
+Before 2.0.0, parsers only required the beginning of the string to match, and there was no way to know that something had been dropped.
+Upgrading from 1.x, strings that were read with a tail dropped (a time zone in parentheses, a trailing word, a date followed by a duration) now throw: clean them before reading them.
+
 #### Durations
 
 In level 2 durations, `M` is minutes (`P2M30S`, `P225H15M3S`, `PT30M`), and `MM` is months (`P2MM`).
