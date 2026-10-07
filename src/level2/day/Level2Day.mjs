@@ -31,7 +31,7 @@ export class Level2Day extends Level2Component {
     }
   }
 
-  toString() {
-    return super.toString().padStart(2, "0")
+  toString(renderer) {
+    return super.toString(renderer).padStart(2, "0")
   }
 }

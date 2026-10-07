@@ -24,6 +24,15 @@ export class Level1ComponentRenderer extends Level0ComponentRenderer {
    */
   render (comp) {
     const valueStr = this.valueRenderer ? this.valueRenderer.render(comp) : super.render(comp)
-    return valueStr + (comp.uncertain ? comp.approximate ? "%" : "?" : comp.approximate ? "~" : "")
+    return valueStr + this.qualifier(comp)
+  }
+
+  /**
+   * @protected
+   * @param {Level1Component} comp
+   * @return {string} The qualification that follows the value.
+   */
+  qualifier(comp) {
+    return comp.uncertain ? comp.approximate ? "%" : "?" : comp.approximate ? "~" : ""
   }
 }

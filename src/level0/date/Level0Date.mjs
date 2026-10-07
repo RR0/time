@@ -6,6 +6,7 @@ import { Level0Day } from "../day/Level0Day.mjs"
 import { Level0Hour } from "../hour/index.mjs"
 import { Level0Minute } from "../minute/index.mjs"
 import { Level0Second } from "../second/index.mjs"
+import { Level0Millisecond } from "../millisecond/index.mjs"
 import { Level0Timeshift } from "../timeshift/index.mjs"
 import { Level0DateRenderer } from "./Level0DateRenderer.mjs"
 import { level0Factory, Level0Factory } from "../Level0Factory.mjs"
@@ -22,6 +23,7 @@ import { Level0Component } from "../component/index.mjs"
  * @property {Level0Hour|number} [hour]
  * @property {Level0Minute|number} [minute]
  * @property {Level0Second|number} [second]
+ * @property {Level0Millisecond|number} [millisecond] The decimal fraction of the seconds, if any.
  * @property {Level0Timeshift|number} [timeshift]
  */
 
@@ -64,6 +66,10 @@ export class Level0Date {
    */
   #second
   /**
+   * @type {Level0Millisecond|undefined}
+   */
+  #millisecond
+  /**
    * @readonly
    * @type {Level0Timeshift}
    */
@@ -79,7 +85,7 @@ export class Level0Date {
     hour: new Date().getHours(),
     minute: new Date().getMinutes(),
     second: new Date().getSeconds(),
-    timeshift: new Date().getTimezoneOffset()
+    timeshift: Level0Date.timeshiftOf(new Date())
   }) {
     this.year = spec.year
     this.month = spec.month
@@ -87,6 +93,7 @@ export class Level0Date {
     this.hour = spec.hour
     this.minute = spec.minute
     this.second = spec.second
+    this.millisecond = spec.millisecond
     this.timeshift = spec.timeshift
   }
 
@@ -205,6 +212,25 @@ export class Level0Date {
   }
 
   /**
+   * @return {Level0Millisecond|undefined}
+   */
+  get millisecond() {
+    return this.#millisecond
+  }
+
+  /**
+   * @param {Level0Millisecond|number|undefined} value
+   */
+  set millisecond(value) {
+    const isNumber = typeof value === "number"
+    if (this.#millisecond && isNumber) {
+      this.#millisecond.value = value
+    } else {
+      this.#millisecond = isNumber || (value && !(value instanceof Level0Component)) ? this.factory.newMillisecond(value) : value
+    }
+  }
+
+  /**
    * @return {Level0Timeshift|undefined}
    */
   get timeshift() {
@@ -219,7 +245,7 @@ export class Level0Date {
     if (this.#timeshift && isNumber) {
       this.#timeshift.value = value
     } else {
-      this.#timeshift = isNumber ? new Level0Timeshift(value) : value
+      this.#timeshift = isNumber || (value && !(value instanceof Level0Timeshift)) ? this.factory.newTimeshift(value) : value
     }
   }
 
@@ -236,8 +262,16 @@ export class Level0Date {
    * @return {Level0Date}
    */
   static fromString(spec, parser = DefaultParsers.get(Level0Date)) {
-    const { year, month, day, hour, minute, second, timeshift } = parser.parse(spec)
-    return new Level0Date({ year, month, day, hour, minute, second, timeshift })
+    const { year, month, day, hour, minute, second, millisecond, timeshift } = parser.parse(spec)
+    return new Level0Date({ year, month, day, hour, minute, second, millisecond, timeshift })
+  }
+
+  /**
+   * @param {Date} date
+   * @return {number} The time zone offset of the date, in minutes east of UTC (+60 for UTC+1), which is the opposite of {@link Date.getTimezoneOffset}.
+   */
+  static timeshiftOf(date) {
+    return -date.getTimezoneOffset() || 0
   }
 
   /**
@@ -250,9 +284,9 @@ export class Level0Date {
       month: date.getMonth() + 1,
       day: date.getDate(),
       hour: date.getHours(),
-      minute: date.getSeconds(),
+      minute: date.getMinutes(),
       second: date.getSeconds(),
-      timeshift: date.getTimezoneOffset()
+      timeshift: Level0Date.timeshiftOf(date)
     })
   }
 
@@ -313,6 +347,7 @@ export class Level0Date {
       + (this.hour?.duration || 0)
       + (this.minute?.duration || 0)
       + (this.second?.duration || 0)
+      + (this.millisecond?.duration || 0)
   }
 
   /**
@@ -427,6 +462,10 @@ export class Level0Date {
     const second = this.second?.toSpec()
     if (second) {
       spec.second = second
+    }
+    const millisecond = this.millisecond?.toSpec()
+    if (millisecond) {
+      spec.millisecond = millisecond
     }
     const timeshift = this.timeshift?.toSpec()
     if (timeshift) {

@@ -13,6 +13,7 @@ import { Level0Day } from "../day/Level0Day.mjs"
 import { Level0Hour } from "../hour/index.mjs"
 import { Level0Minute } from "../minute/index.mjs"
 import { Level0Second } from "../second/index.mjs"
+import { Level0Millisecond } from "../millisecond/index.mjs"
 import { Level0Month } from "../month/index.mjs"
 
 import { GregorianMonth } from "../../calendar/index.mjs"
@@ -23,6 +24,7 @@ const dayGroup = `day`
 const hourGroup = `hour`
 const minuteGroup = `minute`
 const secondGroup = `second`
+const millisecondGroup = `millisecond`
 const timeshiftGroup = `timeshift`
 
 /**
@@ -47,7 +49,8 @@ export class Level0DateParser extends EDTFParser {
           RegExpFormat.group(RegExpFormat.groupName(prefix, dayGroup), Level0DayParser.format(prefix)),
           RegExpFormat.optionalNonCapturingGroup("[T ]",
             RegExpFormat.group(RegExpFormat.groupName(prefix, hourGroup), Level0HourParser.format(prefix)), ":?", RegExpFormat.group(RegExpFormat.groupName(prefix, minuteGroup), Level0MinuteParser.format(prefix)),
-            RegExpFormat.optionalNonCapturingGroup(":", RegExpFormat.group(RegExpFormat.groupName(prefix, secondGroup), Level0SecondParser.format(prefix))),
+            RegExpFormat.optionalNonCapturingGroup(":", RegExpFormat.group(RegExpFormat.groupName(prefix, secondGroup), Level0SecondParser.format(prefix)),
+              RegExpFormat.optionalNonCapturingGroup("[.,]", RegExpFormat.group(RegExpFormat.groupName(prefix, millisecondGroup), "\\d+"))),
             "\\s*",
             RegExpFormat.optionalGroup(RegExpFormat.groupName(prefix, timeshiftGroup), Level0TimeshiftParser.format(prefix))
           )
@@ -72,6 +75,7 @@ export class Level0DateParser extends EDTFParser {
     const hourStr = groups[hourGroup]
     const minuteStr = groups[minuteGroup]
     const secondStr = groups[secondGroup]
+    const millisecondStr = groups[millisecondGroup]
     const timeshiftStr = groups[timeshiftGroup]
     const year = yearStr ? new Level0Year(Level0YearParser.read(yearStr)) : undefined
     const monthParseResult = monthStr ? Level0MonthParser.read(monthStr) : undefined
@@ -82,6 +86,7 @@ export class Level0DateParser extends EDTFParser {
       hour: hourStr ? new Level0Hour(Level0HourParser.read(hourStr)) : undefined,
       minute: minuteStr ? new Level0Minute(Level0MinuteParser.read(minuteStr)) : undefined,
       second: secondStr ? new Level0Second(Level0SecondParser.read(secondStr)) : undefined,
+      millisecond: millisecondStr ? Level0Millisecond.parseFraction(millisecondStr) : undefined,
       timeshift: timeshiftStr ? Level0Timeshift.fromString(timeshiftStr, new Level0TimeshiftParser()) : undefined
     }
   }

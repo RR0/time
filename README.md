@@ -89,6 +89,63 @@ The examples below apply for both JavaScript and TypeScript.
 
 Dates, date components (year, month, etc.), intervals or durations can be instantiated `fromString`.
 
+#### Milliseconds
+
+The decimal fraction of seconds is read as a `millisecond` (`2023-03-14T09:12:33.123Z`, with `.` or `,`): `date.millisecond.value === 123`.
+Fractions are right-padded or truncated to 3 digits (`.5` is 500 ms, `.123999` is 123 ms), and milliseconds are rendered as 3 digits by `toString()`.
+They are not an EDTF component of their own, so they carry no uncertainty/approximation flags.
+
+#### Uncertainty and approximation of dates
+
+In level 2 dates, the scope of a qualification (`?` uncertain, `~` approximate, `%` both) depends on where it is written:
+
+| Written    | Applies to                                  | Read from                                                         |
+|------------|---------------------------------------------|-------------------------------------------------------------------|
+| `~2004-06` | the year only                               | `date.year.approximateComponent`                                  |
+| `2004-~06` | the month, and the year at the group level  | `date.month.approximateComponent`, `date.year.approximateGroup`   |
+| `2004-06~` | the whole date, at the group level          | `date.month.approximateGroup`, `date.year.approximateGroup`       |
+
+`approximate` and `uncertain` are true for both levels. `toString()` writes each qualification where it applies, and reading the result gives the same scopes
+(`2004-~06` is not rendered `2004~-06~`), except that a qualification deduced from another one is not written (`2004~-06~` is rendered `2004-06~`).
+
+#### Strict parsing
+
+By default, parsers only require the beginning of the string to match, so `1948abc` is parsed as `1948` and the trailing garbage is silently dropped.
+Set `strict` on a parser to make it reject any string that is not matched entirely (an `EDTFError` is thrown):
+
+```javascript
+const parser = new Level2DateParser()
+parser.strict = true
+Level2Date.fromString("1948abc", parser) // throws EDTFError
+```
+
+Strictness applies to the parser it is set on, not to the component parsers it uses internally, so it works for dates, intervals, timeshifts and durations alike.
+#### Durations
+
+In level 2 durations, `M` is minutes (`P2M30S`, `P225H15M3S`, `PT30M`), and `MM` is months (`P2MM`).
+For ISO 8601 compatibility, a `M` that comes before the `T` that introduces the time part is months (`P1Y2MT30M`, `P1Y2M3DT4H`), as is a `M` followed by days (`P1Y2M3D`), since minutes cannot precede days.
+Hence, `P1Y2M` is 1 year and 2 minutes, and 1 year and 2 months is `P1Y2MM`.
+
+Durations are rendered with `MM` for months and a bare `M` for minutes, so what is rendered can be parsed back.
+
+##### Uncertainty and approximation
+
+As in dates, a qualification (`?` uncertain, `~` approximate, `%` both) has a scope that depends on where it is written:
+
+| Written        | Applies to                          | Read from                               |
+|----------------|-------------------------------------|-----------------------------------------|
+| `~P1Y2MM`      | the whole duration                  | `duration.approximateDuration`          |
+| `P1Y2MM~`      | the whole duration (same as above)  | `duration.approximateDuration`          |
+| `P~1Y2MM`      | the year only                       | `duration.components.years.approximateComponent` |
+| `P1Y~2MM`      | the months, and the year at the group level | `components.months.approximateComponent`, `components.years.approximate` |
+
+`duration.approximate` (and `uncertain`) is true as soon as the duration or any of its components is qualified.
+A duration parsed from a string keeps its `components` as they were written, and `toSpec()` returns them, without normalizing the units (`P~150S` stays 150 seconds, instead of 2 minutes and 30 seconds) as this would lose which component is qualified.
+Durations without any qualified component are still normalized (`P150S` is rendered `P2M30S`).
+Rendering writes the qualification back where it applies, except that a suffix is rendered as a prefix (`P10M~` is rendered `~P10M`).
+
+Decimal fractions (`P1.5Y`) and weeks (`P2W`) are not supported yet. Levels 0 and 1 only know the former notation (`MM` for months, bare `M` for minutes, no `T`).
+
 ### Programmatic API
 
 Dates, date components (year, month, etc.), intervals or durations can be instantiated through their own constructors.

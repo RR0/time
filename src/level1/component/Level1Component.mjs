@@ -99,7 +99,7 @@ export class Level1Component extends Level0Component {
     return {
       ...super.toSpec(),
       uncertain: this.uncertain,
-      approximate: this.uncertain
+      approximate: this.approximate
     }
   }
 

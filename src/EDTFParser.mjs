@@ -13,6 +13,14 @@ export class EDTFParser {
   regExp
 
   /**
+   * Whether the whole string must match (no leading nor trailing garbage), instead of just a prefix of it.
+   * Lenient by default for backward compatibility: some parsers (durations, for instance) rely on prefix matching.
+   *
+   * @type {boolean}
+   */
+  strict = false
+
+  /**
    * Creates an EDTF parser.
    *
    * @protected
@@ -31,7 +39,8 @@ export class EDTFParser {
    */
   regexGroups(str) {
     const parsed = this.regExp.exec(str)
-    if (!parsed) {
+    // exec() reads its argument as a string, but an object can be given (a date to read again, for instance)
+    if (!parsed || (this.strict && (parsed.index !== 0 || parsed[0].length !== String(str).length))) {
       throw new EDTFError(`Invalid ${this.name} "${str}"`)
     }
     return parsed.groups

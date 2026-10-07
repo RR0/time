@@ -65,9 +65,9 @@ export class Level1Date extends Level0Date {
       month: date.getMonth() + 1,
       day: date.getDate(),
       hour: date.getHours(),
-      minute: date.getSeconds(),
+      minute: date.getMinutes(),
       second: date.getSeconds(),
-      timeshift: date.getTimezoneOffset()
+      timeshift: Level0Date.timeshiftOf(date)
     })
   }
 

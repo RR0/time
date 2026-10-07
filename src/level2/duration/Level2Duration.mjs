@@ -5,6 +5,7 @@ import { level2DurationFactory } from "../Level2Factory.mjs"
 import { Level2DurationRenderer } from "./Level2DurationRenderer.mjs"
 import { durationUnits } from "../../level0/duration/DurationUnits.mjs"
 import { componentGroups } from "../../ComponentGroups.mjs"
+import { Level1Component } from "../../level1/component/Level1Component.mjs"
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 /** @import { LevelFactory } from "../../LevelFactory.mjs" */
 /** @import { Level2Date } from "../date/Level2Date.mjs" */
@@ -48,6 +49,13 @@ import { componentGroups } from "../../ComponentGroups.mjs"
  */
 export class Level2Duration extends Level1Duration {
   /**
+   * The components this duration was specified with, each with its own qualification, if any.
+   *
+   * @type {Level2DurationOutSpec|undefined}
+   */
+  #components
+
+  /**
    * @param {Level2DurationInSpec|number} spec The duration spec in years, months, etc., or value in milliseconds.
    */
   constructor(spec) {
@@ -55,11 +63,94 @@ export class Level2Duration extends Level1Duration {
       typeof spec === "number" ? spec :
         {
           value: Level2Duration.valueFromSpec(spec),
-          uncertain: Level2Duration.getBoolean(spec, "uncertain"),
-          approximate: Level2Duration.getBoolean(spec, "approximate")
+          uncertain: spec.uncertain === true,
+          approximate: spec.approximate === true
         },
       durationUnits.millisecond
     )
+    if (typeof spec !== "number") {
+      const components = {}
+      for (const name of Level2Duration.componentNames) {
+        if (spec[name] instanceof Level1Component) {
+          components[name] = spec[name]
+        }
+      }
+      if (Object.keys(components).length > 0) {
+        this.#components = components
+      }
+    }
+  }
+
+  /**
+   * @readonly
+   * @type {string[]}
+   */
+  static componentNames = ["years", "months", "days", "hours", "minutes", "seconds"]
+
+  /**
+   * The components that have been specified, with their qualification, as opposed to the ones deduced from the duration value.
+   *
+   * @return {Level2DurationOutSpec|undefined}
+   */
+  get components() {
+    return this.#components
+  }
+
+  /**
+   * @param {"uncertain"|"approximate"} flag
+   * @return {boolean} Whether any specified component is qualified (at its component level, or at the group level).
+   */
+  #anyComponent(flag) {
+    return this.#components ? Object.values(this.#components).some(component => component[flag]) : false
+  }
+
+  /**
+   * @return {boolean} Whether the whole duration is uncertain ("?P1Y2M", "P1Y2M?").
+   */
+  get uncertainDuration() {
+    return super.uncertain
+  }
+
+  /**
+   * @return {boolean} Whether the whole duration is approximate ("~P1Y2M", "P1Y2M~").
+   */
+  get approximateDuration() {
+    return super.approximate
+  }
+
+  /**
+   * @return {boolean} Whether the duration, or any of its components, is uncertain.
+   */
+  get uncertain() {
+    return super.uncertain || this.#anyComponent("uncertain")
+  }
+
+  /**
+   * @param {boolean} val Whether the whole duration is uncertain.
+   */
+  set uncertain(val) {
+    super.uncertain = val
+  }
+
+  /**
+   * @return {boolean} Whether the duration, or any of its components, is approximate.
+   */
+  get approximate() {
+    return super.approximate || this.#anyComponent("approximate")
+  }
+
+  /**
+   * @param {boolean} val Whether the whole duration is approximate.
+   */
+  set approximate(val) {
+    super.approximate = val
+  }
+
+  /**
+   * @return {boolean} Whether some specified component has a qualification of its own ("P~1Y2M"), which has to be kept apart from the others.
+   */
+  get hasQualifiedComponent() {
+    return this.#components ? Object.values(this.#components).some(component => component.uncertainComponent || component.approximateComponent) : false
   }
 
   /**
@@ -83,7 +174,17 @@ export class Level2Duration extends Level1Duration {
    * @return {O}
    */
   static toSpec(comp, factory = level2DurationFactory) {
-    return Level1Duration.toSpec(comp, factory)
+    const spec = Level1Duration.toSpec(comp, factory)
+    if (comp instanceof Level2Duration && comp.hasQualifiedComponent) {
+      // Units cannot be normalized (150S into 2M30S) without losing which component each qualification applies to.
+      for (const name of Level2Duration.componentNames) {
+        delete spec[name]
+        if (comp.components[name]) {
+          spec[name] = comp.components[name]
+        }
+      }
+    }
+    return spec
   }
 
   /**

@@ -1,5 +1,6 @@
 import { Level1TimeshiftParser } from "../../level1/timeshift/Level1TimeshiftParser.mjs"
 import { Level2Timeshift } from "../../level2/timeshift/Level2Timeshift.mjs"
+import { Level0Millisecond } from "../../level0/millisecond/index.mjs"
 import { Level2Second } from "../../level2/second/Level2Second.mjs"
 import { Level2Minute } from "../../level2/minute/Level2Minute.mjs"
 import { Level2Hour } from "../../level2/hour/Level2Hour.mjs"
@@ -69,6 +70,12 @@ export class Level2DateParser extends EDTFParser {
    * @readonly
    * @type {string}
    */
+  static millisecondGroup = `millisecond`
+
+  /**
+   * @readonly
+   * @type {string}
+   */
   static timeshiftGroup = `timeshift`
 
   constructor() {
@@ -87,7 +94,8 @@ export class Level2DateParser extends EDTFParser {
           RegExpFormat.group(RegExpFormat.groupName(prefix, Level2DateParser.dayGroup), Level2DayParser.format(prefix)),
           RegExpFormat.optionalNonCapturingGroup("[T ]",
             RegExpFormat.group(RegExpFormat.groupName(prefix, Level2DateParser.hourGroup), Level2HourParser.format(prefix)), ":", RegExpFormat.group(RegExpFormat.groupName(prefix, Level2DateParser.minuteGroup), Level2MinuteParser.format(prefix)),
-            RegExpFormat.optionalNonCapturingGroup(":", RegExpFormat.group(RegExpFormat.groupName(prefix, Level2DateParser.secondGroup), Level2SecondParser.format(prefix))),
+            RegExpFormat.optionalNonCapturingGroup(":", RegExpFormat.group(RegExpFormat.groupName(prefix, Level2DateParser.secondGroup), Level2SecondParser.format(prefix)),
+              RegExpFormat.optionalNonCapturingGroup("[.,]", RegExpFormat.group(RegExpFormat.groupName(prefix, Level2DateParser.millisecondGroup), "\\d+"))),
             RegExpFormat.optionalGroup(RegExpFormat.groupName(prefix, Level2DateParser.timeshiftGroup), Level2TimeshiftParser.format(prefix))
           )
         )
@@ -97,6 +105,8 @@ export class Level2DateParser extends EDTFParser {
   parseGroups(groups) {
     const timeshiftStr = groups[Level2DateParser.timeshiftGroup]
     const timeshift = timeshiftStr ? Level2Timeshift.fromString(timeshiftStr, new Level1TimeshiftParser()) : undefined
+    const millisecondStr = groups[Level2DateParser.millisecondGroup]
+    const millisecond = millisecondStr ? Level0Millisecond.parseFraction(millisecondStr) : undefined
     const secondStr = groups[Level2DateParser.secondGroup]
     let second
     if (secondStr) {
@@ -139,6 +149,6 @@ export class Level2DateParser extends EDTFParser {
       year.uncertain = year.uncertain || month?.uncertain || false
       year.approximate = year.approximate || month?.approximate || false
     }
-    return { year, month, day, hour, minute, second, timeshift }
+    return { year, month, day, hour, minute, second, millisecond, timeshift }
   }
 }

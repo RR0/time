@@ -1,5 +1,7 @@
 import { DefaultParsers } from "../../DefaultParsers.mjs"
+import { Level0Date } from "../../level0/date/Level0Date.mjs"
 import { Level1Date } from "../../level1/date/Level1Date.mjs"
+import { Level2DateRenderer } from "./Level2DateRenderer.mjs"
 import { level2Factory } from "../Level2Factory.mjs"
 /** @import { EDTFParser } from "../../EDTFParser.mjs" */
 /** @import { Level2Year } from "../year/Level2Year.mjs" */
@@ -40,6 +42,14 @@ export class Level2Date extends Level1Date {
    */
   constructor(spec) {
     super(spec)
+  }
+
+  /**
+   * @param {Level2DateRenderer} [renderer]
+   * @return {string}
+   */
+  toString(renderer = Level2DateRenderer.instance) {
+    return super.toString(renderer)
   }
 
   /**
@@ -87,9 +97,9 @@ export class Level2Date extends Level1Date {
       month: date.getMonth() + 1,
       day: date.getDate(),
       hour: date.getHours(),
-      minute: date.getSeconds(),
+      minute: date.getMinutes(),
       second: date.getSeconds(),
-      timeshift: date.getTimezoneOffset()
+      timeshift: Level0Date.timeshiftOf(date)
     })
   }
 

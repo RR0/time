@@ -60,9 +60,25 @@ export class Level2Component extends Level1Component {
     return super.approximate = val
   }
 
+  /**
+   * @return {boolean} Whether the component is uncertain at the group level only (the qualification follows it, or a component after it is qualified).
+   */
+  get uncertainGroup() {
+    return super.uncertain
+  }
+
+  /**
+   * @return {boolean} Whether the component is approximate at the group level only (the qualification follows it, or a component after it is qualified).
+   */
+  get approximateGroup() {
+    return super.approximate
+  }
+
   toSpec() {
     return {
       ...super.toSpec(),
+      uncertain: this.uncertainGroup,
+      approximate: this.approximateGroup,
       uncertainComponent: this.uncertainComponent,
       approximateComponent: this.approximateComponent
     }

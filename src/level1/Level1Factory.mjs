@@ -4,6 +4,8 @@ import { Level1Month } from "./month/index.mjs"
 import { Level1Day } from "./day/index.mjs"
 import { Level1Minute } from "./minute/index.mjs"
 import { Level1Second } from "./second/index.mjs"
+import { Level1Timeshift } from "./timeshift/index.mjs"
+import { Level0Millisecond } from "../level0/millisecond/index.mjs"
 import { Level1Hour } from "./hour/index.mjs"
 import { durationUnits } from "../level0/index.mjs"
 import { level1Calendar } from "./Level1Calendar.mjs"
@@ -71,6 +73,22 @@ export class Level1Factory extends LevelFactory {
    */
   newSecond(value) {
     return new Level1Second(value, this.units.second)
+  }
+
+  /**
+   * @param {number} value
+   * @return {Level0Millisecond}
+   */
+  newMillisecond(value) {
+    return new Level0Millisecond(value, this.units.millisecond)
+  }
+
+  /**
+   * @param {Level0TimeshiftSpec|number} value
+   * @return {Z}
+   */
+  newTimeshift(value) {
+    return new Level1Timeshift(typeof value === "number" ? value : value.value)
   }
 }
 
