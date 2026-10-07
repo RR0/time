@@ -95,6 +95,15 @@ The decimal fraction of seconds is read as a `millisecond` (`2023-03-14T09:12:33
 Fractions are right-padded or truncated to 3 digits (`.5` is 500 ms, `.123999` is 123 ms), and milliseconds are rendered as 3 digits by `toString()`.
 They are not an EDTF component of their own, so they carry no uncertainty/approximation flags.
 
+#### Time zones
+
+A date can end with a time zone, either an offset (`+01`, `-05:30`, `Z`) or a name (`21:45EST`, `00:55GMT`).
+
+`PT`, `MT`, `CT` and `ET` (Pacific, Mountain, Central and Eastern Time) stand for the standard or the daylight time, so what they are depends on the date:
+`2009-07-19 05:54PT` is `-07` (PDT) and `2009-12-01 05:54PT` is `-08` (PST). They follow the daylight saving rules of the United States since 1967
+(the second Sunday of March to the first Sunday of November since 2007, the transitions occurring at 02:00); before 1967, there was no rule common to the states, so they are standard times.
+A time zone that depends on the date cannot be read alone: `Level2Timeshift.fromString("PT")` throws an `EDTFError`.
+
 #### Uncertainty and approximation of dates
 
 In level 2 dates, the scope of a qualification (`?` uncertain, `~` approximate, `%` both) depends on where it is written:

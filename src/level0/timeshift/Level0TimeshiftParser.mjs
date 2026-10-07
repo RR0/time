@@ -1,5 +1,7 @@
 import { RegExpFormat } from "../../util/regexp/RegExpFormat.mjs"
 import { EDTFParser } from "../../EDTFParser.mjs"
+import { EDTFError } from "../../EDTFError.mjs"
+/** @import { TimeshiftAt } from "./UsDaylightSaving.mjs" */
 import { timeZones } from "./TimeZones.mjs"
 
 const name = "timeshiftValue"
@@ -22,12 +24,20 @@ export class Level0TimeshiftParser extends EDTFParser {
 
   /**
    * @param {string} str
+   * @param {TimeshiftAt} [at] The time to read the time zone at, which "PT" (PST or PDT) needs.
    * @return {number}
    */
-  parse (str) {
+  parse (str, at) {
     let shiftMinutes = 0
     const tz = timeZones.find(timeZone => timeZone.name === str)
     if (tz) {
+      if (typeof tz.timeshift === "function") {
+        try {
+          return tz.timeshift(at ?? {})
+        } catch (e) {
+          throw new EDTFError(`The time zone ${str} depends on the date: ${e.message}`)
+        }
+      }
       str = tz.timeshift
     }
     if (str !== "Z") {

@@ -103,8 +103,6 @@ export class Level2DateParser extends EDTFParser {
   }
 
   parseGroups(groups) {
-    const timeshiftStr = groups[Level2DateParser.timeshiftGroup]
-    const timeshift = timeshiftStr ? Level2Timeshift.fromString(timeshiftStr, new Level1TimeshiftParser()) : undefined
     const millisecondStr = groups[Level2DateParser.millisecondGroup]
     const millisecond = millisecondStr ? Level0Millisecond.parseFraction(millisecondStr) : undefined
     const secondStr = groups[Level2DateParser.secondGroup]
@@ -149,6 +147,9 @@ export class Level2DateParser extends EDTFParser {
       year.uncertain = year.uncertain || month?.uncertain || false
       year.approximate = year.approximate || month?.approximate || false
     }
+    const timeshiftStr = groups[Level2DateParser.timeshiftGroup]
+    const timeshift = timeshiftStr ? Level2Timeshift.fromString(timeshiftStr, new Level1TimeshiftParser(),
+      { year: year?.value, month: month?.value, day: day?.value, hour: hour?.value }) : undefined
     return { year, month, day, hour, minute, second, millisecond, timeshift }
   }
 }

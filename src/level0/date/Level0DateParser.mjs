@@ -87,7 +87,11 @@ export class Level0DateParser extends EDTFParser {
       minute: minuteStr ? new Level0Minute(Level0MinuteParser.read(minuteStr)) : undefined,
       second: secondStr ? new Level0Second(Level0SecondParser.read(secondStr)) : undefined,
       millisecond: millisecondStr ? Level0Millisecond.parseFraction(millisecondStr) : undefined,
-      timeshift: timeshiftStr ? Level0Timeshift.fromString(timeshiftStr, new Level0TimeshiftParser()) : undefined
+      timeshift: timeshiftStr ? Level0Timeshift.fromString(timeshiftStr, new Level0TimeshiftParser(), {
+        year: year?.value, month: monthParseResult?.value,
+        day: dayStr ? Level0DayParser.read(dayStr).value : undefined,
+        hour: hourStr ? Level0HourParser.read(hourStr).value : undefined
+      }) : undefined
     }
   }
 }

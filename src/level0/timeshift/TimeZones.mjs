@@ -1,7 +1,24 @@
+import { UsDaylightSaving } from "./UsDaylightSaving.mjs"
+
+/**
+ * @typedef {Object} TimeZone
+ * @property {string} name
+ * @property {string | ((at: TimeshiftAt) => number)} timeshift The offset ("-08"), or a function giving it in minutes east of UTC for a time, if it depends on it.
+ * @property {string} title
+ */
+
 const PST = { name: "PST", timeshift: "-08", title: "Pacific Standard Time (US)" }
 const PDT = { name: "PDT", timeshift: "-07", title: "Pacific Daylight Time (US)" }
 const MDT = { name: "MDT", timeshift: "-06", title: "Mountain Standard Time (US)" }
 const MST = { name: "MST", timeshift: "-07", title: "Mountain Daylight Time (US)" }
+/**
+ * The zones which are standard or daylight time depending on the date, as pages often write them ("PT" for PST or PDT).
+ */
+const PT = { name: "PT", timeshift: at => UsDaylightSaving.timeshift(-8 * 60, at), title: "Pacific Time (US)" }
+const MT = { name: "MT", timeshift: at => UsDaylightSaving.timeshift(-7 * 60, at), title: "Mountain Time (US)" }
+const CT = { name: "CT", timeshift: at => UsDaylightSaving.timeshift(-6 * 60, at), title: "Central Time (US)" }
+const ET = { name: "ET", timeshift: at => UsDaylightSaving.timeshift(-5 * 60, at), title: "Eastern Time (US)" }
+
 const Rio = { name: "Rio", timeshift: "-04", title: "Rio de Janeiro (Brazil)" }
 const CWT = { name: "CWT", timeshift: "-05", title: "Central War Time (US)" }
 const CDT = { name: "CDT", timeshift: "-05", title: "Central Daylight Time" }
@@ -37,4 +54,7 @@ const NZST = { name: "NZST", timeshift: "+12", title: "New Zealand Standard Time
 
 const LST = { name: "LST", timeshift: "?", title: "Local Sideral Time" }
 
-export const timeZones = [ADT, AEST, AST, BJT, BST, CST, CDT, CET, CEST, CWT, EDT, EST, GMT, IST, JST, LST, MDT, MSK, MST, NZST, PDT, PST, UTC, Z]
+/**
+ * @type {TimeZone[]}
+ */
+export const timeZones = [ADT, AEST, AST, BJT, BST, CST, CDT, CET, CEST, CT, CWT, EDT, EST, ET, GMT, IST, JST, LST, MDT, MSK, MST, MT, NZST, PDT, PST, PT, UTC, Z]
