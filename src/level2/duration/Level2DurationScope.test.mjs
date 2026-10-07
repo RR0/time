@@ -4,9 +4,8 @@ import { Level2Duration } from "./Level2Duration.mjs"
 import { Level2DurationParser } from "./Level2DurationParser.mjs"
 
 describe("Level 2 durations qualification scope", () => {
-  const parse = (str, strict = true) => {
+  const parse = str => {
     const parser = new Level2DurationParser()
-    parser.strict = strict
     return Level2Duration.fromString(str, parser)
   }
 

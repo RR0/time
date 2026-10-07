@@ -51,9 +51,8 @@ describe("milliseconds", () => {
         assert.strictEqual(b.getTime() - a.getTime(), 250)
       })
 
-      test("is accepted in strict mode", () => {
+      test("is accepted by a parser that requires the whole string to match", () => {
         const parser = newParser()
-        parser.strict = true
         assert.strictEqual(DateClass.fromString("2023-03-14T09:12:33.123Z", parser).millisecond.value, 123)
         assert.strictEqual(DateClass.fromString("2023-03-14T09:12:33.123+01:00", parser).millisecond.value, 123)
         assert.throws(() => DateClass.fromString("2023-03-14T09:12:33.Z", parser))

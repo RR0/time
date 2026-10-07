@@ -110,16 +110,9 @@ In level 2 dates, the scope of a qualification (`?` uncertain, `~` approximate, 
 
 #### Strict parsing
 
-By default, parsers only require the beginning of the string to match, so `1948abc` is parsed as `1948` and the trailing garbage is silently dropped.
-Set `strict` on a parser to make it reject any string that is not matched entirely (an `EDTFError` is thrown):
+Parsers require the whole string to match, so `1948abc` is rejected (an `EDTFError` is thrown), rather than parsed as `1948` with `abc` silently dropped.
+This applies to dates, intervals, timeshifts and durations alike, so strings that are not entirely EDTF have to be cleaned before they are read.
 
-```javascript
-const parser = new Level2DateParser()
-parser.strict = true
-Level2Date.fromString("1948abc", parser) // throws EDTFError
-```
-
-Strictness applies to the parser it is set on, not to the component parsers it uses internally, so it works for dates, intervals, timeshifts and durations alike.
 #### Durations
 
 In level 2 durations, `M` is minutes (`P2M30S`, `P225H15M3S`, `PT30M`), and `MM` is months (`P2MM`).
