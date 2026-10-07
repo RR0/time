@@ -12,6 +12,7 @@ const ADT = { name: "ADT", timeshift: "-03", title: "Atlantic Daylight Time (US)
 
 const UTC = { name: "UTC", timeshift: "Z", title: "Coordinated Universal Time" }
 const Z = { name: "Z", timeshift: "Z", title: "UTC" }
+const GMT = { name: "GMT", timeshift: "Z", title: "Greenwich Mean Time" }
 
 const BST = { name: "BST", timeshift: "+01", title: "British Summer Time" }
 
@@ -36,4 +37,4 @@ const NZST = { name: "NZST", timeshift: "+12", title: "New Zealand Standard Time
 
 const LST = { name: "LST", timeshift: "?", title: "Local Sideral Time" }
 
-export const timeZones = [ADT, AEST, AST, BJT, BST, CST, CDT, CET, CEST, CWT, EDT, EST, IST, JST, LST, MDT, MSK, MST, NZST, PDT, PST, UTC, Z]
+export const timeZones = [ADT, AEST, AST, BJT, BST, CST, CDT, CET, CEST, CWT, EDT, EST, GMT, IST, JST, LST, MDT, MSK, MST, NZST, PDT, PST, UTC, Z]

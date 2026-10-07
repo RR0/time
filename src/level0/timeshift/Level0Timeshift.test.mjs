@@ -11,6 +11,16 @@ describe("Level0Timeshift", () => {
     assert.equal(edt.value, -4 * 60)
     const cet = Level0Timeshift.fromString("CET")
     assert.equal(cet.value, +1 * 60)
+    const gmt = Level0Timeshift.fromString("GMT")
+    assert.equal(gmt.value, 0)
+  })
+
+  test("a date with a time zone name", async () => {
+    const { Level2Date } = await import("../../level2/date/Level2Date.mjs")
+    const gmt = Level2Date.fromString("1969-07-20 20:17:40GMT")
+    assert.equal(gmt.timeshift.value, 0)
+    assert.equal(gmt.toString(), "1969-07-20T20:17:40Z")
+    assert.equal(Level2Date.fromString("1984-08-24 00:55GMT").hour.value, 0)
   })
 
   test("toString", () => {
